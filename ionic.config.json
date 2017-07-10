@@ -1,0 +1,8 @@
+{
+  "name": "Aspirant Fashion",
+  "app_id": "",
+  "type": "ionic1",
+  "watchPatterns": [
+    "scss/**/*"
+  ]
+}

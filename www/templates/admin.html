@@ -1,0 +1,234 @@
+<ion-view style="" class=" " id="favourite" title="Admin ">
+    <ion-content class="has-header" padding="true" ng-init="loadCategory()">
+      <div class="row textCenter">
+
+          <div class="col bordercate" ng-click="showCategoryDiv()">Add Category</div>&nbsp;
+          <div class="col bordercate" ng-click="showMenuDiv()">Add MenuItem</div>&nbsp;
+
+      </div>
+      <div ng-if="showMenu === true">
+      <form ng-hide="!!productId" id="image-form" action="#">
+        <h5 class="m-t-sm m-b-xs">Upload an image</h5>  <!-- <input id="mediaCapture" type="file" accept="image/*,capture=camera"> -->
+        <button class="hidden btn color-4 size-2 hover-7 fileUpload uploadBtnMargin mdl-button mdl-js-button" id="submitImage" style="background-color: rgba(0,0,0,.12);">
+        </button><input type="file" file-model="uploadFile" class="upload" name="image">
+
+
+      </form>
+
+
+      <!-- Add new Product Start-->
+      <form ng-hide="!!productId" name="signupForm" class="list " id="signup-form2">
+        <!-- Sign up -->
+          <ion-list class=" " id="signup-list3">
+            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.name.$invalid && !signupForm.name.$pristine }">
+              <span style="color: #9F9F9F;"  class="input-label">Name</span>
+              <input  ng-model="item.name" type="text" placeholder="Name" name="name" required>
+            </label>
+              <div ng-show="signupForm.name.$invalid && !signupForm.name.$pristine">
+                <p ng-message="required" class="help-block" style="color:red;">Please enter product Name.</p>
+              </div>
+            <label class="item item-input item-floating-label">
+              <!-- <button class="button button-positive" modal-select="" ng-model="someModel" options="selectables" modal-title="Select Category">
+          Select it
+          <div class="option">
+            {{option}}
+          </div>
+        </button> -->
+              <span class="input-label">
+              Select category{{category}}
+              </span>
+              <select ng-model="item.category" ng-options="obj.name as obj.name for obj in category"></select>
+              <!-- <select  ng-model="category" ng-options="cat in category"></select> -->
+              <!-- <span style="color: #9F9F9F;"  class="input-label">Category</span>
+              <input  ng-model="item.category" type="text" placeholder="Category"> -->
+            </label>
+
+            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
+              <span style="color: #9F9F9F;"  class="input-label">Available</span>
+              <input  ng-model="item.available" type="text" placeholder="Available" name="available" required>
+            </label>
+            <div ng-show="signupForm.available.$invalid && !signupForm.available.$pristine">
+              <p ng-message="required" class="help-block" style="color:red;">Please enter available product is available?</p>
+            </div>
+
+
+            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.description.$invalid && !signupForm.description.$pristine }">
+              <span style="color: #9F9F9F;"  class="input-label">Description</span>
+              <input  ng-model="item.description" type="text" placeholder="Description" name="description" required>
+            </label>
+            <div ng-show="signupForm.description.$invalid && !signupForm.description.$pristine" ng-messages="signupForm.description.$error">
+              <p ng-message="required" class="help-block" style="color:red;">Please enter product description.</p>
+            </div>
+
+            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.price.$invalid && !signupForm.price.$pristine }">
+              <span style="color: #9F9F9F;" class="input-label">Price</span>
+              <input ng-model="item.price" type="number" placeholder="Price" name="price" required>
+            </label>
+            <div ng-show="signupForm.price.$invalid && !signupForm.price.$pristine" ng-messages="signupForm.price.$error">
+              <p ng-message="required" class="help-block" style="color:red;">Please enter product price.</p>
+            </div>
+
+            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.stock.$invalid && !signupForm.stock.$pristine }">
+                <span style="color: #9F9F9F;" class="input-label">Stock</span>
+                <input  ng-model="item.stock" type="number" placeholder="Stock" name="stock" required>
+            </label>
+            <div ng-show="signupForm.stock.$invalid && !signupForm.stock.$pristine" ng-messages="signupForm.stock.$error">
+              <p ng-message="required" class="help-block" style="color:red;">Please enter product Stocks.</p>
+            </div>
+
+          </ion-list>
+
+
+          <div style="width: 279px; height: 35px;" class="spacer"></div>
+          <button ng-click="modal.show()" class=" button button-assertive  button-block" style="border-radius:0px 0px 0px 0px;">Add Product Specification</button>
+          <button ng-click="addItem(item)"  type="submit" class=" button button-assertive  button-block" style="border-radius:0px 0px 0px 0px;" id="signup-button3" >Add Menu Item</button>
+      </form>
+      </div>
+
+    <div ng-if="showsCategory === true">
+    <form name="signupForm" class="list " id="signup-form2">
+        <ion-list class=" " id="signup-list3">
+          <label class="item item-input item-floating-label">
+            <span style="color: #9F9F9F;"  class="input-label">Category Name</span>
+            <input  ng-model="categoryName" type="text" placeholder="Category Name">
+          </label>
+
+
+        </ion-list>
+        <div style="width: 279px; height: 35px;" class="spacer"></div>
+        <button ng-click="addCategory(categoryName)" class=" button button-assertive  button-block" style="border-radius:0px 0px 0px 0px;" id="signup-button3">Add Category</button>
+    </form>
+    </div>
+
+
+      <script id="templates/admin.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-assertive">
+          <h1 class="title">Add Product Specification</h1>
+          <button class="button button-clear button-primary" ng-click="modal.hide()">X</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+          <input type="text">
+          <form name="signupForm" class="list " id="signup-form3">
+              <ion-list class=" " id="{{$index+1}}" ng-repeat="item in inputs" >
+                <label class="item item-input item-floating-label">
+                  <span style="color: #9F9F9F;"  class="input-label"></span>
+                  <input  ng-model="item.attribute" type="text" placeholder="Title">
+                </label>
+                <label class="item item-input item-floating-label">
+                  <span style="color: #9F9F9F;"  class="input-label"></span>
+                  <input  ng-model="item.value" type="text" placeholder="Description">
+                </label>
+                <hr />
+              </ion-list>
+              <div style="width: 279px; height: 35px;" class="spacer"></div>
+              <button  ng-click="addspcification()" class=" button button-assertive  button-block" style="border-radius:0px 0px 0px 0px;" id="signup-button3">Save</button>
+              <button ng-click="addfield(item)" class=" button button-assertive  button-block" style="border-radius:0px 0px 0px 0px;" id="signup-button3">Add More Product Details</button>
+          </form>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+<!-- Add New Product End  -->
+<!-- Upldate product start -->
+<form class="list " id="signup-form2" ng-if="!!productId" name="Updateproduct">
+
+	   <!-- <input id="mediaCapture" type="file" accept="image/*,capture=camera"> -->
+		<img ng-src="{{ updateproductdetails.image }}" width="10%" height="10%" ng-model="updateproductdetails.image"/>
+        <button class="hidden btn color-4 size-2 hover-7 fileUpload uploadBtnMargin mdl-button mdl-js-button" id="submitImage" style="background-color: rgba(0,0,0,.12);">
+            </button><input type="file" file-model="uploadFile" class="upload">
+
+
+
+  <!-- Update Page -->
+    <ion-list class=" " id="signup-list3">
+      <label class="item item-input item-floating-label">
+        <span style="color: #9F9F9F;"  class="input-label">Name</span>
+        <input  ng-model="updateproductdetails.name" type="text" placeholder="Name">
+      </label>
+
+      <label class="item item-input item-floating-label">
+        <!-- <button class="button button-positive" modal-select="" ng-model="someModel" options="selectables" modal-title="Select Category">
+    Select it
+    <div class="option">
+      {{option}}
+    </div>
+  </button> -->
+        <span class="input-label">
+        Select category{{category}}
+        </span>
+        <select ng-model="updateproductdetails.category" ng-options="obj.name as obj.name for obj in category"></select>
+        <!-- <select  ng-model="category" ng-options="cat in category"></select> -->
+        <!-- <span style="color: #9F9F9F;"  class="input-label">Category</span>
+        <input  ng-model="item.category" type="text" placeholder="Category"> -->
+      </label>
+
+      <label class="item item-input item-floating-label">
+        <span style="color: #9F9F9F;"  class="input-label">Available</span>
+        <input  ng-model="updateproductdetails.available" type="text" placeholder="Available">
+      </label>
+
+      <label class="item item-input item-floating-label">
+        <span style="color: #9F9F9F;"  class="input-label">Description</span>
+        <input  ng-model="updateproductdetails.description" type="text" placeholder="Description">
+      </label>
+
+      <label class="item item-input item-floating-label">
+        <span style="color: #9F9F9F;" class="input-label">Price</span>
+        <input ng-model="updateproductdetails.price" type="number" placeholder="Price">
+      </label>
+
+      <label class="item item-input item-floating-label">
+          <span style="color: #9F9F9F;" class="input-label">Stock</span>
+          <input  ng-model="updateproductdetails.stock" type="number" placeholder="Stock">
+      </label>
+
+    </ion-list>
+
+
+    <div style="width: 279px; height: 35px;" class="spacer"></div>
+	<div class="row">
+    <button ng-click="modal1.show()" class=" button button-assertive  button-block col col-45" style="border-radius:0px 0px 0px 0px; width:50%;">Update Product Specification</button>
+	<p class="col col-10"></p>
+	<button ng-click="modal.show()" class=" button button-assertive  button-block col col-45" style="border-radius:0px 0px 0px 0px;">Add Product Specification</button>
+
+	</div>
+	<button ng-click="updateItem(updateproductdetails)" class=" button button-assertive  button-block" style="border-radius:0px 0px 0px 0px;" id="signup-button3">Update Menu Item</button>
+</form>
+
+  <script id="templates/admin2.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-assertive">
+          <h1 class="title">Update Product Specification</h1>
+          <button class="button button-clear button-primary" ng-click="modal1.hide()">X</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+          <input type="text">
+          <form name="signupForm" class="list " id="signup-form4">
+		  <div  ng-repeat="data in productSpdetails">
+              <ion-list class=" " id="{{$index+1}}" ng-repeat="item in inputs">
+                <label class="item item-input item-floating-label">
+                  <span style="color: #9F9F9F;"  class="input-label"></span>
+                  <input  ng-model="data.name" type="text" placeholder="Title">
+                </label>
+
+                <label class="item item-input item-floating-label">
+                  <span style="color: #9F9F9F;"  class="input-label"></span>
+                  <input  ng-model="data.value" type="text" placeholder="Description">
+                </label>
+				<hr />
+
+
+              </ion-list>
+			  </div>
+              <div style="width: 279px; height: 35px;" class="spacer"></div>
+              <button  ng-click="updatespcification(productSpdetails)" class=" button button-assertive  button-block" style="border-radius:0px 0px 0px 0px;" id="signup-button4">Update</button>
+
+          </form>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+<!-- Update product end -->
+
+    </ion-content>
+
+</ion-view>

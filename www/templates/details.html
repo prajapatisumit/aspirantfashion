@@ -1,0 +1,68 @@
+<!-- <ion-view style="" class=" " id="myCart" title="Details">
+    <ion-content class="has-header" padding="true">
+          <div style="min-height: 30px;" class="item item-divider">{{details.name}} </div>
+          <div class="item item-body" >
+            <img ng-src="{{ details.image }}" width="100%" height="auto" style="box-shadow: none;">
+            <form class="list"></form>
+            <div>
+              {{ details.description }}
+            </div>
+            <div>
+              <p>
+                <strong class="detailsprice"> &#8377; {{ details.price }}</strong>
+              </p>
+            </div>
+          </div>
+          <div class="row detailscart">
+            <div class="col col-55"><button ng-click="checkout()" class="button button-assertive button-block">Add to Cart</button></div>
+            <div class="col col-45"><button ng-click="checkout()" class="button button-assertive button-block ">Buy Now</button></div>
+          </div>
+    </ion-content>
+</ion-view> -->
+<ion-view style="" class=" "  title="Details">
+
+    <ion-content class="has-header" padding="true">
+
+      <div style="min-height: 30px;" class="item item-divider">{{showproductdetails.name}} </div>
+      <div class="item item-body" >
+        <img ng-src="{{ showproductdetails.image }}" width="100%" height="290px" style="box-shadow: none;">
+        <form class="list"></form>
+        <div>
+          {{ showproductdetails.description }}
+        </div>
+        <div>
+          <p>
+            <strong class="detailsprice"> &#8377; {{ showproductdetails.price }}</strong>
+          </p>
+        </div>
+        <div>
+          <h2 style="color:red"><b>Product Specification</b></h2>
+        </div>
+        <hr>
+        <div>
+          <ul>
+            <li ng-repeat="data in productSpdetails" style="font-size:15px;">
+				{{ data.name }} : {{ data.value}}
+            </li>
+
+          </ul>
+        </div>
+
+
+      </div>
+
+
+        <!-- <div class="row detailscart">
+          <div class="col col-55"><button ng-click="addToCart(menu[$index])" class="button button-assertive button-block">Add to Cart</button></div>
+          <div class="col col-45"><button ng-click="buyNow()" class="button button-assertive button-block ">Buy Now</button></div>
+        </div> -->
+
+    </ion-content>
+    <ion-footer-bar class="bar button-bar-footer" style="height: auto;">
+        <div class="button-bar" style="position: absolute;bottom: 0;" >
+          <a style="min-width: 50%;border-radius: 0px;" class="button button-dark ">Add to Cart</a>
+          <a style="min-width: 50%;border-radius: 0px;"  class="button button-balanced ">Buy Now</a>
+       </div>
+     </ion-footer-bar>
+
+</ion-view>
