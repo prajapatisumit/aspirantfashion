@@ -3,20 +3,23 @@ angular.module('app')
                                   $ionicHistory,$firebaseArray,sharedCartService,sharedUtils,SessionService,$stateParams,$window) {
     if (!!$rootScope.userLog) {
       $scope.user = $rootScope.userLog;
-      console.log("$scope.user at rootscope " + angular.toJson($scope.user ,' '));
+      // console.log("$scope.user at rootscope " + angular.toJson($scope.user ,' '));
     }else {
       $scope.user = SessionService.getUser();
-      console.log("$scope.user at at session: " + angular.toJson($scope.user , ' '));
+      // console.log("$scope.user at at session: " + angular.toJson($scope.user , ' '));
     }
 
 
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       $scope.user_info=user; //Saves data to user_info
+      // console.log("scope.user_info at home controller : " + angular.toJson($scope.user_info , ' '));
 
     }else if ($scope.user.isGuest === 'true') {
-      $scope.user_info=$scope.user;
-      // $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+      $scope.user_info = $scope.user;
+      // console.log("$scope.user_info for guest : " + angular.toJson($scope.user_info , ' '));
+    }else if (!!$rootScope.userLog) {
+      $scope.user = $rootScope.userLog;
     }else {
 
       // $ionicSideMenuDelegate.toggleLeft(); //To close the side bar
@@ -78,4 +81,30 @@ angular.module('app')
     $state.go('admin' , {'product_id' : id});
   };
 
+////for logout :
+  $scope.logout=function(){
+
+    sharedUtils.showLoading();
+
+    // Main Firebase logout
+    firebase.auth().signOut().then(function() {
+
+
+      $ionicSideMenuDelegate.toggleLeft(); //To close the side bar
+      $ionicSideMenuDelegate.canDragContent(false);  // To remove the sidemenu white space
+      SessionService.setUser(null);
+      $ionicHistory.nextViewOptions({
+        historyRoot: true
+      });
+
+
+      $rootScope.extras = false;
+      sharedUtils.hideLoading();
+      $state.go('tabsController.login', {}, {location: "replace"});
+
+    }, function(error) {
+       sharedUtils.showAlert("Error","Logout Failed")
+    });
+
+  }
 });
