@@ -206,7 +206,8 @@ $scope.validate = function(item,downloadURL) {
         console.log("userid for database  : " + $scope.productId );
         $scope.updateproductdetails = '' ;
 
-        var refProduct = new Firebase("https://shopping-42daf.firebaseio.com/product/" + $scope.productId);
+        var refProduct = firebase.database().ref('product/' +  $scope.productId);
+        // new Firebase("https://shopping-42daf.firebaseio.com/product/" + $scope.productId);
         var userData = $firebaseObject(refProduct);
         userData.$loaded().then(function(response) {
           $scope.updateproductdetails = response;
@@ -247,7 +248,8 @@ $scope.validate = function(item,downloadURL) {
 		// Update Product Specification on model
 
 		var userdata = [];
-		var refProduct = new Firebase("https://shopping-42daf.firebaseio.com/product/" + $scope.productId +"/product_specification");
+		var refProduct = firebase.database().ref('product/' + $scope.productId +'/product_specification');
+        //  new Firebase("https://shopping-42daf.firebaseio.com/product/" + $scope.productId +"/product_specification");
         var userData = $firebaseArray(refProduct);
         userData.$loaded().then(function(response) {
           $scope.productSpdetails = response;

@@ -6,7 +6,8 @@ angular.module('app')
     var field_id = $stateParams.category_id;
       console.log("$scope.selectedId : " + $scope.selectedId );
 
-      var fb = new Firebase("https://shopping-42daf.firebaseio.com/menu/" + field_id);
+      var fb = firebase.database().ref('menu/' + field_id);
+      // new Firebase("https://shopping-42daf.firebaseio.com/menu/" + field_id);
       $scope.details = $firebaseObject(fb);
         console.log("$scope.details : " + angular.toJson($scope.details , ' '));
 
@@ -18,7 +19,8 @@ angular.module('app')
           $state.go('checkout');
         };
 
-    var refProduct = new Firebase("https://shopping-42daf.firebaseio.com/product/" + $scope.selectedId);
+    var refProduct = firebase.database().ref('product/' + $scope.selectedId);
+        // new Firebase("https://shopping-42daf.firebaseio.com/product/" + $scope.selectedId);
         var userData = $firebaseObject(refProduct);
         userData.$loaded().then(function(response) {
           $scope.showproductdetails = response;
@@ -26,7 +28,8 @@ angular.module('app')
 
 
 		var userdata = [];
-		var refProduct = new Firebase("https://shopping-42daf.firebaseio.com/product/" + $scope.selectedId +"/product_specification");
+		var refProduct = firebase.database().ref('product/' + $scope.selectedId +'/product_specification');
+        // new Firebase("https://shopping-42daf.firebaseio.com/product/" + $scope.selectedId +"/product_specification");
         var userData = $firebaseArray(refProduct);
         userData.$loaded().then(function(response) {
           $scope.productSpdetails = response;

@@ -1,40 +1,6 @@
 angular.module('app')
 .controller('loginCtrl', function($scope,$rootScope,$ionicHistory,sharedUtils,$state,$ionicSideMenuDelegate,SessionService,$firebaseObject,$firebaseArray,$window,$cordovaDevice,IonicPopupService,$cordovaOauth,$location) {
     $rootScope.extras = false;  // For hiding the side bar and nav icon
-    //   $scope.loginFacebook = function() {
-    //     console.log('logining facebook');
-    //
-    //     var ref = new Firebase("https://shopping-42daf.firebaseio.com/");
-    //     ref.authWithOAuthPopup("facebook", function(error, authData) {
-    //       if (error) {
-    //         console.log("Login Failed!", angular.toJson(error , ' '));
-    //       } else {
-    //         console.log("Authenticated successfully with payload:", authData.uid);
-    //
-    //         if (authData) {
-    //           //console.log("login correct!:", authData);
-    //
-    //           console.log('provider:', authData.provider);
-    //           console.log('email', authData.facebook.email);
-    //           console.log('Name:', authData.facebook.displayName);
-    //           console.log('Photo', authData.facebook.profileImageURL);
-    //
-    //           // ref.child("users").child(authData.uid).set({
-    //           //   provider: authData.provider,
-    //           //   email: authData.facebook.email,
-    //           //   name: authData.facebook.displayName,
-    //           //   profile_photo:authData.facebook.profileImageURL,
-    //           //   share_info: false,
-    //           //   lat:0,
-    //           //   long:0,
-    //           //   dob:'',
-    //           //   userId:authData.uid
-    //           // });
-    //           $state.go('menu2');
-    //         }
-    //       }
-    //     });
-    // }
 
     ////for get device tocken :
       var init = function () {
@@ -68,7 +34,7 @@ angular.module('app')
     //     $ionicSideMenuDelegate.canDragContent(true);  // Sets up the sideMenu dragable
     //     $rootScope.extras = true;
     //     sharedUtils.hideLoading();
-    //     $state.go('menu2', {}, {location: "replace"},{reload: true});
+    //     $state.go('home', {}, {location: "replace"},{reload: true});
     //
     //   }
     // });
@@ -101,31 +67,31 @@ angular.module('app')
     };
 
       // console.log("result of login : " + result);
-      firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        var userObj = {
-            displayName: user.displayName,
-            email: user.email,
-            uid:  user.uid,
-            photoURL: user.photoURL,
-            emailVerified: user.emailVerified,
-            providerData: user.providerData
-        };
-      $scope.user = userObj;
-        SessionService.setUser($scope.user);
-        $scope.sessionUser = SessionService.getUser();
-        // console.log("$scope.sessionUser : " + angular.toJson($scope.sessionUser , ' '));
-        $ionicHistory.nextViewOptions({
-          historyRoot: true
-        });
-        $rootScope.extras = true;
-        sharedUtils.hideLoading();
-        $state.go('menu2', {}, {location: "replace"});
-      }
-      });
+      // firebase.auth().onAuthStateChanged(function(user) {
+      // if (user) {
+      //   var userObj = {
+      //       displayName: user.displayName,
+      //       email: user.email,
+      //       uid:  user.uid,
+      //       photoURL: user.photoURL,
+      //       emailVerified: user.emailVerified,
+      //       providerData: user.providerData
+      //   };
+      // $scope.user = userObj;
+      //   SessionService.setUser($scope.user);
+      //   $scope.sessionUser = SessionService.getUser();
+      //   // console.log("$scope.sessionUser : " + angular.toJson($scope.sessionUser , ' '));
+      //   $ionicHistory.nextViewOptions({
+      //     historyRoot: true
+      //   });
+      //   $rootScope.extras = true;
+      //   sharedUtils.hideLoading();
+      //   $state.go('home', {}, {location: "replace"});
+      // }
+      // });
 
     $scope.gotomenupage = function () {
-      $state.go('menu2');
+      $state.go('home');
     };
 
     ////for facebook login:
@@ -161,11 +127,11 @@ angular.module('app')
                             // console.log("$scope.userObj: " + angular.toJson($scope.userObj, ' '));
                             SessionService.setUser(obj);
                             $scope.sessionUser = SessionService.getUser();
-                            // console.log("$scope.sessionUser when already user signup : " + angular.toJson($scope.sessionUser , ' '));
+                            console.log("$scope.sessionUser when already user signup : " + angular.toJson($scope.sessionUser , ' '));
 
                           });
                   // sharedUtils.hideLoading();
-                  $state.go('menu2', {}, {location: "replace"});
+                  $state.go('home', {}, {location: "replace"});
                   console.log("user already saved..");
                 }else {
                   var userObj = {
@@ -185,7 +151,7 @@ angular.module('app')
                 // var menuRef = firebase.database().ref().child('users').push(userObj).key;
                   SessionService.setUser(userObj);
                   $scope.sessionUser = SessionService.getUser();
-                  $state.go('menu2', {}, {location: "replace"});
+                  $state.go('home', {}, {location: "replace"});
                   // sharedUtils.hideLoading();
                   // console.log("$scope.sessionUser : " + angular.toJson($scope.sessionUser , ' '));
                 }
@@ -265,7 +231,7 @@ angular.module('app')
         console.log("user saved already...");
         sharedUtils.hideLoading();
         IonicPopupService.alert("guest user signup successfully")
-        $state.go('menu2');
+        $state.go('home');
       } else  {
             var guestObj = {
                 isAdmin : false,
@@ -283,7 +249,7 @@ angular.module('app')
             // console.log("$scope.sessionUser for guest user"  + angular.toJson($scope.sessionUser , ' '));
             sharedUtils.hideLoading();
             IonicPopupService.alert("new guest user signup successfully")
-            $state.go('menu2');
+            $state.go('home');
         }
       }).catch(function(error) {
         // Handle Errors here.

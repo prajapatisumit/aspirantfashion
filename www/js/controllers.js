@@ -1,8 +1,14 @@
  angular.module('app')
 .controller('indexCtrl', function($scope,$rootScope,sharedUtils,$ionicHistory,$state,$ionicSideMenuDelegate,sharedCartService,SessionService,SessionService) {
-
+      // if (!!$rootScope.userLog) {
+      //   $scope.myUSer = $rootScope.userLog;
+      //   console.log("$scope.user at rootscope " + angular.toJson($scope.myUser ,' '));
+      // }else {
+      //   $scope.myUSer = SessionService.getUser();
+      //   console.log("$scope.user at at session: " + angular.toJson($scope.myUSer , ' '));
+      // }
     $scope.myUSer = $rootScope.user;
-    console.log("$scope.user at rootScope : " + angular.toJson($scope.user  ,' '));
+    console.log("$scope.user at rootScope : " + angular.toJson($scope.myUSer  ,' '));
 
     //Check if user already logged in
     firebase.auth().onAuthStateChanged(function(user) {
@@ -105,7 +111,7 @@
 //         $ionicSideMenuDelegate.canDragContent(true);  // Sets up the sideMenu dragable
 //         $rootScope.extras = true;
 //         sharedUtils.hideLoading();
-//         $state.go('menu2', {}, {location: "replace"},{reload: true});
+//         $state.go('home', {}, {location: "replace"},{reload: true});
 //
 //       }
 //     });
@@ -143,7 +149,7 @@
 //                 });
 //                 $rootScope.extras = true;
 //                 sharedUtils.hideLoading();
-//                 $state.go('menu2', {}, {location: "replace"});
+//                 $state.go('home', {}, {location: "replace"});
 //               }
 //             });
 //
@@ -163,7 +169,7 @@
 //
 //     };
 //     $scope.gotomenupage = function () {
-//       $state.go('menu2');
+//       $state.go('home');
 //     };
 //
 //
@@ -253,7 +259,7 @@
 //         console.log("  $scope.data : " + angular.toJson(  $scope.data , ' '));
 //       if ($scope.data.length > 0) {
 //         console.log("user saved already...");
-//         $state.go('menu2');
+//         $state.go('home');
 //       } else  {
 //             var guestObj = {
 //                 isAdmin : false,
@@ -270,7 +276,7 @@
 //             $scope.sessionUser = SessionService.getUser();
 //             console.log("$scope.sessionUser for guest user"  + angular.toJson($scope.sessionUser , ' '));
 //
-//         $state.go('menu2');
+//         $state.go('home');
 //         }
 //       });
 //
@@ -578,7 +584,7 @@
 //             $ionicSideMenuDelegate.canDragContent(true);  // Sets up the sideMenu dragable
 //             $rootScope.extras = true;
 //             sharedUtils.hideLoading();
-//             $state.go('menu2', {}, {location: "replace"});
+//             $state.go('home', {}, {location: "replace"});
 //
 //         }, function (error) {
 //             sharedUtils.hideLoading();
@@ -875,7 +881,7 @@
 //   //////complete admin controller
 //
 //
-// .controller('menu2Ctrl', function($scope,$rootScope,$ionicSideMenuDelegate,fireBaseData,$state,
+// .controller('homeCtrl', function($scope,$rootScope,$ionicSideMenuDelegate,fireBaseData,$state,
 //                                   $ionicHistory,$firebaseArray,sharedCartService,sharedUtils,SessionService,$stateParams,$window) {
 //
 //

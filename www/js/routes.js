@@ -36,10 +36,10 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('menu2', {
-      url: '/menu2',
-      templateUrl: 'templates/menu2.html',
-      controller: 'menuTwoCtrl'
+  .state('home', {
+      url: '/home',
+      templateUrl: 'templates/home.html',
+      controller: 'homeCtrl'
     })
 
   .state('sideMenu', {

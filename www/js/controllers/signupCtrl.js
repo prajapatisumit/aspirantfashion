@@ -30,7 +30,7 @@ angular.module('app')
             $ionicSideMenuDelegate.canDragContent(true);  // Sets up the sideMenu dragable
             $rootScope.extras = true;
             sharedUtils.hideLoading();
-            $state.go('menu2', {}, {location: "replace"});
+            $state.go('home', {}, {location: "replace"});
 
         }, function (error) {
             sharedUtils.hideLoading();
