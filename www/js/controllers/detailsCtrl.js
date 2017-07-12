@@ -1,7 +1,9 @@
 angular.module('app')
-.controller('detailsCtrl', function($scope,$rootScope,$stateParams, $firebaseObject, $firebaseArray) {
+.controller('detailsCtrl', function($scope,$rootScope,$stateParams, $firebaseObject, $firebaseArray,SessionService) {
 
     // $rootScope.extras=true;
+    $scope.user = SessionService.getUser();
+      console.log("  $scope.user" + angular.toJson(  $scope.user ,' '));
     $scope.selectedId = $stateParams.category_id;
     var field_id = $stateParams.category_id;
       console.log("$scope.selectedId : " + $scope.selectedId );

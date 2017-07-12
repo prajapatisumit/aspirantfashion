@@ -33,8 +33,8 @@
             {{menu[$index].name}} <br/>
 						<span style="font-weight: bold;color: black;">&#8377; {{menu[$index].price}}</span>
 					</p>
-					<i style="font-size: 25px; margin-right:0px;right:0px;"  ng-click="addToCart(menu[$index])" class="icon ion-ios-cart"></i>
-            <i class="icon icon ion-edit" ng-click="goAdminPage(menu[$index].$id)" ng-if="user.isAdmin === true"></i>
+					<i style="font-size: 25px; margin-right:0px;right:0px;"  ng-click="addToCart(menu[$index])" class="icon ion-ios-cart" ng-hide="user.isAdmin === true"></i>
+            <i style="font-size: 25px;right:0px;" class="icon icon ion-edit" ng-click="goAdminPage(menu[$index].$id)" ng-if="user.isAdmin === true"></i>
 				  </a>
 
 			</div>
@@ -51,8 +51,8 @@
             {{menu[$index+1].name}} <br/>
 						<span style="font-weight: bold;color: black;">&#8377; {{menu[$index+1].price}}</span>
 					</p>
-					<i style="font-size: 25px;right: 0px;"  ng-click="addToCart(menu[$index+1])" class="icon ion-ios-cart"></i>
-            <i class="icon icon ion-edit" ng-click="goAdminPage(menu[$index+1].$id)" ng-if="user.isAdmin === true"></i>
+					<i style="font-size: 25px;right: 0px;"  ng-click="addToCart(menu[$index+1])" class="icon ion-ios-cart" ng-hide="user.isAdmin === true"></i>
+            <i style="font-size: 25px;right:0px;" class="icon icon ion-edit" ng-click="goAdminPage(menu[$index+1].$id)" ng-if="user.isAdmin === true"></i>
 				  </a>
 			</div>
 		</div>
