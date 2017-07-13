@@ -45,15 +45,15 @@ angular.module('app')
           sharedUtils.showLoading();
           //Email
           firebase.auth().signInWithEmailAndPassword(cred.email,cred.password).then(function(result) {
-
+                console.log("result : " + angular.toJson(result , ' '));
+                sharedUtils.hideLoading();
+                $state.go('home');
                 // You dont need to save the users session as firebase handles it
                 // You only need to :
                 // 1. clear the login page history from the history stack so that you cant come back
                 // 2. Set rootScope.extra;
                 // 3. Turn off the loading
                 // 4. Got to menu page
-
-
             },
             function(error) {
               sharedUtils.hideLoading();
@@ -139,7 +139,7 @@ angular.module('app')
                       displayName : user.displayName,
                       email : user.email,
                       photoURL : user.photoURL,
-                      isAdmin : true
+                      isAdmin : false
 
                   }
                 $rootScope.userLog = userObj;
@@ -180,33 +180,11 @@ angular.module('app')
 
   };
 
-  // var facebookProvider = new firebase.auth.FacebookAuthProvider();
-  // $scope.loginWithFacebook = function () {
-  //   firebase.auth().signInWithPopup(facebookProvider).then(function(result) {
-  //     // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-  //     var token = result.credential.accessToken;
-  //     IonicPopupService.alert('Success', 'User Login With Facebook Successfully.');
-  //     console.log('result of facebook login : ' + angular.toJson(token , ' '));
-  //       $state.go('nemu2');
-  //     // The signed-in user info.
-  //     var user = result.user;
-  //     // ...
-  //   }).catch(function(error) {
-  //     // Handle Errors here.
-  //     var errorCode = error.code;
-  //     var errorMessage = error.message;
-  //     // The email of the user's account used.
-  //     var email = error.email;
-  //     // The firebase.auth.AuthCredential type that was used.
-  //     var credential = error.credential;
-  //     IonicPopupService.alert("oops..",errorMessage)
-  //     // ...
-  //   });
-  // };
+
   ///for custom user :
   $scope.guestUser = function () {
       ///for check condition :
-      // $scope.deviceId = '5afaa714fd8d2997';
+      $scope.deviceId = '5afaa714fd8d2997';
       sharedUtils.showLoading();
       var ref = firebase.database().ref('users/' + $scope.deviceId);
       // var ref = firebase.database().ref('users/5afaa714fd8d2997');
@@ -265,29 +243,5 @@ angular.module('app')
       });
   };
 
-      $scope.logout=function(){
 
-        sharedUtils.showLoading();
-
-        // Main Firebase logout
-        firebase.auth().signOut().then(function() {
-
-
-          $ionicSideMenuDelegate.toggleLeft(); //To close the side bar
-          $ionicSideMenuDelegate.canDragContent(false);  // To remove the sidemenu white space
-          SessionService.setUser(null);
-          $ionicHistory.nextViewOptions({
-            historyRoot: true
-          });
-
-
-          $rootScope.extras = false;
-          sharedUtils.hideLoading();
-          $state.go('tabsController.login', {}, {location: "replace"});
-
-        }, function(error) {
-           sharedUtils.showAlert("Error","Logout Failed")
-        });
-
-      }
 });

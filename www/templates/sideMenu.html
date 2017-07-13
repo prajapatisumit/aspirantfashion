@@ -1,4 +1,4 @@
-<ion-side-menus  ng-controller="loginCtrl" data-componentid="side-menu21" style="" enable-menu-with-back-views="false">
+<ion-side-menus  ng-controller="homeCtrl" data-componentid="side-menu21" style="" enable-menu-with-back-views="false">
     <ion-side-menu-content  >
         <ion-nav-bar class="bar-assertive" >
 
@@ -28,9 +28,9 @@
     <ion-side-menu side="left" id="side-menu21" ng-if="$root.extras">
 
         <ion-header-bar class="expanded">
-          <img ng-src="{{userLog.photoURL}}" ng-hide="userLog.isGuest === true" class="avatar motion spin fade">
-          <div class="menu-bottom" ng-hide="userLog.isGuest === true">
-            {{userLog.displayName}}
+          <img ng-src="{{user_info.photoURL}}" ng-hide="user.isGuest === true || userLog.isGuest === true" class="avatar motion spin fade">
+          <div class="menu-bottom" ng-hide="user.isGuest === true || userLog.isGuest === true">
+            {{user_info.displayName}}
             <!-- {{userData.displayName}} {{userData.uid}} -->
           </div>
         </ion-header-bar>
@@ -38,11 +38,11 @@
         <ion-content class="stable-bg has-expanded-header">
             <ion-list data-componentid="list1" class=" " id="menu-list1">
 
-                <ion-item data-componentid="list-item1" ng-hide="userLog.isGuest === true" style="" menu-close="" ui-sref="menu2" id="menu-list-item1" class="item-icon-left  ">
+                <ion-item data-componentid="list-item1" ng-hide="user.isGuest === true || userLog.isGuest === true" style="" menu-close="" ui-sref="menu2" id="menu-list-item1" class="item-icon-left  ">
                     <i class="icon ion-ios-home-outline"></i>Home</ion-item>
-                <ion-item data-componentid="list-item2" ng-hide="userLog.isGuest === true" style="" menu-close="" ui-sref="offers" id="menu-list-item2" class="item-icon-left  ">
+                <ion-item data-componentid="list-item2" ng-hide="user.isGuest === true || userLog.isGuest === true" style="" menu-close="" ui-sref="offers" id="menu-list-item2" class="item-icon-left  ">
                     <i class="icon ion-ios-pricetag-outline"></i>Offers</ion-item>
-                <ion-item data-componentid="list-item8" ng-hide="userLog.isGuest === true" style="" menu-close="" ui-sref="myCart" id="menu-list-item8" class="item-icon-left  ">
+                <ion-item data-componentid="list-item8" ng-hide="user.isGuest === true || userLog.isGuest === true" style="" menu-close="" ui-sref="myCart" id="menu-list-item8" class="item-icon-left  ">
                     <i class="icon ion-ios-cart-outline"></i>My Cart</ion-item>
                 <ion-item data-componentid="list-item3" style="" menu-close="" ui-sref="lastOrders" id="menu-list-item3" class="item-icon-left  ">
                     <i class="icon ion-ios-clock-outline"></i>Orders</ion-item>
@@ -52,7 +52,8 @@
                     <i class="icon ion-ios-gear-outline"></i>Settings</ion-item>
                 <ion-item data-componentid="list-item6" style="" menu-close="" ui-sref="support" id="menu-list-item6" class="item-icon-left  ">
                     <i class="icon ion-ios-help-outline"></i>Support</ion-item>
-                <ion-item ng-hide="userLog.isGuest === true" ng-click="logout()" data-componentid="list-item7" style="" id="menu-list-item7" class="item-icon-left  ">
+                <ion-item  ng-click="logout()" data-componentid="list-item7" style="" id="menu-list-item7" class="item-icon-left  ">
+                      <!-- ng-hide="user.isGuest === true || userLog" -->
                     <i class="icon ion-log-out"></i>Logout</ion-item>
             </ion-list>
         </ion-content>

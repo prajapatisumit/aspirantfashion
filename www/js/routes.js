@@ -45,7 +45,7 @@ angular.module('app.routes', [])
   .state('sideMenu', {
       // url: '/sideMenu',
       templateUrl: 'templates/sideMenu.html',
-      controller: 'indexCtrl'
+      controller: 'homeCtrl'
     })
 
   .state('offers', {
