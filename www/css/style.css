@@ -326,9 +326,7 @@ span:active{
 .boder{
   border-radius: 25px;
 }
-.seticon{
-  margin-right: 8px;
-}
+
 .detailsprice{
       font-size: x-large;
 }
@@ -357,3 +355,56 @@ hr {
     right: 28px;
     font-size: 24px;
   }
+.lblname{
+  color: #9F9F9F;
+}
+.errorcolor{
+  color:red;
+}
+.space{
+width: 279px; height: 35px;
+}
+.btnradius{
+  border-radius:0px 0px 0px 0px;
+}
+.updateproductbtn{
+  border-radius: 0px 0px 0px 0px;
+  width: 50% !important;
+  text-overflow: inherit;
+  height: 65px;
+  padding: 0px;
+  min-width: 140px;
+  margin: 0px;
+  line-height: 20px;
+  width: 50%;
+  white-space: normal;
+  margin-left: -5px;
+  margin-right: 5px;
+}
+.addproductbtn{
+  border-radius: 0px 0px 0px 0px;
+  width: 50% !important;
+  text-overflow: inherit;
+  height: 65px;
+  padding: 0px;
+  min-width: 140px;
+  margin: 0px;
+  line-height: 20px;
+  width: 50%;
+  white-space: normal;
+}
+.bgcolor{
+  background-color: rgba(0,0,0,.12);
+}
+.cancelbtn{
+  margin-right: -13px;
+/* margin-bottom: 49px; */
+margin-top: -6px;
+}
+.seticon{
+  margin-left: 297px;
+    margin-top: 13px;
+}
+.fileupload{
+  
+}
