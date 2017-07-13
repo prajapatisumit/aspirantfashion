@@ -6,60 +6,29 @@ angular.module('app')
       var init = function () {
         console.log("initializing device");
         try {
-
           $scope.deviceId = $cordovaDevice.getUUID();
-          SessionService.setUser($scope.uuid);
-          $scope.sessionUser = SessionService.getUser();
-          console.log("$scope.sessionUser for get id: " + angular.toJson($scope.sessionUser , ' '));
-          console.log("$scope.uuid : " + $scope.uuid);
-
         }
         catch (err) {
           console.log("Error " + err);
-          // alert("error " + err);
         }
-
       };
 
       ionic.Platform.ready(function(){
         init();
       });
-    //Check if user already logged in
-    // firebase.auth().onAuthStateChanged(function(user) {
-    //   if (user) {
-    //
-    //     $ionicHistory.nextViewOptions({
-    //       historyRoot: true
-    //     });
-    //     $ionicSideMenuDelegate.canDragContent(true);  // Sets up the sideMenu dragable
-    //     $rootScope.extras = true;
-    //     sharedUtils.hideLoading();
-    //     $state.go('home', {}, {location: "replace"},{reload: true});
-    //
-    //   }
-    // });
-
-
+  ////for login with email : 
     $scope.loginEmail = function(formName,cred) {
       if(formName.$valid) {  // Check if the form data is valid or not
           sharedUtils.showLoading();
-          //Email
           firebase.auth().signInWithEmailAndPassword(cred.email,cred.password).then(function(result) {
                 console.log("result : " + angular.toJson(result , ' '));
                 sharedUtils.hideLoading();
                 $state.go('home');
-                // You dont need to save the users session as firebase handles it
-                // You only need to :
-                // 1. clear the login page history from the history stack so that you cant come back
-                // 2. Set rootScope.extra;
-                // 3. Turn off the loading
-                // 4. Got to menu page
             },
             function(error) {
               sharedUtils.hideLoading();
               sharedUtils.showAlert("Please note","Authentication Error");
-            }
-        );
+            });
 
       }else{
         sharedUtils.showAlert("Please note","Entered data is not valid");
@@ -67,28 +36,28 @@ angular.module('app')
     };
 
       // console.log("result of login : " + result);
-      // firebase.auth().onAuthStateChanged(function(user) {
-      // if (user) {
-      //   var userObj = {
-      //       displayName: user.displayName,
-      //       email: user.email,
-      //       uid:  user.uid,
-      //       photoURL: user.photoURL,
-      //       emailVerified: user.emailVerified,
-      //       providerData: user.providerData
-      //   };
-      // $scope.user = userObj;
-      //   SessionService.setUser($scope.user);
-      //   $scope.sessionUser = SessionService.getUser();
-      //   // console.log("$scope.sessionUser : " + angular.toJson($scope.sessionUser , ' '));
-      //   $ionicHistory.nextViewOptions({
-      //     historyRoot: true
-      //   });
-      //   $rootScope.extras = true;
-      //   sharedUtils.hideLoading();
-      //   $state.go('home', {}, {location: "replace"});
-      // }
-      // });
+      firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        var userObj = {
+            displayName: user.displayName,
+            email: user.email,
+            uid:  user.uid,
+            photoURL: user.photoURL,
+            emailVerified: user.emailVerified,
+            providerData: user.providerData
+        };
+      $scope.user = userObj;
+        SessionService.setUser($scope.user);
+        $scope.sessionUser = SessionService.getUser();
+        // console.log("$scope.sessionUser : " + angular.toJson($scope.sessionUser , ' '));
+        $ionicHistory.nextViewOptions({
+          historyRoot: true
+        });
+        $rootScope.extras = true;
+        sharedUtils.hideLoading();
+        $state.go('home', {}, {location: "replace"});
+      }
+      });
 
     $scope.gotomenupage = function () {
       $state.go('home');
@@ -179,7 +148,6 @@ angular.module('app')
             });
 
   };
-
 
   ///for custom user :
   $scope.guestUser = function () {

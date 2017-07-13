@@ -25,7 +25,7 @@ angular.module('app')
   cart.add = function(item) {
     //check if item is already added or not
     var guestUser = SessionService.getUser();
-      console.log("guestUser at service : " + angular.toJson(guestUser , ' '));
+      // console.log("guestUser at service : " + angular.toJson(guestUser , ' '));
     if (!!guestUser && guestUser.uid) {
       ////for guest user :
       uid = guestUser.uid;
