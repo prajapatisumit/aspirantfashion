@@ -225,18 +225,24 @@
         </ion-header-bar>
         <ion-content class="padding">
           <input type="text">
-          <form name="signupForm" class="list " id="signup-form4">
+          <form name="signupForm3" class="list " id="signup-form4">
 		  <div  ng-repeat="data in productSpdetails">
               <ion-list class=" " id="{{$index+1}}" ng-repeat="item in inputs">
-                <label class="item item-input item-floating-label">
+                <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm3.title.$invalid && !signupForm3.title.$pristine }">
                   <span style="color: #9F9F9F;"  class="input-label"></span>
-                  <input  ng-model="data.name" type="text" placeholder="Title">
+                  <input  ng-model="data.name" type="text" placeholder="Title" name="title" required>
                 </label>
+                <div ng-show="signupForm3.title.$invalid && !signupForm3.title.$pristine">
+                  <p ng-message="required" class="help-block" style="color:red;">Please enter product Title.</p>
+                </div>
 
-                <label class="item item-input item-floating-label">
+                <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm3.description.$invalid && !signupForm3.description.$pristine }">
                   <span style="color: #9F9F9F;"  class="input-label"></span>
-                  <input  ng-model="data.value" type="text" placeholder="Description">
+                  <input  ng-model="data.value" type="text" placeholder="Description" name="description" required>
                 </label>
+                <div ng-show="signupForm3.description.$invalid && !signupForm3.description.$pristine">
+                  <p ng-message="required" class="help-block" style="color:red;">Please enter product Description.</p>
+                </div>
 				<hr />
 
 
