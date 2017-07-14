@@ -25,7 +25,18 @@
 
       <div style="min-height: 30px;" class="item item-divider">{{showproductdetails.name}} </div>
       <div class="item item-body" >
-        <img ng-src="{{ showproductdetails.image }}" width="100%" height="290px" style="box-shadow: none;">
+        <ion-slide-box n-slide-changed="slideHasChanged($index)" auto-play="false"  does-continue="true" >
+                    <ion-slide>
+                        <img  class="detailpageimg" ng-src="{{ showproductdetails.image }}">
+                    </ion-slide>
+                    <ion-slide>
+                        <img  class="detailpageimg" ng-src="{{ showproductdetails.image }}">
+                    </ion-slide>
+                    <ion-slide>
+                        <img  class="detailpageimg" ng-src="{{ showproductdetails.image }}">
+                    </ion-slide>
+          </ion-slide-box>
+        <!-- <img  class="detailpageimg" ng-src="{{ showproductdetails.image }}"> -->
         <form class="list"></form>
         <div>
           {{ showproductdetails.description }}
@@ -60,8 +71,8 @@
     </ion-content>
     <ion-footer-bar class="bar button-bar-footer" style="height: auto;">
         <div class="button-bar" ng-hide="user.isAdmin === true" style="position: absolute;bottom: 0;" >
-          <a style="min-width: 50%;border-radius: 0px;" class="button button-dark ">Add to Cart</a>
-          <a style="min-width: 50%;border-radius: 0px;"  class="button button-balanced ">Buy Now</a>
+          <span style="min-width: 50%;border-radius: 0px;" class="button button-dark">Add to Cart</span>
+          <span style="min-width: 50%;border-radius: 0px;"  class="button button-balanced ">Buy Now</span>
        </div>
      </ion-footer-bar>
 

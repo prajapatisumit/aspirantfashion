@@ -405,6 +405,71 @@ margin-top: -6px;
   margin-left: 297px;
     margin-top: 13px;
 }
-.fileupload{
-  
+.detailpageimg{
+  box-shadow: none;
+  width:100%;
+   height:290px;
+}
+.homepagebodertop{
+  border-top: 1px solid #999;
+}
+.homepageboderright{
+  padding:1px;
+  border-right:1px solid #999;
+}
+.homepageimg{
+  border-width: 0px;
+  border-style: none;
+}
+.homepageimgsize{
+  width:100%;
+   height:200px;
+}
+.homepageitem{
+  border-width: 0px;
+  border-style: none;
+}
+
+p.homepageprodname{
+  font-size: 12px;
+  text-align: left;
+}
+.homepageprice{
+  font-weight: bold;
+  color: black;
+}
+.homepagesecndcol{
+  padding:1px;
+}
+.homepageioconcart{
+  font-size: 25px;
+  margin-right:0px;
+  right:0px;
+}
+.adminicon{
+  font-size: 25px;
+    right: 0px;
+}
+.cartimg{
+  width:100%;
+  height:auto;
+  box-shadow: none;
+}
+.namecolor{
+  color: #ffffff;
+}
+.telecolotr{
+  color: #000;
+}
+.emlcolor{
+    color: #000;
+}
+.uppswcolor{
+    color: #000;
+}
+.typclr{
+  color: #ffffff;
+}
+.slider-pager .slider-pager-page{
+  color: #e42112;
 }
