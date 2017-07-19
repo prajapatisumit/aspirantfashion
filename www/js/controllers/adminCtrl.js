@@ -1,5 +1,5 @@
 angular.module('app')
-    .controller('adminCtrl', function($scope,$rootScope,sharedUtils,$ionicSideMenuDelegate,
+    .controller('adminCtrl', function($scope,$rootScope,sharedUtils,$ionicSideMenuDelegate,$interval,
                                          $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService ) {
 
                 $ionicModal.fromTemplateUrl('templates/admin.html', {
@@ -53,6 +53,11 @@ angular.module('app')
         $scope.category = $firebaseArray(fireBaseData.refCategory());
         console.log("$scope.category : " + angular.toJson($scope.category , ' '));
       };
+
+
+
+
+
       // $scope.showProdDescDiv = function() {
       //     $scope.showMenu = false;
       //     $scope.showsCategory = false;
@@ -93,52 +98,72 @@ $scope.validate = function(item,downloadURL) {
           var categoryRef = firebase.database().ref().child('category').push(catObj).key;
           console.log("catObj : " + angular.toJson(catObj , ' '));
         };
-        ///for upload image :
-        $scope.uploadFile = function(event) {
-          var files = event.target.files;
-          var storage = firebase.storage();
-          var storageRef = storage.ref();
-          $scope.determinateValue = $scope.determinateValue + 5;
-          var uploadTask = storageRef.child('profileimages/' + 'photo_' + firebase.auth().currentUser.uid + '_' + new Date().getTime()).put(files[0], { contentType: 'image/jpeg' });
 
-          // Listen for state changes, errors, and completion of the upload.
-          uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-            function(snapshot) {
-              // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-              $scope.determinateValue = parseInt((snapshot.bytesTransferred / snapshot.totalBytes) * 100) - 5;
-              $scope.$apply();
-              // console.log('Upload is ' + progress + '% done');
-              switch (snapshot.state) {
-                case firebase.storage.TaskState.PAUSED: // or 'paused'
-                  console.log('Upload is paused');
-                  break;
-                case firebase.storage.TaskState.RUNNING: // or 'running'
-                  console.log('Upload is running');
-                  break;
-              }
-
-            },
-            function(error) {
-              console.log('At error : ' + angular.toJson(error));
-            },
-            function() {
-              // Upload completed successfully, now we can get the download URL
-              $scope.downloadURL = uploadTask.snapshot.downloadURL;
-              $scope.updateproductdetails.image = $scope.downloadURL;
-              console.log("downloadURL : " + $scope.downloadURL);
-              // $scope.currentUser.photo = downloadURL;
-              var inProgressData = {};
-
-              $scope.determinateValue = 0;
-            });
-        };
-
-
-                $scope.productId = $stateParams.product_id;
+    $scope.productId = $stateParams.product_id;
     console.log("$scope.productId for admin  : " + $scope.productId );
+    ///for upload image :
+    $scope.imgset = [];
+    $scope.uploadFile = function(event) {
+
+      //  var quality: 5;
+      var files = event.target.files;
+      var storage = firebase.storage();
+      var storageRef = storage.ref();
+      $scope.determinateValue = $scope.determinateValue + 5;
+      $scope.startprogress();
+      var uploadTask = storageRef.child('profileimages/' + 'photo_' + firebase.auth().currentUser.uid + '_' + new Date().getTime()).put(files[0], { contentType: 'image/jpeg' });
+
+      // Listen for state changes, errors, and completion of the upload.
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+        function(snapshot) {
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          $scope.determinateValue = parseInt((snapshot.bytesTransferred / snapshot.totalBytes) * 100) - 5;
+          $scope.$apply();
+          // console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED: // or 'paused'
+              console.log('Upload is paused');
+              break;
+            case firebase.storage.TaskState.RUNNING: // or 'running'
+              console.log('Upload is running');
+              break;
+          }
+        },
+        function(error) {
+          console.log('At error : ' + angular.toJson(error));
+        },
+        function() {
+
+          // Upload completed successfully, now we can get the download URL
+          $scope.downloadURL = uploadTask.snapshot.downloadURL;
+
+          $scope.updateproductdetails.image = $scope.downloadURL;
+          console.log("downloadURL : " + $scope.downloadURL);
+          $scope.progress = 100;
+          $scope.imgset.push($scope.downloadURL);
+          // var inProgressData = {};
+          $scope.determinateValue = 0;
+        });
+    };
+    $scope.progressval = 0;
+    $scope.stopinterval = null;
+
+    $scope.startprogress = function() {
+      $scope.progress = 0;
+      if ($scope.stopinterval) {
+        $interval.cancel($scope.stopinterval);
+      }
+      $scope.stopinterval = $interval(function() {
+        $scope.progress = $scope.progress + 1;
+        if ($scope.progress >= 100) {
+          $interval.cancel($scope.stopinterval);
+          // $state.go('second');
+          return;
+        }
+      }, 100);
+    };
 
         $scope.addItem = function (item) {
-
         if ($scope.validate(item) === false) {
               return;
             }
@@ -158,8 +183,13 @@ $scope.validate = function(item,downloadURL) {
           var menuRef = firebase.database().ref().child('product').push(menuObj).key;
           $scope.globalproductID = menuRef;
           console.log("$scope.globalcategory "+ $scope.globalproductID);
+          if (!!$scope.globalproductID) {
+            var imgObj = {
+              img : $scope.downloadURL
+            };
+           firebase.database().ref().child('product/' + $scope.globalproductID + '/images' ).set($scope.imgset);
+          }
         };
-
 
         //add html dynamically to add more button clicks
         $scope.inputs = [];
@@ -170,10 +200,16 @@ $scope.validate = function(item,downloadURL) {
 		$scope.updatefield = function(){
           $scope.inputs.push({})
         };
+        $scope.deleteImage = function(id) {
+            console.log("id : " + id);
+          // $scope.imgset.remove(downloadURL);
+           $scope.imgset = firebase.database().ref().child('product/' + $scope.globalproductID + '/images'  ).remove(id);
+           console.log("yes delete image.");
+        };
 
         $scope.addspcification = function(){
-			console.log("$stateParams.product_id ----" + $stateParams.product_id);
-			console.log(" $scope.globalproductID   ----" +  $scope.globalproductID );
+  			console.log("$stateParams.product_id ----" + $stateParams.product_id);
+  			console.log(" $scope.globalproductID   ----" +  $scope.globalproductID );
           $scope.data = [];
           for (var i = 0; i < $scope.inputs.length; i++) {
               $scope.name = $scope.inputs[i].attribute;
@@ -181,7 +217,6 @@ $scope.validate = function(item,downloadURL) {
               var obj = {
                 name : $scope.name,
                 value: $scope.atribute
-
               };
           console.log(" $obj.obj "+ angular.toJson(obj,' '));
 
@@ -192,6 +227,7 @@ $scope.validate = function(item,downloadURL) {
 		  if(!!$scope.globalproductID){
             var refProduct = firebase.database().ref().child('product/' + $scope.globalproductID + '/product_specification' ).push(obj).key;
 		  }
+    
             console.log("refProduct : " + refProduct);
                 // var refProduct = firebase.database().ref().push(obj).key;
             //$scope.datas = $scope.inputs[i];
@@ -211,7 +247,7 @@ $scope.validate = function(item,downloadURL) {
         var userData = $firebaseObject(refProduct);
         userData.$loaded().then(function(response) {
           $scope.updateproductdetails = response;
-          console.log("Response data for fetch data from response ",angular.toJson($scope.updateproductdetails,' '));
+          console.log("Response data for fetch data from response item ",angular.toJson($scope.updateproductdetails,' '));
         });
 
 
@@ -236,14 +272,22 @@ $scope.validate = function(item,downloadURL) {
                 description : updateproductdetails.description,
                 image : updateproductdetails.image,
                 price : updateproductdetails.price,
-				stock : updateproductdetails.stock
+				        stock : updateproductdetails.stock
             }
           //console.log("menuObj test: " + angular.toJson(menuObj , ' '));
           //console.log("product ID " + angular.toJson($scope.productId , ' '));
 
           var menuRef = firebase.database().ref().child('product/'+$scope.productId).update(menuObj);
+
 			//console.log("response test: " + angular.toJson(menuRef , ' '));
+
 		}
+    // $scope.deleteupdateImage = function(id) {
+    //     console.log("id : " + id);
+    //   // $scope.imgset.remove(downloadURL);
+    //    $scope.imgset = firebase.database().ref().child('product/' + $scope.globalproductID + '/images'  ).remove(id);
+    //    console.log("yes delete image.");
+    // };
 
 		// Update Product Specification on model
 

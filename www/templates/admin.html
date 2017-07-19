@@ -8,10 +8,42 @@
       </div>
       <div ng-if="showMenu === true">
       <form ng-hide="!!productId" id="image-form" action="#">
-        <h5 class="m-t-sm m-b-xs">Upload an image</h5>  <!-- <input id="mediaCapture" type="file" accept="image/*,capture=camera"> -->
+        <h5 class="m-t-sm m-b-xs lblname">Upload an image</h5>  <!-- <input id="mediaCapture" type="file" accept="image/*,capture=camera"> -->
         <!-- <button class="hidden btn color-4 size-2 hover-7 fileUpload uploadBtnMargin mdl-button mdl-js-button bgcolor" id="submitImage"> -->
         <!-- </button> -->
-        <input type="file" file-model="uploadFile" class="upload" name="image"/>
+        <!-- <input type="file" file-model="uploadFile" class="upload" name="image" size="5"/> -->
+        <div ng-if="progress>0" ng-hide="progress>=100">
+          <progress class="positive" max="100" value="{{ progress }}"> </progress>
+          <div id="progressbarlabel">{{ progress }} %</div>
+        </div>
+        <div class="row" style="flex-wrap: wrap;">
+
+          <!-- <progress id="progressbar" max="100" value="{{ progressval }}"> </progress>
+            <div id="progressbarlabel">{{ progressval }} %</div> -->
+
+          <div class="col col-25" ng-repeat="image in imgset">
+              <img ng-src="{{ image }}" class="imgStyle">
+
+              <label ng-click="deleteImage(image.$id)">
+                <a class="button button-icon icon ion-android-cancel" style="margin: -50px 0px 0px 3px;color: #48b3e2;"></a>
+              </label>
+          </div>
+
+          <div class="buttons col col-25" ng-show="image.length < 0">
+            <button class="fileUpload button-positive activated  ion-plus btnRadious roundBtn">
+                <input type="file" file-model="uploadFile" class="upload">
+            </button>
+          </div>
+        </div>
+        <div class="row" ng-show="!image || image.length === 0">
+          <div class="col"></div>
+          <div class="buttons">
+            <button class="fileUpload button-positive activated  ion-plus btnRadious roundBtn">
+                <input type="file" file-model="uploadFile" class="upload">
+            </button>
+          </div>
+          <div class="col"></div>
+        </div>
 
 
       </form>
@@ -139,12 +171,39 @@
 <!-- Add New Product End  -->
 <!-- Upldate product start -->
 <form class="list " id="signup-form2" ng-if="!!productId" name="Updateproduct">
-
+  <div ng-if="progress>0" ng-hide="progress>=100">
+    <progress class="positive" max="100" value="{{ progress }}"> </progress>
+    <div id="progressbarlabel">{{ progress }} %</div>
+  </div>
 	   <!-- <input id="mediaCapture" type="file" accept="image/*,capture=camera"> -->
-		<img ng-src="{{ updateproductdetails.image }}" width="10%" height="10%" ng-model="updateproductdetails.image"/>
+		<!-- <img ng-src="{{ updateproductdetails.image }}" width="10%" height="10%" ng-model="updateproductdetails.image"/> -->
         <!-- <button class="hidden btn color-4 size-2 hover-7 fileUpload uploadBtnMargin mdl-button mdl-js-button" id="submitImage" style="background-color: rgba(0,0,0,.12);">
             </button> -->
-            <input type="file" file-model="uploadFile" class="upload">
+            <!-- <input type="file" file-model="uploadFile" class="upload"> -->
+            <div class="row" style="flex-wrap: wrap;">
+
+              <div class="col col-25" ng-repeat="data in updateproductdetails.images">
+                  <img ng-src="{{ data }}" class="imgStyle" ng-model="image">
+                  <label ng-click="deleteupdateImage(data.$id)">
+                    <a class="button button-icon icon ion-android-cancel" style="margin: -50px 0px 0px 3px;color: #48b3e2;"></a>
+                  </label>
+              </div>
+              <div class="buttons col col-25" ng-show="image.length < 0">
+                <button class="fileUpload button-positive activated  ion-plus btnRadious roundBtn">
+                    <input type="file" file-model="uploadFile" class="upload">
+                </button>
+              </div>
+            </div>
+            <div class="row" ng-show="!image || image.length === 0">
+              <div class="col"></div>
+              <div class="buttons">
+                <button class="fileUpload button-positive activated  ion-plus btnRadious roundBtn">
+                    <input type="file" file-model="uploadFile" class="upload">
+                </button>
+              </div>
+              <div class="col"></div>
+            </div>
+
 
 
 

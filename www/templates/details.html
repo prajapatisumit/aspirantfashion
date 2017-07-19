@@ -26,15 +26,13 @@
       <div style="min-height: 30px;" class="item item-divider">{{showproductdetails.name}} </div>
       <div class="item item-body" >
         <ion-slide-box n-slide-changed="slideHasChanged($index)" auto-play="false"  does-continue="true" >
-                    <ion-slide>
-                        <img  class="detailpageimg" ng-src="{{ showproductdetails.image }}">
+                    <!-- <ion-slide ng-repeat="image in imgset">
+                        <img  class="detailpageimg" ng-src="{{ image }}">
+                    </ion-slide> -->
+                    <ion-slide ng-repeat="image in productimages">
+                        <img  class="detailpageimg" ng-src="{{ image.$value }}">
                     </ion-slide>
-                    <ion-slide>
-                        <img  class="detailpageimg" ng-src="{{ showproductdetails.image }}">
-                    </ion-slide>
-                    <ion-slide>
-                        <img  class="detailpageimg" ng-src="{{ showproductdetails.image }}">
-                    </ion-slide>
+
           </ion-slide-box>
         <!-- <img  class="detailpageimg" ng-src="{{ showproductdetails.image }}"> -->
         <form class="list"></form>
@@ -71,8 +69,8 @@
     </ion-content>
     <ion-footer-bar class="bar button-bar-footer" style="height: auto;">
         <div class="button-bar" ng-hide="user.isAdmin === true" style="position: absolute;bottom: 0;" >
-          <span style="min-width: 50%;border-radius: 0px;" class="button button-dark">Add to Cart</span>
-          <span style="min-width: 50%;border-radius: 0px;"  class="button button-balanced ">Buy Now</span>
+          <span style="min-width: 50%;border-radius: 0px;" class="button button-dark"  ng-click="addToCart(menu[$index])">Add to Cart</span>
+          <span style="min-width: 50%;border-radius: 0px;"  class="button button-balanced" ng-click="buyNow()">Buy Now</span>
        </div>
      </ion-footer-bar>
 

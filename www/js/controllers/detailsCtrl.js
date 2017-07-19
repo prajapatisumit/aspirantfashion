@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('detailsCtrl', function($scope,$rootScope,$stateParams, $firebaseObject, $firebaseArray,SessionService) {
+.controller('detailsCtrl', function($scope,$state,$rootScope,$stateParams, $firebaseObject, $firebaseArray,SessionService,sharedCartService) {
 
     // $rootScope.extras=true;
     $scope.user = SessionService.getUser();
@@ -13,9 +13,10 @@ angular.module('app')
       $scope.details = $firebaseObject(fb);
         console.log("$scope.details : " + angular.toJson($scope.details , ' '));
 
-        $scope.addToCart=function(item){
-          sharedCartService.add(item);
-        };
+
+        // $scope.addToCart=function(item){
+        //   sharedCartService.add(item);
+        // };
 
         $scope.buyNow = function () {
           $state.go('checkout');
@@ -37,6 +38,14 @@ angular.module('app')
           $scope.productSpdetails = response;
           console.log("Response data for fetch data from response........... ",angular.toJson($scope.productSpdetails,' '));
         });
+
+        var refProduct = firebase.database().ref('product/' + $scope.selectedId +'/images');
+            // new Firebase("https://shopping-42daf.firebaseio.com/product/" + $scope.selectedId +"/product_specification");
+            var userData = $firebaseArray(refProduct);
+            userData.$loaded().then(function(response) {
+              $scope.productimages = response;
+              console.log("Response data for fetch data from image........... ",angular.toJson($scope.productimages,' '));
+            });
 
 
 })
