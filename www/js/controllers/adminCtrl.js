@@ -34,29 +34,33 @@ angular.module('app')
 
       ///for show and hide div :
         $scope.showsCategory = false;
+        $scope.showSubCategory = false;
         $scope.showMenu = true;
         $scope.showProductDescription = false;
 
       $scope.showCategoryDiv = function() {
           $scope.showsCategory = true;
+          $scope.showSubCategory = false;
           $scope.showMenu = false;
           $scope.showProductDescription = false;
       };
       $scope.showMenuDiv = function() {
           $scope.showMenu = true;
           $scope.showsCategory = false;
+          $scope.showSubCategory = false;
           $scope.showProductDescription = false;
+      };
+      $scope.showSubCategoryDiv = function () {
+        $scope.showMenu = false;
+        $scope.showsCategory = false;
+        $scope.showSubCategory = true;
+        $scope.showProductDescription = false;
       };
       ///for category show:
       $scope.loadCategory = function() {
-
         $scope.category = $firebaseArray(fireBaseData.refCategory());
         console.log("$scope.category : " + angular.toJson($scope.category , ' '));
       };
-
-
-
-
 
       // $scope.showProdDescDiv = function() {
       //     $scope.showMenu = false;
@@ -67,7 +71,6 @@ angular.module('app')
 
         $scope.userData = SessionService.getUser();
         // console.log("$scope.userData at admin page  : " + angular.toJson($scope.userData , ' '));
-
 
 $scope.validate = function(item,downloadURL) {
         console.log("item : " + angular.toJson(item , ' '));
@@ -93,16 +96,67 @@ $scope.validate = function(item,downloadURL) {
       //this is for add category :
         $scope.addCategory = function (categoryName) {
             var catObj = {
-                name : categoryName
+                name : categoryName,
+                image : $scope.downloadURL
+
             }
           var categoryRef = firebase.database().ref().child('category').push(catObj).key;
           console.log("catObj : " + angular.toJson(catObj , ' '));
+          $scope.globalproductID = categoryRef;
+          console.log("$scope.globalcategory "+ $scope.globalproductID);
+          if (!!$scope.globalproductID) {
+            var imgObj = {
+              image : $scope.downloadURL
+            };
+           firebase.database().ref().child('category/' + $scope.globalproductID + '/images' ).set($scope.imgset1);
+          }
+        };
+
+        $scope.addSubCategory = function (categoryid,subcategoryName) {
+          console.log("categoryid : " + categoryid);
+            var subcatObj = {
+                name : subcategoryName,
+                image : $scope.downloadURL,
+                categoryid : categoryid
+            }
+
+          var SubcategoryRef = firebase.database().ref().child('subcategory').push(subcatObj).key;
+          console.log("subcatObj : " + angular.toJson(subcatObj , ' '));
+          $scope.globalproductID = SubcategoryRef;
+          console.log("$scope.globalcategory "+ $scope.globalproductID);
+          if (!!$scope.globalproductID) {
+            var imgObj = {
+              image : $scope.downloadURL
+            };
+           firebase.database().ref().child('subcategory/' + $scope.globalproductID + '/images' ).set($scope.imgset2);
+          }
+        };
+        $scope.loadSubCategory = function () {
+          $scope.subCategory = $firebaseArray(fireBaseData.refSubCategory());
+          console.log("$scope.subCategory : " + angular.toJson($scope.subCategory , ' '));
+        };
+        $scope.loadCategory();
+        $scope.loadSubCategory();
+        $scope.getSubCategory = function (categoryid) {
+          $scope.selectedSubCategory = [];
+          $scope.categoryid = categoryid;
+          console.log("this function is calling.... : " +categoryid );
+          // $scope.subCategory = $firebaseArray(fireBaseData.refSubCategory());
+          // console.log("$scope.subCategory : " + angular.toJson($scope.subCategory , ' '));
+          for (var i = 0; i < $scope.subCategory.length; i++) {
+            if ($scope.subCategory[i].categoryid === $scope.categoryid) {
+              $scope.selectedSubCategory.push($scope.subCategory[i]);
+            }
+          }
+          console.log("$scope.selectedSubCategory : " + angular.toJson($scope.selectedSubCategory , ' '));
         };
 
     $scope.productId = $stateParams.product_id;
     console.log("$scope.productId for admin  : " + $scope.productId );
     ///for upload image :
     $scope.imgset = [];
+    $scope.imgset1 = [];
+    $scope.imgset2 = [];
     $scope.uploadFile = function(event) {
 
       //  var quality: 5;
@@ -136,11 +190,22 @@ $scope.validate = function(item,downloadURL) {
 
           // Upload completed successfully, now we can get the download URL
           $scope.downloadURL = uploadTask.snapshot.downloadURL;
+          $scope.downloadUrlOne = uploadTask.snapshot.downloadURL;
+          $scope.downloadUrlTwo = uploadTask.snapshot.downloadURL;
 
           $scope.updateproductdetails.image = $scope.downloadURL;
           console.log("downloadURL : " + $scope.downloadURL);
+          console.log("downloadURL1 : " + $scope.downloadUrlOne);
+          console.log("downloadURL2 : " + $scope.downloadUrlTwo);
           $scope.progress = 100;
+          if($scope.showMenu === true){
           $scope.imgset.push($scope.downloadURL);
+          }
+          else if ($scope.showsCategory === true) {
+              $scope.imgset1.push($scope.downloadUrlOne);
+          }else if ($scope.showSubCategory === true) {
+              $scope.imgset2.push($scope.downloadUrlTwo);
+          }
           // var inProgressData = {};
           $scope.determinateValue = 0;
         });
@@ -172,8 +237,10 @@ $scope.validate = function(item,downloadURL) {
           //console.log("$scope.globalcategory "+ $scope.globalcategory);
             var menuObj = {
                 name : item.name,
+                brandname : item.brandname,
                 available : item.available,
                 category : item.category,
+                subcategory : item.subCategory,
                 description : item.description,
                 image : $scope.downloadURL,
                 price : item.price,
@@ -227,7 +294,7 @@ $scope.validate = function(item,downloadURL) {
 		  if(!!$scope.globalproductID){
             var refProduct = firebase.database().ref().child('product/' + $scope.globalproductID + '/product_specification' ).push(obj).key;
 		  }
-    
+
             console.log("refProduct : " + refProduct);
                 // var refProduct = firebase.database().ref().push(obj).key;
             //$scope.datas = $scope.inputs[i];

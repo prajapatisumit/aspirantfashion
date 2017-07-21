@@ -96,6 +96,7 @@ angular.module('app')
   $scope.showProductInfo=function (id) {
         $state.go('details',{'category_id' : id });
   };
+
   $scope.addToCart=function(item){
 
     sharedCartService.add(item);

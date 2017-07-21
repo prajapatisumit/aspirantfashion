@@ -3,24 +3,18 @@
       <div class="row textCenter">
 
           <div class="col bordercate" ng-click="showCategoryDiv()">Add Category</div>&nbsp;
-          <div class="col bordercate" ng-click="showMenuDiv()">Add MenuItem</div>&nbsp;
+          <div class="col bordercate" ng-click="showSubCategoryDiv()">Add SubCategory</div>&nbsp;
+          <div class="col bordercate" ng-click="showMenuDiv()">Add Product</div>&nbsp;
 
       </div>
       <div ng-if="showMenu === true">
       <form ng-hide="!!productId" id="image-form" action="#">
-        <h5 class="m-t-sm m-b-xs lblname">Upload an image</h5>  <!-- <input id="mediaCapture" type="file" accept="image/*,capture=camera"> -->
-        <!-- <button class="hidden btn color-4 size-2 hover-7 fileUpload uploadBtnMargin mdl-button mdl-js-button bgcolor" id="submitImage"> -->
-        <!-- </button> -->
-        <!-- <input type="file" file-model="uploadFile" class="upload" name="image" size="5"/> -->
+        <h5 class="m-t-sm m-b-xs lblname">Upload an image</h5>
         <div ng-if="progress>0" ng-hide="progress>=100">
           <progress class="positive" max="100" value="{{ progress }}"> </progress>
           <div id="progressbarlabel">{{ progress }} %</div>
         </div>
         <div class="row" style="flex-wrap: wrap;">
-
-          <!-- <progress id="progressbar" max="100" value="{{ progressval }}"> </progress>
-            <div id="progressbarlabel">{{ progressval }} %</div> -->
-
           <div class="col col-25" ng-repeat="image in imgset">
               <img ng-src="{{ image }}" class="imgStyle">
 
@@ -44,8 +38,6 @@
           </div>
           <div class="col"></div>
         </div>
-
-
       </form>
 
 
@@ -60,20 +52,26 @@
               <div ng-show="signupForm.name.$invalid && !signupForm.name.$pristine">
                 <p ng-message="required" class="help-block errorcolor">Please enter product Name.</p>
               </div>
+              <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.brandname.$invalid && !signupForm.brandname.$pristine }">
+                <span class="input-label lblname">Brand Name</span>
+                <input  ng-model="item.brandname" type="text" placeholder="Brand Name" name="brandname" required>
+              </label>
+                <div ng-show="signupForm.brandname.$invalid && !signupForm.brandname.$pristine">
+                  <p ng-message="required" class="help-block errorcolor">Please enter Brand Name.</p>
+                </div>
+
             <label class="item item-input item-floating-label">
-              <!-- <button class="button button-positive" modal-select="" ng-model="someModel" options="selectables" modal-title="Select Category">
-          Select it
-          <div class="option">
-            {{option}}
-          </div>
-        </button> -->
               <span class="input-label">
               Select category{{category}}
               </span>
-              <select ng-model="item.category" ng-options="obj.name as obj.name for obj in category"></select>
-              <!-- <select  ng-model="category" ng-options="cat in category"></select> -->
-              <!-- <span style="color: #9F9F9F;"  class="input-label">Category</span>
-              <input  ng-model="item.category" type="text" placeholder="Category"> -->
+              <select ng-model="object.$id" ng-options="obj.$id as obj.name for obj in category track by object.id" ng-change="getSubCategory(object.$id)"></select>
+            </label>
+
+            <label class="item item-input item-floating-label">
+              <span class="input-label">
+              subCategory{{selectedSubCategory}}
+              </span>
+              <select ng-model="object.$id" ng-options="obj.$id as obj.name for obj in selectedSubCategory track by object.id"></select>
             </label>
 
             <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
@@ -83,7 +81,6 @@
             <div ng-show="signupForm.available.$invalid && !signupForm.available.$pristine">
               <p ng-message="required" class="help-block errorcolor">Please enter available product is available?</p>
             </div>
-
 
             <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.description.$invalid && !signupForm.description.$pristine }">
               <span   class="input-label lblname">Description</span>
@@ -108,9 +105,7 @@
             <div ng-show="signupForm.stock.$invalid && !signupForm.stock.$pristine" ng-messages="signupForm.stock.$error">
               <p ng-message="required" class="help-block errorcolor">Please enter product Stocks.</p>
             </div>
-
           </ion-list>
-
 
           <div  class="spacer space"></div>
           <button ng-click="modal.show()" class=" button button-assertive  button-block btnradius" >Add Product Specification</button>
@@ -121,6 +116,33 @@
     <div ng-if="showsCategory === true">
     <form name="signupForm" class="list " id="signup-form2">
         <ion-list class=" " id="signup-list3">
+          <div ng-if="progress>0" ng-hide="progress>=100">
+            <progress class="positive" max="100" value="{{ progress }}"> </progress>
+            <div id="progressbarlabel">{{ progress }} %</div>
+          </div>
+          <div class="row" style="flex-wrap: wrap;">
+
+            <div class="col col-25" ng-repeat="image in imgset1">
+                <img ng-src="{{ image }}" class="imgStyle">
+                <label ng-click="deleteupdateImage(data.$id)">
+                  <a class="button button-icon icon ion-android-cancel" style="margin: -50px 0px 0px 3px;color: #48b3e2;"></a>
+                </label>
+            </div>
+            <div class="buttons col col-25" ng-show="image.length < 0">
+              <button class="fileUpload button-positive activated  ion-plus btnRadious roundBtn">
+                  <input type="file" file-model="uploadFile" class="upload">
+              </button>
+            </div>
+          </div>
+          <div class="row" ng-show="!image || image.length === 0">
+            <div class="col"></div>
+            <div class="buttons">
+              <button class="fileUpload button-positive activated  ion-plus btnRadious roundBtn">
+                  <input type="file" file-model="uploadFile" class="upload">
+              </button>
+            </div>
+            <div class="col"></div>
+          </div>
           <label class="item item-input item-floating-label">
             <span class="input-label lblname">Category Name</span>
             <input  ng-model="categoryName" type="text" placeholder="Category Name">
@@ -129,7 +151,55 @@
 
         </ion-list>
         <div class="spacer space"></div>
-        <button ng-click="addCategory(categoryName)" class=" button button-assertive  button-block btnradius"  id="signup-button3">Add Category</button>
+        <button ng-click="addCategory(categoryName);getselectval()" class=" button button-assertive  button-block btnradius"  id="signup-button3">Add Category</button>
+    </form>
+    </div>
+
+    <div ng-if="showSubCategory === true">
+    <form name="signupForm" class="list " id="signup-form5">
+        <ion-list class=" " id="signup-list3">
+          <div ng-if="progress>0" ng-hide="progress>=100">
+            <progress class="positive" max="100" value="{{ progress }}"> </progress>
+            <div id="progressbarlabel">{{ progress }} %</div>
+          </div>
+          <div class="row" style="flex-wrap: wrap;">
+
+            <div class="col col-25" ng-repeat="image in imgset2">
+                <img ng-src="{{ image }}" class="imgStyle">
+                <label ng-click="deleteupdateImage(data.$id)">
+                  <a class="button button-icon icon ion-android-cancel" style="margin: -50px 0px 0px 3px;color: #48b3e2;"></a>
+                </label>
+            </div>
+            <div class="buttons col col-25" ng-show="image.length < 0">
+              <button class="fileUpload button-positive activated  ion-plus btnRadious roundBtn">
+                  <input type="file" file-model="uploadFile" class="upload">
+              </button>
+            </div>
+          </div>
+          <div class="row" ng-show="!image || image.length === 0">
+            <div class="col"></div>
+            <div class="buttons">
+              <button class="fileUpload button-positive activated  ion-plus btnRadious roundBtn">
+                  <input type="file" file-model="uploadFile" class="upload">
+              </button>
+            </div>
+            <div class="col"></div>
+          </div>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">
+            Category{{category}}
+            </span>
+            <select ng-model="object.$id" ng-options="obj.$id as obj.name for obj in category"></select>
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label lblname">sub-Category Name</span>
+            <input  ng-model="subcategoryName" type="text" placeholder="SubCategory Name">
+          </label>
+
+
+        </ion-list>
+        <div class="spacer space"></div>
+        <button ng-click="addSubCategory(object.$id,subcategoryName)" class=" button button-assertive  button-block btnradius"  id="signup-button4">Add SubCategory</button>
     </form>
     </div>
 
@@ -170,18 +240,13 @@
   </script>
 <!-- Add New Product End  -->
 <!-- Upldate product start -->
-<form class="list " id="signup-form2" ng-if="!!productId" name="Updateproduct">
-  <div ng-if="progress>0" ng-hide="progress>=100">
-    <progress class="positive" max="100" value="{{ progress }}"> </progress>
-    <div id="progressbarlabel">{{ progress }} %</div>
-  </div>
-	   <!-- <input id="mediaCapture" type="file" accept="image/*,capture=camera"> -->
-		<!-- <img ng-src="{{ updateproductdetails.image }}" width="10%" height="10%" ng-model="updateproductdetails.image"/> -->
-        <!-- <button class="hidden btn color-4 size-2 hover-7 fileUpload uploadBtnMargin mdl-button mdl-js-button" id="submitImage" style="background-color: rgba(0,0,0,.12);">
-            </button> -->
-            <!-- <input type="file" file-model="uploadFile" class="upload"> -->
-            <div class="row" style="flex-wrap: wrap;">
+      <form class="list " id="signup-form2" ng-if="!!productId" name="Updateproduct">
+          <div ng-if="progress>0" ng-hide="progress>=100">
+            <progress class="positive" max="100" value="{{ progress }}"> </progress>
+            <div id="progressbarlabel">{{ progress }} %</div>
+          </div>
 
+            <div class="row" style="flex-wrap: wrap;">
               <div class="col col-25" ng-repeat="data in updateproductdetails.images">
                   <img ng-src="{{ data }}" class="imgStyle" ng-model="image">
                   <label ng-click="deleteupdateImage(data.$id)">
@@ -204,9 +269,6 @@
               <div class="col"></div>
             </div>
 
-
-
-
   <!-- Update Page -->
     <ion-list class=" " id="signup-list3">
       <label class="item item-input item-floating-label"  ng-class="{ 'has_error' : Updateproduct.name.$invalid && !Updateproduct.name.$pristine }">
@@ -218,12 +280,6 @@
       </div>
 
       <label class="item item-input item-floating-label">
-        <!-- <button class="button button-positive" modal-select="" ng-model="someModel" options="selectables" modal-title="Select Category">
-    Select it
-    <div class="option">
-      {{option}}
-    </div>
-  </button> -->
         <span class="input-label">
         Select category{{category}}
         </span>
@@ -264,17 +320,15 @@
       <div ng-show="Updateproduct.stock.$invalid && !Updateproduct.stock.$pristine">
         <p ng-message="required" class="help-block errorcolor">Please enter product stocks.</p>
       </div>
-
     </ion-list>
 
-
     <div class="spacer space"></div>
-	<div class="row">
-    <button ng-click="modal1.show()" class=" button button-assertive  button-block col col-45 updateproductbtn">Update Product Specification</button>
+  	<div class="row">
+      <button ng-click="modal1.show()" class=" button button-assertive  button-block col col-45 updateproductbtn">Update Product Specification</button>
 
-	<button ng-click="modal.show()" class=" button button-assertive  button-block col col-45 addproductbtn">Add Product Specification</button>
+  	   <button ng-click="modal.show()" class=" button button-assertive  button-block col col-45 addproductbtn">Add Product Specification</button>
 
-	</div>
+  	</div>
 	<button ng-click="updateItem(updateproductdetails);" class=" button button-assertive  button-block btnradius"  id="signup-button3">Update Menu Item</button>
 </form>
 
@@ -319,7 +373,5 @@
       </ion-modal-view>
     </script>
 <!-- Update product end -->
-
     </ion-content>
-
 </ion-view>
