@@ -83,7 +83,7 @@ angular.module('app')
   $scope.loadMenu = function() {
     // debugger
     sharedUtils.showLoading();
-    $scope.menu=$firebaseArray(fireBaseData.refProduct());
+    $scope.menu=$firebaseArray(fireBaseData.refCategory());
     sharedUtils.hideLoading();
   };
 

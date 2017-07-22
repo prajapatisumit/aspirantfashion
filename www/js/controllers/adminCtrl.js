@@ -278,7 +278,7 @@ $scope.validate = function(item,downloadURL) {
           //console.log("$scope.globalcategory "+ $scope.globalcategory);
             var menuObj = {
                 name : item.name,
-                brandname : item.brandname,
+                brand : item.brand,
                 available : item.available,
                 category : item.category,
                 subcategory : item.subCategory,
