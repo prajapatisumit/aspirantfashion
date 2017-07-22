@@ -73,6 +73,11 @@ angular.module('app')
         console.log("$scope.category : " + angular.toJson($scope.category , ' '));
       };
 
+      $scope.loadBrand = function() {
+        $scope.brand = $firebaseArray(fireBaseData.refBrand());
+        console.log("$scope.brand : " + angular.toJson($scope.brand , ' '));
+      };
+
       // $scope.showProdDescDiv = function() {
       //     $scope.showMenu = false;
       //     $scope.showsCategory = false;
@@ -167,6 +172,7 @@ $scope.validate = function(item,downloadURL) {
         };
         $scope.loadCategory();
         $scope.loadSubCategory();
+
         $scope.getSubCategory = function (categoryid) {
           $scope.selectedSubCategory = [];
           $scope.categoryid = categoryid;

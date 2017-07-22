@@ -1,5 +1,5 @@
 <ion-view  class=" " id="favourite" title="Admin ">
-    <ion-content class="has-header" padding="true" ng-init="loadCategory()">
+    <ion-content class="has-header" padding="true" ng-init="loadCategory();loadBrand()">
       <ion-scroll direction="x" class="wide-as-needed">
       <div class="row textCenter">
 
@@ -55,26 +55,26 @@
               <div ng-show="signupForm.name.$invalid && !signupForm.name.$pristine">
                 <p ng-message="required" class="help-block errorcolor">Please enter product Name.</p>
               </div>
-              <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.brandname.$invalid && !signupForm.brandname.$pristine }">
-                <span class="input-label lblname">Brand Name</span>
-                <input  ng-model="item.brandname" type="text" placeholder="Brand Name" name="brandname" required>
-              </label>
-                <div ng-show="signupForm.brandname.$invalid && !signupForm.brandname.$pristine">
-                  <p ng-message="required" class="help-block errorcolor">Please enter Brand Name.</p>
-                </div>
 
             <label class="item item-input item-floating-label">
               <span class="input-label">
               Select category{{category}}
               </span>
-              <select ng-model="object.$id" ng-options="obj.$id as obj.name for obj in category track by object.id" ng-change="getSubCategory(object.$id)"></select>
+              <select ng-model="object.$id" ng-options="obj.$id as obj.name for obj in category" ng-change="getSubCategory(object.$id)"></select>
             </label>
 
             <label class="item item-input item-floating-label">
               <span class="input-label">
               subCategory{{selectedSubCategory}}
               </span>
-              <select ng-model="object.$id" ng-options="obj.$id as obj.name for obj in selectedSubCategory track by object.id"></select>
+              <select ng-model="object.$id" ng-options="obj.$id as obj.name for obj in selectedSubCategory"></select>
+            </label>
+
+            <label class="item item-input item-floating-label">
+              <span class="input-label">
+              Select Brand{{brand}}
+              </span>
+              <select ng-model="object.name" ng-options="obj.name as obj.name for obj in brand "></select>
             </label>
 
             <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
