@@ -1,8 +1,8 @@
 <ion-view style="" class=" " id="menu2" title="Product">
-    <ion-content class="has-header" padding="false"  ng-init="loadMenu();loadCategory()">
+    <ion-content class="has-header" padding="false"  ng-init="loadProduct();loadCategory()">
       <ion-scroll direction="x" class="wide-as-needed">
-      <div class="row textCenter">
-          <span class="col bordercate" ng-repeat="cat in category" selected="true" ng-click="filterProduct(cat.$id)">{{ cat.name }}</span>&nbsp;
+      <div class="row textCenter categorytop">
+          <span class="col bordercate" ng-repeat="cat in category" selected="true" ng-click="filterProduct(cat.$id)">{{ cat.name }}</span>
       </div>
       </ion-scroll>
       <div class="row searchsetting">
@@ -25,7 +25,7 @@
 			<div class="col col-50 homepageboderright" ng-if="$index < menu.length">
 
 				  <div class="item item-image homepageimg">
-					<img class="imageset homepageimgsize" ng-click="showProductInfo(menu[$index].$id);filterProduct()" ng-src="{{ menu[$index].image }}"/>
+					<img class="productimageset homepageimgsize" ng-click="showProductInfo(menu[$index].$id);filterProduct()" ng-src="{{ menu[$index].image }}"/>
 				  </div>
 
 				  <a class="item item-icon-right assertive homepageitem" href="javascript:void(0)">
@@ -43,7 +43,7 @@
 			<div class="col col-50 homepagesecndcol" ng-if="$index+1  < menu.length" ng-click="goDetailsPage()">
 
 				  <div class="item item-image homepageimg">
-					<img class="imageset homepageimgsize" ng-click="showProductInfo(menu[$index+1].$id);filterProduct()" ng-src="{{ menu[$index+1].image }}" width="200px" height="200px" ng-click="goDetailsPage()"/>
+					<img class="productimageset homepageimgsize" ng-click="showProductInfo(menu[$index+1].$id);filterProduct()" ng-src="{{ menu[$index+1].image }}" width="200px" height="200px" ng-click="goDetailsPage()"/>
 				  </div>
 
 				  <a class="item item-icon-right assertive homepageitem" href="javascript:void(0)">

@@ -42,8 +42,8 @@
 
 			<div class="col col-50" ng-if="$index < menu.length">
 
-				  <div class="item item-image homepageimg">
-					<img class="imageset homepageimgsize" ng-click="showProductInfo(menu[$index].$id);filterProduct()" ng-src="{{ menu[$index].image }}" ng-click="goDetailsPage()"/>
+				  <div class="item item-image homepageimg" ng-click="goproductPage(item.$id)">
+					<img class="imageset homepageimgsize" ng-src="{{ menu[$index].image }}"/>
           <p class="textoverimg" style="color:white; font-size: large;">{{menu[$index].name}}</p>
           <i class="icon icon ion-edit item-icon-right assertive editiocnset" ng-click="goAdminPage(menu[$index].$id)" ng-if="user.isAdmin === true"></i>
 				  </div>
@@ -60,10 +60,10 @@
 			</div>
 
 
-			<div class="col col-50 " ng-if="$index+1  < menu.length" ng-click="goDetailsPage()">
+			<div class="col col-50 " ng-if="$index+1  < menu.length" ng-click="goproductPage(item.$id)">
 
-				  <div class="item item-image homepageimg">
-					<img class="imageset homepageimgsize" ng-click="showProductInfo(menu[$index+1].$id);filterProduct()" ng-src="{{ menu[$index+1].image }}"  ng-click="goDetailsPage()"/>
+				  <div class="item item-image homepageimg" >
+					<img class="imageset homepageimgsize"  ng-src="{{ menu[$index+1].image }}"/>
             <p class="textoverimg" style="color:white; font-size: large;">{{menu[$index+1].name}}</p>
             <i style="font-size: 25px;" class="icon icon ion-edit item-icon-right assertive editiocnset" ng-click="goAdminPage(menu[$index+1].$id)" ng-if="user.isAdmin === true"></i>
 				  </div>

@@ -105,7 +105,10 @@ angular.module('app')
   $scope.goAdminPage = function(id){
     $state.go('admin' , {'product_id' : id});
   };
-
+  $scope.goproductPage = function (categoryId) {
+    console.log("categoryId : " + categoryId);
+    $state.go('product', { 'category_id': categoryId });
+  }
 ////for logout :
   $scope.logout=function(){
 

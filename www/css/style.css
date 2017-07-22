@@ -588,3 +588,12 @@ z-index: -999999;
   color: slategrey;
 }
 /**/
+.productimageset{
+  padding-top: 10px;
+    padding-left: 6px;
+    padding-right: 4px;
+    padding-bottom: 10px;
+}
+.categorytop{
+  margin-top: -2%;
+}
