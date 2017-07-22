@@ -1,12 +1,15 @@
 <ion-view  class=" " id="favourite" title="Admin ">
     <ion-content class="has-header" padding="true" ng-init="loadCategory()">
+      <ion-scroll direction="x" class="wide-as-needed">
       <div class="row textCenter">
 
           <div class="col bordercate" ng-click="showCategoryDiv()">Add Category</div>&nbsp;
           <div class="col bordercate" ng-click="showSubCategoryDiv()">Add SubCategory</div>&nbsp;
+          <div class="col bordercate" ng-click="showBrandDiv()">Add Brand</div>&nbsp;
           <div class="col bordercate" ng-click="showMenuDiv()">Add Product</div>&nbsp;
 
       </div>
+    </ion-scroll>
       <div ng-if="showMenu === true">
       <form ng-hide="!!productId" id="image-form" action="#">
         <h5 class="m-t-sm m-b-xs lblname">Upload an image</h5>
@@ -113,6 +116,7 @@
       </form>
       </div>
 
+    <!-- start category section -->
     <div ng-if="showsCategory === true">
     <form name="signupForm" class="list " id="signup-form2">
         <ion-list class=" " id="signup-list3">
@@ -121,7 +125,6 @@
             <div id="progressbarlabel">{{ progress }} %</div>
           </div>
           <div class="row" style="flex-wrap: wrap;">
-
             <div class="col col-25" ng-repeat="image in imgset1">
                 <img ng-src="{{ image }}" class="imgStyle">
                 <label ng-click="deleteupdateImage(data.$id)">
@@ -147,14 +150,15 @@
             <span class="input-label lblname">Category Name</span>
             <input  ng-model="categoryName" type="text" placeholder="Category Name">
           </label>
-
-
         </ion-list>
         <div class="spacer space"></div>
         <button ng-click="addCategory(categoryName);getselectval()" class=" button button-assertive  button-block btnradius"  id="signup-button3">Add Category</button>
     </form>
     </div>
+    <!-- finished category section -->
 
+
+    <!-- start subCategory section -->
     <div ng-if="showSubCategory === true">
     <form name="signupForm" class="list " id="signup-form5">
         <ion-list class=" " id="signup-list3">
@@ -195,14 +199,57 @@
             <span class="input-label lblname">sub-Category Name</span>
             <input  ng-model="subcategoryName" type="text" placeholder="SubCategory Name">
           </label>
-
-
         </ion-list>
         <div class="spacer space"></div>
         <button ng-click="addSubCategory(object.$id,subcategoryName)" class=" button button-assertive  button-block btnradius"  id="signup-button4">Add SubCategory</button>
     </form>
     </div>
+    <!-- finished subcategory section -->
 
+    <!-- start brand section -->
+    <div ng-if="showBrand === true">
+    <form name="signupForm" class="list " id="signup-form5">
+        <ion-list class=" " id="signup-list3">
+          <div ng-if="progress>0" ng-hide="progress>=100">
+            <progress class="positive" max="100" value="{{ progress }}"> </progress>
+            <div id="progressbarlabel">{{ progress }} %</div>
+          </div>
+          <div class="row" style="flex-wrap: wrap;">
+
+            <div class="col col-25" ng-repeat="image in imgset3">
+                <img ng-src="{{ image }}" class="imgStyle">
+                <label ng-click="deleteupdateImage(data.$id)">
+                  <a class="button button-icon icon ion-android-cancel" style="margin: -50px 0px 0px 3px;color: #48b3e2;"></a>
+                </label>
+            </div>
+            <div class="buttons col col-25" ng-show="image.length < 0">
+              <button class="fileUpload button-positive activated  ion-plus btnRadious roundBtn">
+                  <input type="file" file-model="uploadFile" class="upload">
+              </button>
+            </div>
+          </div>
+          <div class="row" ng-show="!image || image.length === 0">
+            <div class="col"></div>
+            <div class="buttons">
+              <button class="fileUpload button-positive activated  ion-plus btnRadious roundBtn">
+                  <input type="file" file-model="uploadFile" class="upload">
+              </button>
+            </div>
+            <div class="col"></div>
+          </div>
+
+          <label class="item item-input item-floating-label">
+            <span class="input-label lblname">Brand Name</span>
+            <input  ng-model="brandName" type="text" placeholder="Breand Name">
+          </label>
+
+
+        </ion-list>
+        <div class="spacer space"></div>
+        <button ng-click="addBrand(brandName)" class=" button button-assertive  button-block btnradius"  id="signup-button5">Add Brand</button>
+    </form>
+    </div>
+    <!-- finished brand section -->
 
     <script id="templates/admin.html" type="text/ng-template">
     <ion-modal-view>

@@ -35,12 +35,14 @@ angular.module('app')
       ///for show and hide div :
         $scope.showsCategory = false;
         $scope.showSubCategory = false;
+        $scope.showBrand = false;
         $scope.showMenu = true;
         $scope.showProductDescription = false;
 
       $scope.showCategoryDiv = function() {
           $scope.showsCategory = true;
           $scope.showSubCategory = false;
+          $scope.showBrand = false;
           $scope.showMenu = false;
           $scope.showProductDescription = false;
       };
@@ -48,12 +50,21 @@ angular.module('app')
           $scope.showMenu = true;
           $scope.showsCategory = false;
           $scope.showSubCategory = false;
+          $scope.showBrand = false;
           $scope.showProductDescription = false;
       };
       $scope.showSubCategoryDiv = function () {
         $scope.showMenu = false;
         $scope.showsCategory = false;
         $scope.showSubCategory = true;
+        $scope.showBrand = false;
+        $scope.showProductDescription = false;
+      };
+      $scope.showBrandDiv = function () {
+        $scope.showMenu = false;
+        $scope.showsCategory = false;
+        $scope.showSubCategory = false;
+        $scope.showBrand = true;
         $scope.showProductDescription = false;
       };
       ///for category show:
@@ -131,6 +142,25 @@ $scope.validate = function(item,downloadURL) {
            firebase.database().ref().child('subcategory/' + $scope.globalproductID + '/images' ).set($scope.imgset2);
           }
         };
+
+        $scope.addBrand = function (brandName) {
+            var brandObj = {
+                name : brandName,
+                image : $scope.downloadURL
+            }
+
+          var BrandRef = firebase.database().ref().child('brand').push(brandObj).key;
+          console.log("brandObj : " + angular.toJson(brandObj , ' '));
+          $scope.globalproductID = BrandRef;
+          console.log("$scope.globalcategory "+ $scope.globalproductID);
+          if (!!$scope.globalproductID) {
+            var imgObj = {
+              image : $scope.downloadURL
+            };
+           firebase.database().ref().child('brand/' + $scope.globalproductID + '/images' ).set($scope.imgset3);
+          }
+        };
+
         $scope.loadSubCategory = function () {
           $scope.subCategory = $firebaseArray(fireBaseData.refSubCategory());
           console.log("$scope.subCategory : " + angular.toJson($scope.subCategory , ' '));
@@ -157,6 +187,7 @@ $scope.validate = function(item,downloadURL) {
     $scope.imgset = [];
     $scope.imgset1 = [];
     $scope.imgset2 = [];
+    $scope.imgset3 = [];
     $scope.uploadFile = function(event) {
 
       //  var quality: 5;
@@ -192,11 +223,13 @@ $scope.validate = function(item,downloadURL) {
           $scope.downloadURL = uploadTask.snapshot.downloadURL;
           $scope.downloadUrlOne = uploadTask.snapshot.downloadURL;
           $scope.downloadUrlTwo = uploadTask.snapshot.downloadURL;
+          $scope.downloadUrlThree = uploadTask.snapshot.downloadURL;
 
           $scope.updateproductdetails.image = $scope.downloadURL;
           console.log("downloadURL : " + $scope.downloadURL);
           console.log("downloadURL1 : " + $scope.downloadUrlOne);
           console.log("downloadURL2 : " + $scope.downloadUrlTwo);
+          console.log("downloadURL3 : " + $scope.downloadUrlThree);
           $scope.progress = 100;
           if($scope.showMenu === true){
           $scope.imgset.push($scope.downloadURL);
@@ -205,6 +238,8 @@ $scope.validate = function(item,downloadURL) {
               $scope.imgset1.push($scope.downloadUrlOne);
           }else if ($scope.showSubCategory === true) {
               $scope.imgset2.push($scope.downloadUrlTwo);
+          }else if($scope.showBrand === true){
+              $scope.imgset3.push($scope.downloadUrlThree);
           }
           // var inProgressData = {};
           $scope.determinateValue = 0;
