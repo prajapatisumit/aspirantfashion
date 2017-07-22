@@ -16,27 +16,11 @@ angular.module('app')
       ionic.Platform.ready(function(){
         init();
       });
-  ////for login with email : 
-    $scope.loginEmail = function(formName,cred) {
-      if(formName.$valid) {  // Check if the form data is valid or not
-          sharedUtils.showLoading();
-          firebase.auth().signInWithEmailAndPassword(cred.email,cred.password).then(function(result) {
-                console.log("result : " + angular.toJson(result , ' '));
-                sharedUtils.hideLoading();
-                $state.go('home');
-            },
-            function(error) {
-              sharedUtils.hideLoading();
-              sharedUtils.showAlert("Please note","Authentication Error");
-            });
 
-      }else{
-        sharedUtils.showAlert("Please note","Entered data is not valid");
-      }
-    };
 
       // console.log("result of login : " + result);
       firebase.auth().onAuthStateChanged(function(user) {
+      // console.log("user check login or not : " + angular.toJson(user , ' '));
       if (user) {
         var userObj = {
             displayName: user.displayName,
@@ -62,6 +46,82 @@ angular.module('app')
     $scope.gotomenupage = function () {
       $state.go('home');
     };
+  ////for login with email :
+    $scope.loginEmail = function(formName,cred) {
+      if(formName.$valid) {  // Check if the form data is valid or not
+          sharedUtils.showLoading();
+          firebase.auth().signInWithEmailAndPassword(cred.email,cred.password).then(function(result) {
+                // console.log("result : " + angular.toJson(result , ' '));
+                var user = result;
+                var usersRef = firebase.database().ref('users/' + result.uid);
+                    console.log("usersRef: " + usersRef);
+                  var userData = $firebaseArray(usersRef);
+                   // console.log("usersRef: " + usersRef);
+                var userData = $firebaseArray(usersRef);
+                userData.$loaded().then(function(response) {
+                  $scope.data = response;
+                  console.log("$scope.data : " + angular.toJson($scope.data , ' '));
+                if ($scope.data.length > 0) {
+                          var userDataById = $firebaseObject(usersRef);
+                          userDataById.$loaded().then(function(resp) {
+                            $scope.userObj = resp;
+                            var obj = {
+                                uid : $scope.userObj.uid,
+                                displayName : $scope.userObj.displayName,
+                                email : $scope.userObj.email,
+                                photoURL : $scope.userObj.photoURL,
+                                isAdmin : $scope.userObj.isAdmin
+
+                            }
+                            $rootScope.userLog = obj;
+                            // console.log("$rootScope.user when user alredy signin with email..: " + angular.toJson($rootScope.userLog , ' '));
+                            SessionService.setUser(obj);
+                            $scope.sessionUser = SessionService.getUser();
+                            // console.log("$scope.sessionUser when already user signup : " + angular.toJson($scope.sessionUser , ' '));
+                            console.log("user is alreay signp with email");
+                          });
+                  sharedUtils.hideLoading();
+                  $state.go('home', {}, {location: "replace"});
+                }else {
+                  var userObj = {
+                      uid : user.uid,
+                      displayName : user.displayName,
+                      email : user.email,
+                      photoURL : user.photoURL,
+                      isAdmin : false
+
+                  }
+                $rootScope.userLog = userObj;
+                // console.log("$rootScope.userLog when new facebook user login : " + angular.toJson($rootScope.userLog , ' ') );
+                var ref = firebase.database().ref('users/' + user.uid);
+                ref.set(userObj).then(function(snapshot) {
+                  console.log('user set successfully...');
+                });
+                  SessionService.setUser(userObj);
+                  $scope.sessionUser = SessionService.getUser();
+                  $state.go('home', {}, {location: "replace"});
+                  sharedUtils.hideLoading();
+                }
+
+                })
+                .catch(function(error) {
+                  sharedUtils.hideLoading();
+                  console.log("Error at facebook login :", error);
+                });
+
+            },
+            function(error) {
+              sharedUtils.hideLoading();
+              sharedUtils.showAlert("Please note","Authentication Error");
+            });
+
+      }else{
+        sharedUtils.hideLoading();
+        sharedUtils.showAlert("Please note","Entered data is not valid");
+
+      }
+    };
+
 
     ////for facebook login:
   var facebookProvider = new firebase.auth.FacebookAuthProvider();
@@ -117,12 +177,10 @@ angular.module('app')
                 ref.set(userObj).then(function(snapshot) {
                   console.log('user set successfully...');
                 });
-                // var menuRef = firebase.database().ref().child('users').push(userObj).key;
                   SessionService.setUser(userObj);
                   $scope.sessionUser = SessionService.getUser();
                   $state.go('home', {}, {location: "replace"});
-                  // sharedUtils.hideLoading();
-                  // console.log("$scope.sessionUser : " + angular.toJson($scope.sessionUser , ' '));
+
                 }
 
                 })

@@ -15,12 +15,20 @@ angular.module('app')
             //Add name and default dp to the Autherisation table
             result.updateProfile({
               displayName: cred.name,
+              telephone: cred.phone,
+              email : cred.email,
+              isAdmin : false,
               photoURL: "default_dp"
             }).then(function() {}, function(error) {});
 
             //Add phone number to the user table
             fireBaseData.refUser().child(result.uid).set({
-              telephone: cred.phone
+              telephone: cred.phone,
+              displayName: cred.name,
+              uid : result.uid,
+              photoURL : 'default_dp',
+              email : cred.email,
+              isAdmin : false
             });
 
             //Registered OK
