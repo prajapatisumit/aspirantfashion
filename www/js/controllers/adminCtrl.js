@@ -96,7 +96,9 @@ $scope.validate = function(item,downloadURL) {
         return false;
       }else if (CommonService.validateEmpty(item.name, 'Oops!', 'Please enter product name') === false) {
         return false;
-      } else if (CommonService.validateEmpty(item.category, 'Oops!', 'Please enter product category') === false) {
+      } else if (CommonService.validateEmpty(item.categoryId, 'Oops!', 'Please enter product category') === false) {
+        return false;
+      }else if (CommonService.validateEmpty(item.subCatID, 'Oops!', 'Please enter product subcategory') === false) {
         return false;
       } else if (CommonService.validateEmpty(item.available, 'Oops!', 'Please describe your product is available?(yes or no)') === false) {
         return false;
@@ -270,18 +272,19 @@ $scope.validate = function(item,downloadURL) {
     };
 
         $scope.addItem = function (item) {
+      console.log("item : " + angular.toJson(item , ' '));
         if ($scope.validate(item) === false) {
               return;
             }
           //console.log("item .category : " + item.category);
-          $scope.globalcategory = item.category;
-          //console.log("$scope.globalcategory "+ $scope.globalcategory);
+          $scope.globalcategory = item.categoryId;
+          // console.log("$scope.globalcategory "+ $scope.globalcategory);
             var menuObj = {
                 name : item.name,
-                brand : item.brand,
+                brand : item.brandName,
                 available : item.available,
-                category : item.category,
-                subcategory : item.subCategory,
+                category : item.categoryId,
+                subcategory : item.subCatID,
                 description : item.description,
                 image : $scope.downloadURL,
                 price : item.price,
