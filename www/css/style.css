@@ -450,6 +450,23 @@ p.homepageprodname{
   font-size: 25px;
     right: 0px;
 }
+/*for category page : */
+.catImgStyle{
+  min-width: 74px;
+  min-height: 74px;
+  border-radius: 0px !important;
+}
+
+.paraStyle{
+  padding-left: 10px;
+  white-space:normal !important;
+}
+.headerStyle{
+  padding-left: 10px;
+  font-weight: 600;
+  color: slategrey;
+}
+/**/
 .cartimg{
   width:100%;
   height:auto;

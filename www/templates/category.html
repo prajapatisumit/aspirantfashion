@@ -1,0 +1,12 @@
+<ion-view style="" class=" " id="Category" title="Category">
+  <ion-content class="has-header" padding="true">
+
+    <div class="list card" ng-repeat="item in category">
+          <div class="item item-avatar" ng-click="goproductPage(item.$id)">
+            <img src="{{item.image}}" class="catImgStyle">
+            <h2 class="headerStyle">{{item.name}}</h2>
+            <p class="paraStyle">I have a fixed width div on my page that contains text. When I enter a long string of letters it overflows.</p>
+          </div>
+    </div>
+  </ion-content>
+</ion-view>

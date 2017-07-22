@@ -1,0 +1,61 @@
+<ion-view style="" class=" " id="menu2" title="Product">
+    <ion-content class="has-header" padding="false"  ng-init="loadMenu();loadCategory()">
+      <ion-scroll direction="x" class="wide-as-needed">
+      <div class="row textCenter">
+          <span class="col bordercate" ng-repeat="cat in category" selected="true" ng-click="filterProduct(cat.$id)">{{ cat.name }}</span>&nbsp;
+      </div>
+      </ion-scroll>
+      <div class="row searchsetting">
+        <label class="item item-input boder">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="text" placeholder="Search for Product"/>
+          <span ng-repeat="item in menu | filter:item">{{ cat.name }}</span>
+            <!-- <i class="icon ion-close-circled seticon" ng-click=""></i> -->
+        </label>
+  </div>
+  <div></div>
+      <div class="row textCenter">
+          <div class="col bordercate" ng-click="goAdminPage()" ng-if="user.isAdmin === true">Admin</div>
+      </div>
+  <div></div>
+
+		<div class="row homepagebodertop" ng-repeat="item in menu" ng-if="$index % 2 === 0">
+
+
+			<div class="col col-50 homepageboderright" ng-if="$index < menu.length">
+
+				  <div class="item item-image homepageimg">
+					<img class="imageset homepageimgsize" ng-click="showProductInfo(menu[$index].$id);filterProduct()" ng-src="{{ menu[$index].image }}"/>
+				  </div>
+
+				  <a class="item item-icon-right assertive homepageitem" href="javascript:void(0)">
+					<p class="homepageprodname" ng-click="showProductInfo(menu[$index].$id)">
+            {{menu[$index].name}} <br/>
+						<span class="homepageprice">&#8377; {{menu[$index].price}}</span>
+					</p>
+					<i style="font-size: 25px; margin-right:0px;right:0px;"  ng-click="addToCart(menu[$index])" class="icon ion-ios-cart" ng-hide="user.isAdmin === true"></i>
+          <i style="font-size: 25px;right:0px;" class="icon icon ion-edit" ng-click="goAdminPage(menu[$index].$id)" ng-if="user.isAdmin === true"></i>
+				  </a>
+
+			</div>
+
+
+			<div class="col col-50 homepagesecndcol" ng-if="$index+1  < menu.length" ng-click="goDetailsPage()">
+
+				  <div class="item item-image homepageimg">
+					<img class="imageset homepageimgsize" ng-click="showProductInfo(menu[$index+1].$id);filterProduct()" ng-src="{{ menu[$index+1].image }}" width="200px" height="200px" ng-click="goDetailsPage()"/>
+				  </div>
+
+				  <a class="item item-icon-right assertive homepageitem" href="javascript:void(0)">
+					<p class="homepageprodname" ng-click="showProductInfo(menu[$index+1].$id)">
+            {{menu[$index+1].name}} <br/>
+						<span class="homepageprice">&#8377; {{menu[$index+1].price}}</span>
+					</p>
+					<i style="font-size: 25px;right: 0px;"  ng-click="addToCart(menu[$index+1])" class="icon ion-ios-cart" ng-hide="user.isAdmin === true"></i>
+            <i style="font-size: 25px;right:0px;" class="icon icon ion-edit" ng-click="goAdminPage(menu[$index+1].$id)" ng-if="user.isAdmin === true"></i>
+				  </a>
+			</div>
+		</div>
+
+	</ion-content>
+</ion-view>

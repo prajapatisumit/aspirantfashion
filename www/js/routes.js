@@ -48,6 +48,18 @@ angular.module('app.routes', [])
       controller: 'homeCtrl'
     })
 
+  .state('category', {
+    url: '/category',
+    templateUrl: 'templates/category.html',
+    controller: 'categoryCtrl'
+  })
+
+  .state('product', {
+    url: '/product?:category_id:categoryId',
+    templateUrl: 'templates/product.html',
+    controller: 'productCtrl'
+  })
+
   .state('offers', {
     url: '/offers',
     templateUrl: 'templates/offers.html',
