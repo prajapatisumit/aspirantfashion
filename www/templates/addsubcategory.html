@@ -1,0 +1,49 @@
+<ion-view  class=" " id="favourite" title="Add SubCategory">
+    <ion-content class="has-header" padding="true" ng-init="loadCategory();loadBrand()">
+<div>
+<form name="signupForm" class="list " id="signup-form5">
+    <ion-list class=" " id="signup-list3">
+      <div ng-if="progress>0" ng-hide="progress>=100">
+        <progress class="positive" max="100" value="{{ progress }}"> </progress>
+        <div id="progressbarlabel">{{ progress }} %</div>
+      </div>
+      <div class="row" style="flex-wrap: wrap;">
+
+        <div class="col col-25" ng-repeat="image in imgset2">
+            <img ng-src="{{ image }}" class="imgStyle">
+            <label ng-click="deleteupdateImage(data.$id)">
+              <a class="button button-icon icon ion-android-cancel" style="margin: -50px 0px 0px 3px;color: #48b3e2;"></a>
+            </label>
+        </div>
+        <div class="buttons col col-25" ng-show="image.length < 0">
+          <button class="fileUpload button-positive activated  ion-plus btnRadious roundBtn">
+              <input type="file" file-model="uploadFile" class="upload">
+          </button>
+        </div>
+      </div>
+      <div class="row" ng-show="!image || image.length === 0">
+        <div class="col"></div>
+        <div class="buttons">
+          <button class="fileUpload button-positive activated  ion-plus btnRadious roundBtn">
+              <input type="file" file-model="uploadFile" class="upload">
+          </button>
+        </div>
+        <div class="col"></div>
+      </div>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">
+        Category{{category}}
+        </span>
+        <select ng-model="object.$id" ng-options="obj.$id as obj.name for obj in category"></select>
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label lblname">sub-Category Name</span>
+        <input  ng-model="subcategoryName" type="text" placeholder="SubCategory Name">
+      </label>
+    </ion-list>
+    <div class="spacer space"></div>
+    <button ng-click="addSubCategory(object.$id,subcategoryName)" class=" button button-assertive  button-block btnradius"  id="signup-button4">Add SubCategory</button>
+</form>
+</div>
+</ion-content>
+</ion-view>
