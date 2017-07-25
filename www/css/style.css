@@ -306,6 +306,26 @@ margin-top:10px;
    margin-top: 13px;
 
 }
+.bordercateadmin{
+  border: 2px solid #ccc;
+   /*padding: 4px 13px 2px 16px;*/
+   padding: 38px 11px 36px 10px;
+   border-radius: 25px;
+   margin-top: 13px;
+   /*border-color: red;*/
+   background-color: white;
+}
+
+.bordercateadmin1{
+  border: 2px solid #ccc;
+   padding: 38px 11px 36px 10px;
+   border-radius: 25px;
+   margin-top: 13px;
+    /*border-color: red;*/
+
+}
+
+
 span:active{
   background-color: #e42112;
   color: white;
@@ -323,6 +343,7 @@ span:active{
 .searchsetting{
   height: 35px;
    padding:3px 1px 1px 3px;
+   margin-bottom: 12px;
 }
 .boder{
   border-radius: 25px;
@@ -412,11 +433,11 @@ margin-top: -6px;
    height:290px;
 }
 .homepagebodertop{
-  border-top: 1px solid #999;
+    border-top: 1px solid rgba(0, 0, 0, 0.11);
 }
 .homepageboderright{
   padding:1px;
-  border-right:1px solid #999;
+  border-right:1px solid rgba(0, 0, 0, 0.11);
 }
 .homepageimg{
   border-width: 0px;

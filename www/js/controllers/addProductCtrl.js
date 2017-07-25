@@ -2,6 +2,48 @@ angular.module('app')
 .controller('addProductCtrl', function($scope,$rootScope,sharedUtils,$ionicSideMenuDelegate,$interval,
                                      $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService) {
 
+
+              $ionicModal.fromTemplateUrl('templates/addproduct.html', {
+                      scope: $scope
+                }).then(function(modal) {
+                     $scope.modal = modal;
+              });
+
+              $scope.inputs = [];
+              $scope.inputs.push({'attribute': '', 'value' : ''});
+              $scope.addfield = function(){
+                $scope.inputs.push({})
+              };
+              $scope.addspcification = function(){
+        			console.log("$stateParams.product_id ----" + $stateParams.product_id);
+        			console.log(" $scope.globalproductID   ----" +  $scope.globalproductID );
+                $scope.data = [];
+                for (var i = 0; i < $scope.inputs.length; i++) {
+                    $scope.name = $scope.inputs[i].attribute;
+                    $scope.atribute = $scope.inputs[i].value;
+                    var obj = {
+                      name : $scope.name,
+                      value: $scope.atribute
+                    };
+                console.log(" $obj.obj "+ angular.toJson(obj,' '));
+
+      		  if(!!$stateParams.product_id){
+      			var refProduct = firebase.database().ref().child('product/' + $stateParams.product_id + '/product_specification' ).push(obj).key;
+      		  }
+
+      		  if(!!$scope.globalproductID){
+                  var refProduct = firebase.database().ref().child('product/' + $scope.globalproductID + '/product_specification' ).push(obj).key;
+      		  }
+
+                  console.log("refProduct : " + refProduct);
+                      // var refProduct = firebase.database().ref().push(obj).key;
+                  //$scope.datas = $scope.inputs[i];
+                  // var Obj = $scope.data.push($scope.inputs[i])
+                }
+                console.log(" $scope.datas "+ angular.toJson($scope.data,' '));
+                //console.log(" $scope.datas "+ angular.toJson($scope.lol,' '));
+                // var refProduct = firebase.database().ref().child('product/ID/Product Specification').push(Obj).key;
+              };
     $rootScope.extras=true;
     $scope.loadCategory = function() {
       $scope.category = $firebaseArray(fireBaseData.refCategory());
@@ -145,6 +187,10 @@ console.log("item : " + angular.toJson(item , ' '));
           available : item.available,
           category : item.categoryId,
           subcategory : item.subCatID,
+          weight : item.Weight,
+          barcode:item.barCode,
+          manufacturer:item.manufacturer,
+          actualprice:item.actualPrice,
           description : item.description,
           image : $scope.downloadURL,
           price : item.price,

@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('homeCtrl', function($scope,$rootScope,$ionicSideMenuDelegate,fireBaseData,$state,
+.controller('homeCtrl', function($scope,$rootScope,$ionicSideMenuDelegate,fireBaseData,$state,$cordovaDevice,$firebaseObject,
                                   $ionicHistory,$firebaseArray,sharedCartService,sharedUtils,SessionService,$stateParams,$window,$ionicHistory) {
     if (!!$rootScope.userLog) {
       $scope.user = $rootScope.userLog;
@@ -135,4 +135,11 @@ angular.module('app')
     });
 
   }
+  // var refProduct = firebase.database().ref('product/' + $scope.selectedId +'/images');
+  //     // new Firebase("https://shopping-42daf.firebaseio.com/product/" + $scope.selectedId +"/product_specification");
+  //     var userData = $firebaseArray(refProduct);
+  //     userData.$loaded().then(function(response) {
+  //       $scope.productimages = response;
+  //       console.log("Response data for fetch data from image........... ",angular.toJson($scope.productimages,' '));
+  //     });
 });

@@ -1,0 +1,20 @@
+<ion-view  class=" " id="favourite" title="Admin ">
+    <ion-content class="has-header" padding="true" ng-init="loadCategory();loadBrand()">
+
+      <div class="row textCenter">
+          <button class="col col-50 bordercateadmin " ng-click="goaddcategorypage()">Add Category</button>&nbsp;
+          <button class="col col-50 bordercateadmin " ng-click="gosubcategorypage()">Add SubCategory</button>&nbsp;
+
+      </div>
+
+      <div class="row textCenter">
+        <span class="col col-50 bordercateadmin1" ng-click="goaddbrandpage()">Add Brand</span>&nbsp;
+        <span class="col col-50 bordercateadmin1" ng-click="goaddproductpage()">Add Product</span>&nbsp;
+      </div>
+
+      <div class="row textCenter">
+        <span class="col col-50 bordercateadmin1" ng-click="goshippingratepage()">Shipping Rate</span>&nbsp;
+        <!-- <span class="col col-50 bordercateadmin1" ng-click="goaddproductpage()">Add Product</span>&nbsp; -->
+      </div>
+    </ion-content>
+  </ion-view>

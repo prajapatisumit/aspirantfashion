@@ -9,6 +9,7 @@ angular.module('app')
     refFeatured = firebase.database().ref('featured'),
     refProduct = firebase.database().ref('product');
 		refBrand = firebase.database().ref('brand');
+		refShipping = firebase.database().ref('shipping rate');
 
   return {
     ref: function() {
@@ -36,6 +37,9 @@ angular.module('app')
     },
     refProduct: function() {
       return refProduct;
+    },
+		refShipping: function() {
+      return refShipping;
     }
 
   }

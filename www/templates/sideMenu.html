@@ -1,12 +1,14 @@
-<ion-side-menus  ng-controller="homeCtrl" data-componentid="side-menu21" style="" enable-menu-with-back-views="false">
+<ion-side-menus  ng-controller="loginCtrl" data-componentid="side-menu21" style="" enable-menu-with-back-views="false">
     <ion-side-menu-content  >
         <ion-nav-bar class="bar-assertive">
 
-            <ion-nav-back-button></ion-nav-back-button>
 
+              <ion-nav-back-button class="button-clear">
+                <i class="icon ion-arrow-left-c"></i>
+              </ion-nav-back-button>
 
             <ion-nav-buttons side="left">
-                <!-- #3.  $root.extras -->
+
                 <button ng-if="$root.extras" ng-click="goBack()" class="button button-icon button-clear ion-navicon" menu-toggle="left">
                 </button>
 
@@ -40,6 +42,8 @@
 
                 <ion-item data-componentid="list-item1" ng-hide="user.isGuest === true || userLog.isGuest === true" style="" menu-close="" ui-sref="home" id="menu-list-item1" class="item-icon-left">
                     <i class="icon ion-ios-home-outline"></i>Home</ion-item>
+                    <ion-item data-componentid="list-item1" ng-hide="user.isGuest === false || userLog.isGuest === false" style="" menu-close="" ui-sref="adminadd" id="menu-list-item7" class="item-icon-left">
+                        <i class="icon ion-ios-person-outline"></i>Admin</ion-item>
                 <ion-item data-componentid="list-item2" ng-hide="user.isGuest === true || userLog.isGuest === true" style="" menu-close="" ui-sref="category" id="menu-list-item2" class="item-icon-left">
                     <i class="icon ion-grid"></i>Category</ion-item>
                 <ion-item data-componentid="list-item2" ng-hide="user.isGuest === true || userLog.isGuest === true" style="" menu-close="" ui-sref="offers" id="menu-list-item2" class="item-icon-left">

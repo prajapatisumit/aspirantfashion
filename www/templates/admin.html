@@ -1,123 +1,21 @@
 <ion-view  class=" " id="favourite" title="Admin ">
     <ion-content class="has-header" padding="true" ng-init="loadCategory();loadBrand()">
-      <ion-scroll direction="x" class="wide-as-needed">
+
+      <!-- <div class="row textCenter">
+          <button class="col col-50 bordercateadmin " ng-click="goaddcategorypage()">Add Category</button>&nbsp;
+          <button class="col col-50 bordercateadmin " ng-click="gosubcategorypage()">Add SubCategory</button>&nbsp;
+
+      </div>
+
       <div class="row textCenter">
-
-          <div class="col bordercate" ng-click="showCategoryDiv()">Add Category</div>&nbsp;
-          <div class="col bordercate" ng-click="showSubCategoryDiv()">Add SubCategory</div>&nbsp;
-          <div class="col bordercate" ng-click="showBrandDiv()">Add Brand</div>&nbsp;
-          <div class="col bordercate" ng-click="showMenuDiv()">Add Product</div>&nbsp;
-
-      </div>
-    </ion-scroll>
-      <div ng-if="showMenu === true">
-      <form ng-hide="!!productId" id="image-form" action="#">
-        <h5 class="m-t-sm m-b-xs lblname">Upload an image</h5>
-        <div ng-if="progress>0" ng-hide="progress>=100">
-          <progress class="positive" max="100" value="{{ progress }}"> </progress>
-          <div id="progressbarlabel">{{ progress }} %</div>
-        </div>
-        <div class="row" style="flex-wrap: wrap;">
-          <div class="col col-25" ng-repeat="image in imgset">
-              <img ng-src="{{ image }}" class="imgStyle">
-
-              <label ng-click="deleteImage(image.$id)">
-                <a class="button button-icon icon ion-android-cancel" style="margin: -50px 0px 0px 3px;color: #48b3e2;"></a>
-              </label>
-          </div>
-
-          <div class="buttons col col-25" ng-show="image.length < 0">
-            <button class="fileUpload button-positive activated  ion-plus btnRadious roundBtn">
-                <input type="file" file-model="uploadFile" class="upload">
-            </button>
-          </div>
-        </div>
-        <div class="row" ng-show="!image || image.length === 0">
-          <div class="col"></div>
-          <div class="buttons">
-            <button class="fileUpload button-positive activated  ion-plus btnRadious roundBtn">
-                <input type="file" file-model="uploadFile" class="upload">
-            </button>
-          </div>
-          <div class="col"></div>
-        </div>
-      </form>
+        <span class="col col-50 bordercateadmin1" ng-click="goaddbrandpage()">Add Brand</span>&nbsp;
+        <span class="col col-50 bordercateadmin1" ng-click="goaddproductpage()">Add Product</span>&nbsp;
+      </div> -->
 
 
-      <!-- Add new Product Start-->
-      <form ng-hide="!!productId" name="signupForm" class="list " id="signup-form2">
-        <!-- Sign up -->
-          <ion-list class=" " id="signup-list3">
-            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.name.$invalid && !signupForm.name.$pristine }">
-              <span class="input-label lblname">Name</span>
-              <input  ng-model="object.name" type="text" placeholder="Name" name="name" required>
-            </label>
-              <div ng-show="signupForm.name.$invalid && !signupForm.name.$pristine">
-                <p ng-message="required" class="help-block errorcolor">Please enter product Name.</p>
-              </div>
-
-            <label class="item item-input item-floating-label">
-              <span class="input-label">
-              Select category{{category}}
-              </span>
-              <select ng-model="object.categoryId" ng-options="obj.$id as obj.name for obj in category" ng-change="getSubCategory(object.categoryId)"></select>
-            </label>
-
-            <label class="item item-input item-floating-label">
-              <span class="input-label">
-              subCategory{{selectedSubCategory}}
-              </span>
-              <select ng-model="object.subCatID" ng-options="obj.$id as obj.name for obj in selectedSubCategory"></select>
-            </label>
-
-            <label class="item item-input item-floating-label">
-              <span class="input-label">
-              Select Brand{{brand}}
-              </span>
-              <select ng-model="object.brandName" ng-options="obj.name as obj.name for obj in brand "></select>
-            </label>
-
-            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
-              <span   class="input-label lblname">Available</span>
-              <input  ng-model="object.available" type="text" placeholder="Available" name="available" required>
-            </label>
-            <div ng-show="signupForm.available.$invalid && !signupForm.available.$pristine">
-              <p ng-message="required" class="help-block errorcolor">Please enter available product is available?</p>
-            </div>
-
-            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.description.$invalid && !signupForm.description.$pristine }">
-              <span   class="input-label lblname">Description</span>
-              <input  ng-model="object.description" type="text" placeholder="Description" name="description" required>
-            </label>
-            <div ng-show="signupForm.description.$invalid && !signupForm.description.$pristine" ng-messages="signupForm.description.$error">
-              <p ng-message="required" class="help-block errorcolor">Please enter product description.</p>
-            </div>
-
-            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.price.$invalid && !signupForm.price.$pristine }">
-              <span  class="input-label lblname">Price</span>
-              <input ng-model="object.price" type="number" placeholder="Price" name="price" required>
-            </label>
-            <div ng-show="signupForm.price.$invalid && !signupForm.price.$pristine" ng-messages="signupForm.price.$error">
-              <p ng-message="required" class="help-block errorcolor">Please enter product price.</p>
-            </div>
-
-            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.stock.$invalid && !signupForm.stock.$pristine }">
-                <span class="input-label lblname">Stock</span>
-                <input  ng-model="object.stock" type="number" placeholder="Stock" name="stock" required>
-            </label>
-            <div ng-show="signupForm.stock.$invalid && !signupForm.stock.$pristine" ng-messages="signupForm.stock.$error">
-              <p ng-message="required" class="help-block errorcolor">Please enter product Stocks.</p>
-            </div>
-          </ion-list>
-
-          <div  class="spacer space"></div>
-          <button ng-click="modal.show()" class=" button button-assertive  button-block btnradius" >Add Product Specification</button>
-          <button ng-click="addItem(object)"  type="submit" class=" button button-assertive  button-block btnradius"  id="signup-button3" >Add Menu Item</button>
-      </form>
-      </div>
 
     <!-- start category section -->
-    <div ng-if="showsCategory === true">
+    <!-- <div ng-if="showsCategory === true">
     <form name="signupForm" class="list " id="signup-form2">
         <ion-list class=" " id="signup-list3">
           <div ng-if="progress>0" ng-hide="progress>=100">
@@ -154,12 +52,12 @@
         <div class="spacer space"></div>
         <button ng-click="addCategory(categoryName);getselectval()" class=" button button-assertive  button-block btnradius"  id="signup-button3">Add Category</button>
     </form>
-    </div>
+    </div> -->
     <!-- finished category section -->
 
 
     <!-- start subCategory section -->
-    <div ng-if="showSubCategory === true">
+    <!-- <div ng-if="showSubCategory === true">
     <form name="signupForm" class="list " id="signup-form5">
         <ion-list class=" " id="signup-list3">
           <div ng-if="progress>0" ng-hide="progress>=100">
@@ -203,11 +101,11 @@
         <div class="spacer space"></div>
         <button ng-click="addSubCategory(object.$id,subcategoryName)" class=" button button-assertive  button-block btnradius"  id="signup-button4">Add SubCategory</button>
     </form>
-    </div>
+    </div> -->
     <!-- finished subcategory section -->
 
     <!-- start brand section -->
-    <div ng-if="showBrand === true">
+    <!-- <div ng-if="showBrand === true">
     <form name="signupForm" class="list " id="signup-form5">
         <ion-list class=" " id="signup-list3">
           <div ng-if="progress>0" ng-hide="progress>=100">
@@ -248,7 +146,7 @@
         <div class="spacer space"></div>
         <button ng-click="addBrand(brandName)" class=" button button-assertive  button-block btnradius"  id="signup-button5">Add Brand</button>
     </form>
-    </div>
+    </div> -->
     <!-- finished brand section -->
 
     <script id="templates/admin.html" type="text/ng-template">

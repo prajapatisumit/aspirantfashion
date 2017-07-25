@@ -206,6 +206,35 @@ angular.module('app')
             });
 
   };
+  $scope.logout=function(){
+
+    sharedUtils.showLoading();
+
+    // Main Firebase logout
+    firebase.auth().signOut().then(function() {
+
+
+      $ionicSideMenuDelegate.toggleLeft(); //To close the side bar
+      $ionicSideMenuDelegate.canDragContent(false);  // To remove the sidemenu white space
+      SessionService.setUser(null);
+      $ionicHistory.nextViewOptions({
+        historyRoot: true
+      });
+
+
+      $rootScope.extras = false;
+      sharedUtils.hideLoading();
+      $state.go('tabsController.login', {}, {location: "replace"});
+
+    }, function(error) {
+       sharedUtils.showAlert("Error","Logout Failed")
+    });
+
+  };
+
+  $scope.showProductInfo=function (id) {
+        $state.go('details',{'category_id' : id });
+  };
 
   ///for custom user :
   $scope.guestUser = function () {
