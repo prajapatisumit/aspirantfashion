@@ -1,0 +1,26 @@
+<ion-view  class=" " id="favourite" title="Add Size">
+    <ion-content class="has-header" padding="true" ng-init="loadCategory();loadBrand()">
+<div>
+<form name="signupForm" class="list " id="signup-form5">
+    <ion-list class=" " id="signup-list13">
+
+      <div class="row" style="flex-wrap: wrap;">
+
+      <label class="item item-input item-floating-label">
+        <span class="input-label lblname">Shipping Rate(In Guajarat)</span>
+        <input  ng-model="shippingInguj" type="number" placeholder="Shipping Rate(In Guajarat)">
+      </label>
+
+      <label class="item item-input item-floating-label">
+        <span class="input-label lblname">Shipping Rate(Out of Guajarat)</span>
+        <input  ng-model="shippingOutguj" type="number" placeholder="Shipping Rate(Out of Guajarat)">
+      </label>
+
+
+    </ion-list>
+    <div class="spacer space"></div>
+    <button ng-click="addshippingrate(shippingInguj,shippingOutguj)" class=" button button-assertive  button-block btnradius"  id="signup-button5">Submit Shipping Rate</button>
+</form>
+</div>
+</ion-content>
+</ion-view>
