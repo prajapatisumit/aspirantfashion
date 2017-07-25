@@ -618,3 +618,12 @@ z-index: -999999;
 .categorytop{
   margin-top: -2%;
 }
+.bar .title{
+  margin-top: 0px;
+  margin-right: 4px;
+  margin-bottom: 0px;
+  margin-left: 4px;
+}
+.bar .buttons span {
+    display: -webkit-box
+}
