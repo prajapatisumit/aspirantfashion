@@ -1,6 +1,13 @@
 angular.module('app')
 .controller('signupCtrl', function($scope,$rootScope,sharedUtils,$ionicSideMenuDelegate,
                                    $state,fireBaseData,$ionicHistory) {
+                                     $scope.$on('$ionicView.enter', function(ev) {
+                                       if(ev.targetScope !== $scope){
+                                         $ionicHistory.clearHistory();
+                                         $ionicHistory.clearCache();
+                                       }
+
+                                     });
     $rootScope.extras = false; // For hiding the side bar and nav icon
 
     $scope.signupEmail = function (formName, cred) {

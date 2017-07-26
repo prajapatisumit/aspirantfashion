@@ -10,7 +10,9 @@ angular.module('app')
   $scope.loadCategory = function() {
     $scope.category=$firebaseArray(fireBaseData.refCategory());
   };
-
+  // $scope.goAdminPage = function(id){
+  //   $state.go('admin' , {'product_id' : id});
+  // };
   $scope.loadProduct = function () {
     $scope.menu=$firebaseArray(fireBaseData.refProduct());
   };

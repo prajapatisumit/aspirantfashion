@@ -1,6 +1,12 @@
 angular.module('app')
 .controller('categoryCtrl', function($scope,$rootScope,fireBaseData,$firebaseArray,$state) {
+  $scope.$on('$ionicView.enter', function(ev) {
+    if(ev.targetScope !== $scope){
+      $ionicHistory.clearHistory();
+      $ionicHistory.clearCache();
+    }
 
+  });
     $rootScope.extras=true;
 
     $scope.loadCategory = function() {

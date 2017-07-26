@@ -153,6 +153,12 @@ angular.module('app.routes', [])
               controller: 'shippingRateCtrl'
               })
 
+              .state('addsize', {
+                url: '/addsize',
+                templateUrl: 'templates/addsize.html',
+                controller: 'addSizeCtrl'
+                })
+
   .state('details', {
           url: '/details?:category_id',
           templateUrl: 'templates/details.html',

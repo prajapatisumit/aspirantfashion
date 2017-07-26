@@ -2,6 +2,13 @@ angular.module('app')
 .controller('detailsCtrl', function($scope,$state,$rootScope,$stateParams, $firebaseObject, $firebaseArray,SessionService,sharedCartService) {
 
     // $rootScope.extras=true;
+    $scope.$on('$ionicView.enter', function(ev) {
+      if(ev.targetScope !== $scope){
+        $ionicHistory.clearHistory();
+        $ionicHistory.clearCache();
+      }
+
+    });
     $scope.user = SessionService.getUser();
       console.log("  $scope.user" + angular.toJson(  $scope.user ,' '));
     $scope.selectedId = $stateParams.category_id;

@@ -2,6 +2,13 @@ angular.module('app')
 .controller('addProductCtrl', function($scope,$rootScope,sharedUtils,$ionicSideMenuDelegate,$interval,
                                      $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService) {
 
+                                       $scope.$on('$ionicView.enter', function(ev) {
+                                         if(ev.targetScope !== $scope){
+                                           $ionicHistory.clearHistory();
+                                           $ionicHistory.clearCache();
+                                         }
+
+                                       });
 
               $ionicModal.fromTemplateUrl('templates/addproduct.html', {
                       scope: $scope
@@ -178,7 +185,7 @@ console.log("item : " + angular.toJson(item , ' '));
   if ($scope.validate(item) === false) {
         return;
       }
-    //console.log("item .category : " + item.category);
+    console.log("item : " + angular.toJson(item,' '));
     $scope.globalcategory = item.categoryId;
     // console.log("$scope.globalcategory "+ $scope.globalcategory);
       var menuObj = {
@@ -196,7 +203,7 @@ console.log("item : " + angular.toJson(item , ' '));
           price : item.price,
           stock : item.stock
       }
-    //console.log("menuObj : " + angular.toJson(menuObj , ' '));
+    console.log("menuObj : " + angular.toJson(menuObj , ' '));
     var menuRef = firebase.database().ref().child('product').push(menuObj).key;
     $scope.globalproductID = menuRef;
     console.log("$scope.globalcategory "+ $scope.globalproductID);

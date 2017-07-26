@@ -1,6 +1,13 @@
 angular.module('app')
 .controller('lastOrdersCtrl', function($scope,$rootScope,fireBaseData,sharedUtils) {
 
+  $scope.$on('$ionicView.enter', function(ev) {
+    if(ev.targetScope !== $scope){
+      $ionicHistory.clearHistory();
+      $ionicHistory.clearCache();
+    }
+
+  });
     $rootScope.extras = true;
     sharedUtils.showLoading();
 

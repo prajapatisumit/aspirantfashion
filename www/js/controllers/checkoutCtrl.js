@@ -1,7 +1,13 @@
 angular.module('app')
 .controller('checkoutCtrl', function($scope,$rootScope,sharedUtils,$state,$firebaseArray,
                                      $ionicHistory,fireBaseData, $ionicPopup,sharedCartService,SessionService) {
+                                       $scope.$on('$ionicView.enter', function(ev) {
+                                         if(ev.targetScope !== $scope){
+                                           $ionicHistory.clearHistory();
+                                           $ionicHistory.clearCache();
+                                         }
 
+                                       });
     $rootScope.extras=true;
     var sessionUser = SessionService.getUser();
     //Check if user already logged in

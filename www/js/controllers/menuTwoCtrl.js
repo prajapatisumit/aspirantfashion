@@ -1,7 +1,13 @@
 angular.module('app')
 .controller('menuTwoCtrl', function($scope,$rootScope,$ionicSideMenuDelegate,fireBaseData,$state,
                                   $ionicHistory,$firebaseArray,sharedCartService,sharedUtils,SessionService,$stateParams,$window) {
+                                    $scope.$on('$ionicView.enter', function(ev) {
+                                      if(ev.targetScope !== $scope){
+                                        $ionicHistory.clearHistory();
+                                        $ionicHistory.clearCache();
+                                      }
 
+                                    });
   $scope.user = $rootScope.userLog;
     console.log("$scope.user " + angular.toJson($scope.user ,' '));
   //Check if user already logged in

@@ -1,6 +1,13 @@
 angular.module('app')
     .controller('adminCtrl', function($scope,$rootScope,sharedUtils,$ionicSideMenuDelegate,$interval,
                                          $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService ) {
+                                           $scope.$on('$ionicView.enter', function(ev) {
+                                             if(ev.targetScope !== $scope){
+                                               $ionicHistory.clearHistory();
+                                               $ionicHistory.clearCache();
+                                             }
+
+                                           });
 
                 $ionicModal.fromTemplateUrl('templates/admin.html', {
                     scope: $scope
@@ -392,8 +399,14 @@ $scope.validate = function(item,downloadURL) {
 			console.log("menuObj test breofre : " + angular.toJson(updateproductdetails.image , ' '));
             var menuObj = {
                 name : updateproductdetails.name,
+                brand : updateproductdetails.brand,
                 available : updateproductdetails.available,
                 category : updateproductdetails.category,
+                subcategory : updateproductdetails.subcategory,
+                weight : updateproductdetails.weight,
+                barcode:updateproductdetails.barcode,
+                manufacturer:updateproductdetails.manufacturer,
+                actualprice:updateproductdetails.actualprice,
                 description : updateproductdetails.description,
                 image : updateproductdetails.image,
                 price : updateproductdetails.price,
@@ -404,7 +417,7 @@ $scope.validate = function(item,downloadURL) {
 
           var menuRef = firebase.database().ref().child('product/'+$scope.productId).update(menuObj);
 
-			//console.log("response test: " + angular.toJson(menuRef , ' '));
+			console.log("response test: " + angular.toJson(menuRef , ' '));
 
 		}
     // $scope.deleteupdateImage = function(id) {

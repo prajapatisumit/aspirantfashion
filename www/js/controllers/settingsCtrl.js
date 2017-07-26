@@ -2,6 +2,13 @@ angular.module('app')
 .controller('settingsCtrl', function($scope,$rootScope,fireBaseData,$firebaseObject,
                                      $ionicPopup,$state,$window,$firebaseArray,
                                      sharedUtils) {
+                                       $scope.$on('$ionicView.enter', function(ev) {
+                                         if(ev.targetScope !== $scope){
+                                           $ionicHistory.clearHistory();
+                                           $ionicHistory.clearCache();
+                                         }
+
+                                       });
     //Bugs are most prevailing here
     $rootScope.extras=true;
 

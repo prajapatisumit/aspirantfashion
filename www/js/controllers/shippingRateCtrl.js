@@ -2,6 +2,14 @@ angular.module('app')
 .controller('shippingRateCtrl', function($scope,$rootScope,sharedUtils,$ionicSideMenuDelegate,$interval,
                                      $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService) {
 
+                                       $scope.$on('$ionicView.enter', function(ev) {
+                                         if(ev.targetScope !== $scope){
+                                           $ionicHistory.clearHistory();
+                                           $ionicHistory.clearCache();
+                                         }
+
+                                       });
+                                       
     $rootScope.extras=true;
 
     $scope.addshippingrate = function (shippingInguj,shippingOutguj) {

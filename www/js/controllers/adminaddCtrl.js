@@ -2,6 +2,12 @@ angular.module('app')
 .controller('adminaddCtrl', function($scope,$rootScope,sharedUtils,$ionicSideMenuDelegate,$interval,
                                      $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService) {
 
+                                       $scope.$on('$ionicView.enter', function(ev) {
+                                         if(ev.targetScope !== $scope){
+                                           $ionicHistory.clearHistory();
+                                           $ionicHistory.clearCache();
+                                         }
+                                       });
     $rootScope.extras=true;
     $scope.goaddcategorypage = function () {
       // console.log("categoryId : " + categoryId);
@@ -22,6 +28,10 @@ angular.module('app')
     $scope.goshippingratepage = function () {
       // console.log("categoryId : " + categoryId);
       $state.go('shippingrate');
+    };
+    $scope.gosizepage = function () {
+      // console.log("categoryId : " + categoryId);
+      $state.go('addsize');
     };
 
 })

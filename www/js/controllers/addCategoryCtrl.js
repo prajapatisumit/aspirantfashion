@@ -4,6 +4,14 @@ angular.module('app')
 
     $rootScope.extras=true;
 
+    $scope.$on('$ionicView.enter', function(ev) {
+      if(ev.targetScope !== $scope){
+        $ionicHistory.clearHistory();
+        $ionicHistory.clearCache();
+      }
+
+    });
+
   // $scope.userData = SessionService.getUser();
   $scope.addCategory = function (categoryName) {
       var catObj = {

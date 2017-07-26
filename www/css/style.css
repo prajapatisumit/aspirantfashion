@@ -625,5 +625,10 @@ z-index: -999999;
   margin-left: 4px;
 }
 .bar .buttons span {
-    display: -webkit-box
+    display: -webkit-box;
+    
+}
+.button .icon {
+    vertical-align: middle;
+    pointer-events: none;
 }

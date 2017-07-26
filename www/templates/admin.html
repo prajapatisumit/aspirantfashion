@@ -228,10 +228,41 @@
         <span class="input-label">
         Select category{{category}}
         </span>
-        <select ng-model="updateproductdetails.category" ng-options="obj.name as obj.name for obj in category"></select>
-        <!-- <select  ng-model="category" ng-options="cat in category"></select> -->
-        <!-- <span style="color: #9F9F9F;"  class="input-label">Category</span>
-        <input  ng-model="item.category" type="text" placeholder="Category"> -->
+        <select ng-model="updateproductdetails.category" ng-options="obj.$id as obj.name for obj in category"></select>
+      </label>
+
+      <label class="item item-input item-floating-label">
+        <span class="input-label">
+        subCategory{{subcategory}}
+        </span>
+        <select ng-model="updateproductdetails.subcategory" ng-options="obj.$id as obj.name for obj in subcategory"></select>
+      </label>
+
+      <label class="item item-input item-floating-label">
+        <span class="input-label">
+        Select Brand{{brand}}
+        </span>
+        <select ng-model="updateproductdetails.brand" ng-options="obj.name as obj.name for obj in brand "></select>
+      </label>
+
+      <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
+        <span   class="input-label lblname">Weight(gms)</span>
+        <input  ng-model="updateproductdetails.weight" type="number" placeholder="Weight" name="weight" required>
+      </label>
+
+      <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
+        <span   class="input-label lblname">Barcode</span>
+        <input  ng-model="updateproductdetails.barcode" type="text" placeholder="Enter Barcode" name="barcode" required>
+      </label>
+
+      <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
+        <span   class="input-label lblname">Manufacturer</span>
+        <input  ng-model="updateproductdetails.manufacturer" type="text" placeholder="Enter Manufacturer" name="manufacturer" required>
+      </label>
+
+      <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
+        <span   class="input-label lblname">Actual Price</span>
+        <input  ng-model="updateproductdetails.actualprice" type="number" placeholder="Actual Price" name="actualprice" required>
       </label>
 
       <label class="item item-input item-floating-label" ng-class="{ 'has_error' : Updateproduct.available.$invalid && !Updateproduct.available.$pristine }">
