@@ -1,5 +1,5 @@
 <ion-view  class=" " id="favourite" title="Add Product">
-    <ion-content class="has-header" padding="true" ng-init="loadCategory();loadBrand()">
+    <ion-content class="has-header" padding="true" ng-init="loadCategory();loadBrand();loadSize()">
 <div>
       <form ng-hide="!!productId" id="image-form" action="#">
         <h5 class="m-t-sm m-b-xs lblname">Upload an image</h5>
@@ -32,11 +32,39 @@
           <div class="col"></div>
         </div>
       </form>
-      <script id="templates/addproduct.html" type="text/ng-template">
+      <!-- for size selection modal -->
+      <script id="templates/addproduct-2.html" type="text/ng-template">
+        <ion-modal-view>
+          <ion-header-bar class="bar bar-header bar-assertive">
+            <h1 class="title">Add Product Size</h1>
+            <i class="icon ion-close-circled seticon" ng-click="closeModal(1)"></i>
+            <!-- <button class="button button-clear button-primary" ng-click="modal.hide()">X</button> -->
+          </ion-header-bar>
+          <ion-content class="padding">
+
+
+       <ion-checkbox ng-repeat="item in size"
+                    ng-change="format()"
+                     ng-model="item[item.size].checked"
+                     ng-checked="item.checked">
+         {{ item.size }}
+       </ion-checkbox>
+
+        {{ size }}
+
+                <div class="spacer space"></div>
+                <button  ng-click="addSize(item)" class=" button button-assertive  button-block btnradius"  id="signup-button3">Save</button>
+            </form>
+          </ion-content>
+        </ion-modal-view>
+    </script>
+<!-- for size selection modal end-->
+
+      <script id="templates/addproduct-1.html" type="text/ng-template">
       <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-assertive">
           <h1 class="title">Add Product Specification</h1>
-          <i class="icon ion-close-circled seticon" ng-click="modal.hide()"></i>
+          <i class="icon ion-close-circled seticon" ng-click="closeModal(2)"></i>
           <!-- <button class="button button-clear button-primary" ng-click="modal.hide()">X</button> -->
         </ion-header-bar>
         <ion-content class="padding">
@@ -79,7 +107,7 @@
                 <p ng-message="required" class="help-block errorcolor">Please enter product Name.</p>
               </div>
 
-            <label class="item item-input item-floating-label">
+            <label class="item item-input  item-floating-label">
               <span class="input-label">
               Select category{{category}}
               </span>
@@ -99,6 +127,20 @@
               </span>
               <select ng-model="object.brandName" ng-options="obj.name as obj.name for obj in brand "></select>
             </label>
+
+            <label  class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
+              <span   class="input-label lblname" >size {{ item }} </span>
+              <input  ng-model="object.productSize" ng-click="openModal(1)" type="number"  placeholder="size" name="size" required>
+            </label>
+
+
+            <!-- <label class="item item-input item-floating-label">
+              <span class="input-label">
+              Select size {{ size }}
+              </span>
+              <select  multiple  ng-model="object.productSize" ng-options="obj.size as obj.size for obj in size "></select>
+            </label> -->
+
 
             <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
               <span   class="input-label lblname">Weight(gms)</span>
@@ -154,7 +196,7 @@
           </ion-list>
 
           <div  class="spacer space"></div>
-          <button ng-click="modal.show()" class=" button button-assertive  button-block btnradius" >Add Product Specification</button>
+          <button ng-click="openModal(2)" class=" button button-assertive  button-block btnradius" >Add Product Specification</button>
           <button ng-click="addItem(object)"  type="submit" class=" button button-assertive  button-block btnradius"  id="signup-button3" >Add Menu Item</button>
       </form>
       </div>

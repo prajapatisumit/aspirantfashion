@@ -16,6 +16,54 @@ angular.module('app')
                      $scope.modal = modal;
               });
 
+              $ionicModal.fromTemplateUrl('templates/addproduct.html', {
+                      scope: $scope
+                }).then(function(sizemodal) {
+                     $scope.sizemodal = sizemodal;
+              });
+              $ionicModal.fromTemplateUrl('templates/addproduct-2.html', {
+        id: '1', // We need to use and ID to identify the modal that is firing the event!
+        scope: $scope,
+        backdropClickToClose: false,
+        animation: 'slide-in-up'
+      }).then(function(sizemodal) {
+        $scope.oModal1 = sizemodal;
+      });
+
+      // Modal 2
+      $ionicModal.fromTemplateUrl('templates/addproduct-1.html', {
+        id: '2', // We need to use and ID to identify the modal that is firing the event!
+        scope: $scope,
+        backdropClickToClose: false,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+        $scope.oModal2 = modal;
+      });
+
+      $scope.openModal = function(index) {
+        if (index == 1) $scope.oModal1.show();
+        else $scope.oModal2.show();
+      };
+
+      $scope.closeModal = function(index) {
+        if (index == 1) $scope.oModal1.hide();
+        else $scope.oModal2.hide();
+      };
+
+      $scope.$on('modal.shown', function(event, modal) {
+            console.log('Modal ' + modal.id + ' is shown!');
+          });
+
+          $scope.$on('modal.hidden', function(event, modal) {
+            console.log('Modal ' + modal.id + ' is hidden!');
+          });
+
+          $scope.$on('$destroy', function() {
+      console.log('Destroying modals...');
+      $scope.oModal1.remove();
+      $scope.oModal2.remove();
+    });
+
               $scope.inputs = [];
               $scope.inputs.push({'attribute': '', 'value' : ''});
               $scope.addfield = function(){
@@ -61,6 +109,22 @@ angular.module('app')
       $scope.brand = $firebaseArray(fireBaseData.refBrand());
       console.log("$scope.brand : " + angular.toJson($scope.brand , ' '));
     };
+
+    $scope.loadSize = function() {
+      $scope.size = $firebaseArray(fireBaseData.refSize());
+      console.log("$scope.size : " + angular.toJson($scope.size , ' '));
+    };
+
+    $scope.item=[];
+    $scope.format=function(){
+      $scope.modifiedOrder=[];
+      angular.forEach($scope.item, function(value, key) {
+        if(value){
+          $scope.modifiedOrder.push(parseInt(key));
+        }
+    });
+  };
+
     $scope.validate = function(item,downloadURL) {
             console.log("item : " + angular.toJson(item , ' '));
           if (CommonService.validateEmpty(item, 'Oops!', 'Please enter value') === false) {
@@ -194,6 +258,7 @@ console.log("item : " + angular.toJson(item , ' '));
           available : item.available,
           category : item.categoryId,
           subcategory : item.subCatID,
+          size  : item.productSize,
           weight : item.Weight,
           barcode:item.barCode,
           manufacturer:item.manufacturer,
