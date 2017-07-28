@@ -1,5 +1,5 @@
 <ion-view  class=" " id="favourite" title="Add Product">
-    <ion-content class="has-header" padding="true" ng-init="loadCategory();loadBrand();loadSize()">
+    <ion-content class="has-header" padding="true" ng-init="loadCategory();loadBrand()">
 <div>
       <form ng-hide="!!productId" id="image-form" action="#">
         <h5 class="m-t-sm m-b-xs lblname">Upload an image</h5>
@@ -44,16 +44,14 @@
 
 
        <ion-checkbox ng-repeat="item in size"
-                    ng-change="format()"
-                     ng-model="item[item.size].checked"
+                     ng-model="checkItems[item.size]"
+                     ng-change="print()"
                      ng-checked="item.checked">
          {{ item.size }}
        </ion-checkbox>
 
-        {{ size }}
-
                 <div class="spacer space"></div>
-                <button  ng-click="addSize(item)" class=" button button-assertive  button-block btnradius"  id="signup-button3">Save</button>
+                <button  ng-click="save();closeModal(1)" class=" button button-assertive  button-block btnradius"  id="signup-button3">Save</button>
             </form>
           </ion-content>
         </ion-modal-view>
@@ -129,8 +127,8 @@
             </label>
 
             <label  class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
-              <span   class="input-label lblname" >size {{ item }} </span>
-              <input  ng-model="object.productSize" ng-click="openModal(1)" type="number"  placeholder="size" name="size" required>
+              <span   class="input-label lblname" >size  </span>
+              <input  ng-model="object.productSize" ng-click="openModal(1)" type="number"  placeholder="size" name="size" required>{{ size }}
             </label>
 
 

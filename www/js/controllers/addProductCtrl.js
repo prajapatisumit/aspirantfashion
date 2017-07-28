@@ -41,6 +41,7 @@ angular.module('app')
       });
 
       $scope.openModal = function(index) {
+        $scope.loadSize();
         if (index == 1) $scope.oModal1.show();
         else $scope.oModal2.show();
       };
@@ -115,15 +116,28 @@ angular.module('app')
       console.log("$scope.size : " + angular.toJson($scope.size , ' '));
     };
 
-    $scope.item=[];
-    $scope.format=function(){
-      $scope.modifiedOrder=[];
-      angular.forEach($scope.item, function(value, key) {
-        if(value){
-          $scope.modifiedOrder.push(parseInt(key));
+    $scope.checkItems = { };
+
+$scope.print = function() {
+    console.log("$scope.checkItems" + angular.toJson($scope.checkItems , ' '));
+};
+
+$scope.save = function() {
+
+     $scope.size = [];
+
+
+    for(i in $scope.checkItems) {
+
+        console.log('check : '+$scope.checkItems[i]);
+        if($scope.checkItems[i] == true) {
+            $scope.size.push(i);
         }
-    });
-  };
+    }
+console.log('final size : ' +  $scope.size);
+};
+
+
 
     $scope.validate = function(item,downloadURL) {
             console.log("item : " + angular.toJson(item , ' '));
@@ -222,10 +236,11 @@ angular.module('app')
       $scope.imgset.push($scope.downloadURL);
 
 
-      // var inProgressData = {};
+      var inProgressData = {};
       $scope.determinateValue = 0;
     });
   };
+
   $scope.progressval = 0;
   $scope.stopinterval = null;
 
