@@ -121,21 +121,20 @@ angular.module('app')
 $scope.print = function() {
     console.log("$scope.checkItems" + angular.toJson($scope.checkItems , ' '));
 };
-
+$scope.finalSize = [];
 $scope.save = function() {
-
-     $scope.size = [];
-
-
+    $scope.finalSize = [];
     for(i in $scope.checkItems) {
 
         console.log('check : '+$scope.checkItems[i]);
         if($scope.checkItems[i] == true) {
-            $scope.size.push(i);
+            $scope.finalSize.push(i);
         }
     }
-console.log('final size : ' +  $scope.size);
+console.log('final size : ' +  $scope.finalSize);
+
 };
+
 
 
 
@@ -273,7 +272,7 @@ console.log("item : " + angular.toJson(item , ' '));
           available : item.available,
           category : item.categoryId,
           subcategory : item.subCatID,
-          size  : item.productSize,
+          size  : item.prodSzie,
           weight : item.Weight,
           barcode:item.barCode,
           manufacturer:item.manufacturer,
