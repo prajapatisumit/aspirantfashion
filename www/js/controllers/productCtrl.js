@@ -15,7 +15,6 @@ angular.module('app')
                 .orderByChild('category')
                 .equalTo(category_id));
             $scope.menu.$loaded().then(function (data) {
-              debugger
                 allProducts = data;
             });
 
@@ -32,6 +31,10 @@ angular.module('app')
         });
 
         $scope.filterProduct = function (sub_category_data) {
+          if(sub_category_data === undefined || sub_category_data === null) {
+            return;
+          }
+
           if(sub_category_data.is_selected) {
               sub_category_data.is_selected = false;
           } else {
@@ -40,7 +43,6 @@ angular.module('app')
           var tempArray = [];
           var doFilter = false;
           for(var j=0; j<$scope.sub_category.length; j++) {
-              console.log('$scope.sub_category : ' + angular.toJson($scope.sub_category[j], ' '));
               if(!!$scope.sub_category[j].is_selected && $scope.sub_category[j].is_selected === true) {
                 doFilter = true;
                   for(var i=0; i< allProducts.length; i++) {
