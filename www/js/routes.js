@@ -42,11 +42,11 @@ angular.module('app.routes', [])
       controller: 'homeCtrl'
     })
 
-  .state('sideMenu', {
-      // url: '/sideMenu',
-      templateUrl: 'templates/sideMenu.html',
-      controller: 'homeCtrl'
-    })
+  // .state('sideMenu', {
+  //     // url: '/sideMenu',
+  //     templateUrl: 'templates/sideMenu.html',
+  //     controller: 'homeCtrl'
+  //   })
 
   .state('category', {
     url: '/category',

@@ -1,11 +1,13 @@
 angular.module('app')
 .controller('homeCtrl', function($scope,$rootScope,$ionicSideMenuDelegate,fireBaseData,$state,$cordovaDevice,$firebaseObject,
                                   $ionicHistory,$firebaseArray,sharedCartService,sharedUtils,SessionService,$stateParams,$window,$ionicHistory) {
+                                    debugger
     if (!!$rootScope.userLog) {
+
       $scope.user = $rootScope.userLog;
       // console.log("$scope.user at rootscope " + angular.toJson($scope.user ,' '));
     }else {
-      $scope.user = SessionService.getUser();
+      $rootScope.user = SessionService.getUser();
       // console.log("$scope.user at at session: " + angular.toJson($scope.user , ' '));
     }
 
@@ -81,13 +83,14 @@ angular.module('app')
 
   };
   $scope.loadMenu = function() {
-    // debugger
+    debugger
     sharedUtils.showLoading();
     $scope.menu=$firebaseArray(fireBaseData.refCategory());
     sharedUtils.hideLoading();
   };
 
   $scope.loadCategory = function() {
+    debugger
     // sharedUtils.showLoading();
     $scope.category=$firebaseArray(fireBaseData.refCategory());
     // sharedUtils.hideLoading();
