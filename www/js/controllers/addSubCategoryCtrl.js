@@ -9,7 +9,9 @@ angular.module('app')
 
                                        });
     $rootScope.extras=true;
-
+    $scope.backaddminaddpg = function(){
+      $state.go('adminadd');
+    };
     $scope.addSubCategory = function (categoryid,subcategoryName) {
       console.log("categoryid : " + categoryid);
         var subcatObj = {

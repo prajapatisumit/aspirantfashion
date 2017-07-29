@@ -16,6 +16,9 @@ angular.module('app')
             init();
         });
 
+        $scope.goAdminPage = function(id){
+          $state.go('admin' , {'product_id' : id});
+        };
 
         // console.log("result of login : " + result);
         firebase.auth().onAuthStateChanged(function(authData) {

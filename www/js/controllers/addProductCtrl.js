@@ -1,7 +1,9 @@
 angular.module('app')
 .controller('addProductCtrl', function($scope,$rootScope,sharedUtils,$ionicSideMenuDelegate,$interval,
                                      $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService) {
-
+                                       $scope.backaddminaddpg = function(){
+                                         $state.go('adminadd');
+                                       };
                                        $scope.$on('$ionicView.enter', function(ev) {
                                          if(ev.targetScope !== $scope){
                                            $ionicHistory.clearHistory();

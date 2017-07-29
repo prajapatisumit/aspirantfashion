@@ -21,4 +21,7 @@ angular.module('app')
                                          console.log("sizeObj : " + angular.toJson(sizeObj , ' '));
 
                                        };
+                                       $scope.backaddminaddpg = function(){
+                                         $state.go('adminadd');
+                                       };
 });

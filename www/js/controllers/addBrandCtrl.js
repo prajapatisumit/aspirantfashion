@@ -3,7 +3,9 @@ angular.module('app')
                                      $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService) {
 
     $rootScope.extras=true;
-
+    $scope.backaddminaddpg = function(){
+      $state.go('adminadd');
+    };
     $scope.$on('$ionicView.enter', function(ev) {
       if(ev.targetScope !== $scope){
         $ionicHistory.clearHistory();

@@ -9,9 +9,11 @@ angular.module('app')
                                          }
 
                                        });
-                                       
-    $rootScope.extras=true;
 
+    $rootScope.extras=true;
+    $scope.backaddminaddpg = function(){
+      $state.go('adminadd');
+    };
     $scope.addshippingrate = function (shippingInguj,shippingOutguj) {
         var shippingObj = {
             guajrat : shippingInguj,
