@@ -1,5 +1,5 @@
 <ion-view  class=" " id="favourite" title="Add Product">
-    <ion-content class="has-header" padding="true" ng-init="loadCategory();loadBrand()">
+    <ion-content class="has-header" padding="true" ng-init="loadCategory();loadBrand();loadSize()">
 <div>
       <form ng-hide="!!productId" id="image-form" action="#">
         <h5 class="m-t-sm m-b-xs lblname">Upload an image</h5>
@@ -38,21 +38,16 @@
           <ion-header-bar class="bar bar-header bar-assertive">
             <h1 class="title">Add Product Size</h1>
             <i class="icon ion-close-circled seticon" ng-click="closeModal(1)"></i>
-            <!-- <button class="button button-clear button-primary" ng-click="modal.hide()">X</button> -->
           </ion-header-bar>
           <ion-content class="padding">
-
-
-       <ion-checkbox ng-repeat="item in size"
-                     ng-model="checkItems[item.size]"
-                     ng-change="print()"
-                     ng-checked="item.checked">
-         {{ item.size }}
-       </ion-checkbox>
-
+               <ion-checkbox ng-repeat="item in size"
+                             ng-model="checkItems[item.size]"
+                             ng-change="print();getSize(sizeid)"
+                             ng-checked="checkItems[item.size]">
+                 {{ item.size }}
+               </ion-checkbox>
                 <div class="spacer space"></div>
                 <button  ng-click="save();closeModal(1)" class=" button button-assertive  button-block btnradius"  id="signup-button3">Save</button>
-            </form>
           </ion-content>
         </ion-modal-view>
     </script>
@@ -126,19 +121,12 @@
               <select ng-model="object.brandName" ng-options="obj.name as obj.name for obj in brand "></select>
             </label>
 
-            <label  class="item item-input item-floating-label" ng-click="openModal(1)" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
-              <span   class="lblname"  ng-model="object.prodSzie" name="size">size </span>
-
-              <!-- <input  ng-click="openModal(1)" ng-model="object.prodSzie" type="text"  placeholder="Size" name="productsize" required> -->
-                <div ng-repeat="item in finalSize" ng-model="object.prodSzie"> {{item}} </div>
+            <label  class="item  item-floating-label"  name="size"  ng-click="openModal(1)" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
+              <span class="lblname" >size </span>
+                <p  ng-repeat="item in finalSize">
+                    {{ item }}
+                </p>
             </label>
-
-            <!-- <label class="item item-input item-floating-label">
-              <span class="input-label">
-              Select size {{ size }}
-              </span>
-              <select  multiple  ng-model="object.productSize" ng-options="obj.size as obj.size for obj in size "></select>
-            </label> -->
 
             <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
               <span   class="input-label lblname">Weight(gms)</span>
@@ -147,7 +135,7 @@
 
             <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
               <span   class="input-label lblname">Barcode</span>
-              <input  ng-model="object.barCode" type="text" placeholder="Enter Barcode" name="barcode" required>
+              <input  ng-model="object.barCode" type="text" placeholder="Enter Barcode" name="barcode1" required>
             </label>
 
             <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">

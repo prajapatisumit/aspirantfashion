@@ -116,8 +116,7 @@ angular.module('app')
       console.log("$scope.size : " + angular.toJson($scope.size , ' '));
     };
 
-    $scope.checkItems = { };
-
+$scope.checkItems = { };
 $scope.print = function() {
     console.log("$scope.checkItems" + angular.toJson($scope.checkItems , ' '));
 };
@@ -132,7 +131,6 @@ $scope.save = function() {
         }
     }
 console.log('final size : ' +  $scope.finalSize);
-
 };
 
 
@@ -161,13 +159,14 @@ console.log('final size : ' +  $scope.finalSize);
           }
         };
 
-
     $scope.loadSubCategory = function () {
       $scope.subCategory = $firebaseArray(fireBaseData.refSubCategory());
       console.log("$scope.subCategory : " + angular.toJson($scope.subCategory , ' '));
     };
     $scope.loadCategory();
     $scope.loadSubCategory();
+    $scope.loadSize();
+
 
     $scope.getSubCategory = function (categoryid) {
       $scope.selectedSubCategory = [];
@@ -181,6 +180,20 @@ console.log('final size : ' +  $scope.finalSize);
         }
       }
       console.log("$scope.selectedSubCategory : " + angular.toJson($scope.selectedSubCategory , ' '));
+    };
+
+    $scope.getSize = function (sizeid) {
+      $scope.selectedSize = [];
+      $scope.sizeid = sizeid;
+      console.log("this function is calling.... : " +sizeid );
+      // $scope.subCategory = $firebaseArray(fireBaseData.refSubCategory());
+      // console.log("$scope.subCategory : " + angular.toJson($scope.subCategory , ' '));
+      for (var i = 0; i < $scope.checkItems.length; i++) {
+        if ($scope.checkItems[i].sizeid === $scope.sizeid) {
+          $scope.selectedSubCategory.push($scope.checkItems[i]);
+        }
+      }
+      console.log("$scope.selectedSize : " + angular.toJson($scope.selectedSize , ' '));
     };
 
   $scope.productId = $stateParams.product_id;
@@ -272,7 +285,7 @@ console.log("item : " + angular.toJson(item , ' '));
           available : item.available,
           category : item.categoryId,
           subcategory : item.subCatID,
-          size  : item.prodSzie,
+          size  : $scope.finalSize,
           weight : item.Weight,
           barcode:item.barCode,
           manufacturer:item.manufacturer,
@@ -288,9 +301,11 @@ console.log("item : " + angular.toJson(item , ' '));
     console.log("$scope.globalcategory "+ $scope.globalproductID);
     if (!!$scope.globalproductID) {
       var imgObj = {
-        img : $scope.downloadURL
+        img : $scope.downloadURL,
+        size : $scope.finalSize
       };
      firebase.database().ref().child('product/' + $scope.globalproductID + '/images' ).set($scope.imgset);
+     firebase.database().ref().child('product/' + $scope.globalproductID + '/size' ).set($scope.finalSize);
     }
   };
 
