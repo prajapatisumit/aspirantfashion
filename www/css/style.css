@@ -496,7 +496,7 @@ p.homepageprodname{
   color: #fafafa;
 }
 .btnRadious{
-font-size: 35px !important;
+font-size: 20px !important;
 border-radius: 44px !important;
 }
 .roundBtn{
@@ -506,7 +506,7 @@ display: inline-block;
 margin: 0;
 padding: 0 12px;
 min-width: 78px;
-min-height: 72px;
+min-height: 50px;
 border-width: 1px;
 border-style: solid;
 vertical-align: top;
