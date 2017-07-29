@@ -115,6 +115,7 @@ angular.module('app')
       $scope.size = $firebaseArray(fireBaseData.refSize());
       console.log("$scope.size : " + angular.toJson($scope.size , ' '));
     };
+    $scope.loadSize();
 
 $scope.checkItems = { };
 $scope.print = function() {
@@ -165,7 +166,7 @@ console.log('final size : ' +  $scope.finalSize);
     };
     $scope.loadCategory();
     $scope.loadSubCategory();
-    $scope.loadSize();
+
 
 
     $scope.getSubCategory = function (categoryid) {
@@ -183,17 +184,15 @@ console.log('final size : ' +  $scope.finalSize);
     };
 
     $scope.getSize = function (sizeid) {
-      $scope.selectedSize = [];
+      $scope.finalSize = [];
       $scope.sizeid = sizeid;
-      console.log("this function is calling.... : " +sizeid );
-      // $scope.subCategory = $firebaseArray(fireBaseData.refSubCategory());
-      // console.log("$scope.subCategory : " + angular.toJson($scope.subCategory , ' '));
-      for (var i = 0; i < $scope.checkItems.length; i++) {
-        if ($scope.checkItems[i].sizeid === $scope.sizeid) {
-          $scope.selectedSubCategory.push($scope.checkItems[i]);
+      console.log("this function is calling.... : " + sizeid );
+      for (var i = 0; i < $scope.size.length; i++) {
+        if ($scope.size[i].sizeid === $scope.sizeid) {
+          $scope.finalSize.push($scope.size[i]);
         }
       }
-      console.log("$scope.selectedSize : " + angular.toJson($scope.selectedSize , ' '));
+      console.log("$scope.finalSize : " + angular.toJson($scope.finalSize , ' '));
     };
 
   $scope.productId = $stateParams.product_id;
@@ -278,6 +277,8 @@ console.log("item : " + angular.toJson(item , ' '));
       }
     console.log("item : " + angular.toJson(item,' '));
     $scope.globalcategory = item.categoryId;
+
+
     // console.log("$scope.globalcategory "+ $scope.globalcategory);
       var menuObj = {
           name : item.name,
