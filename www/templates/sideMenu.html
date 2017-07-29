@@ -9,7 +9,7 @@
 
             <ion-nav-buttons side="left">
 
-                <button ng-if="$root.extras" class="button button-icon button-clear ion-navicon" menu-toggle="left">
+                <button ng-if="$root.extras" ng-click="goBack()" class="button button-icon button-clear ion-navicon" menu-toggle="left">
                 </button>
 
             </ion-nav-buttons>
@@ -27,7 +27,7 @@
     </ion-side-menu-content>
 
     <!-- #3.  $root.extras -->
-    <ion-side-menu side="left" id="side-menu21" ng-if="$root.extras">
+    <ion-side-menu side="left" id="side-menu21">
 
         <ion-header-bar class="expanded">
           <img ng-src="{{user_info.photoURL}}" ng-hide="user.isGuest === true || userLog.isGuest === true" class="avatar motion spin fade">
@@ -40,22 +40,22 @@
         <ion-content class="stable-bg has-expanded-header">
             <ion-list data-componentid="list1" class=" " id="menu-list1">
 
-                <ion-item data-componentid="list-item1" ng-hide="user.isGuest === true || userLog.isGuest === true" style="" menu-close="" ui-sref="home" id="menu-list-item1" class="item-icon-left">
+                <ion-item data-componentid="list-item1" style="" menu-close="" ui-sref="home" id="menu-list-item1" class="item-icon-left">
                     <i class="icon ion-ios-home-outline"></i>Home</ion-item>
-                    <ion-item data-componentid="list-item1" ng-hide="user.isGuest === false || userLog.isGuest === false" style="" menu-close="" ui-sref="adminadd" id="menu-list-item7" class="item-icon-left">
+                    <ion-item data-componentid="list-item1" ng-if="user.isAdmin" style="" menu-close="" ui-sref="adminadd" id="menu-list-item7" class="item-icon-left">
                         <i class="icon ion-ios-person-outline"></i>Admin</ion-item>
-                <ion-item data-componentid="list-item2" ng-hide="user.isGuest === true || userLog.isGuest === true" style="" menu-close="" ui-sref="category" id="menu-list-item2" class="item-icon-left">
+                <ion-item data-componentid="list-item2" style="" menu-close="" ui-sref="category" id="menu-list-item2" class="item-icon-left">
                     <i class="icon ion-grid"></i>Category</ion-item>
-                <ion-item data-componentid="list-item2" ng-hide="user.isGuest === true || userLog.isGuest === true" style="" menu-close="" ui-sref="offers" id="menu-list-item2" class="item-icon-left">
+                <ion-item data-componentid="list-item2" style="" menu-close="" ui-sref="offers" id="menu-list-item2" class="item-icon-left">
                     <i class="icon ion-ios-pricetag-outline"></i>Offers</ion-item>
-                <ion-item data-componentid="list-item8" ng-hide="user.isGuest === true || userLog.isGuest === true" style="" menu-close="" ui-sref="myCart" id="menu-list-item8" class="item-icon-left">
+                <ion-item data-componentid="list-item8" style="" menu-close="" ui-sref="myCart" id="menu-list-item8" class="item-icon-left">
                     <i class="icon ion-ios-cart-outline"></i>My Cart</ion-item>
                 <ion-item data-componentid="list-item3" style="" menu-close="" ui-sref="lastOrders" id="menu-list-item3" class="item-icon-left  ">
                     <i class="icon ion-ios-clock-outline"></i>Orders</ion-item>
                 <ion-item data-componentid="list-item4" style="" menu-close="" ui-sref="favourite" id="menu-list-item4" class="item-icon-left  ">
                     <i class="icon ion-ios-star-outline"></i>Favourite</ion-item>
-                <ion-item data-componentid="list-item5" style="" menu-close="" ui-sref="settings" id="menu-list-item5" class="item-icon-left  ">
-                    <i class="icon ion-ios-gear-outline"></i>Settings</ion-item>
+                <ion-item ng-hide="user.isGuest === true || userLog.isGuest === true" data-componentid="list-item5" style="" menu-close="" ui-sref="settings" id="menu-list-item5" class="item-icon-left  ">
+                    <i class="icon ion-ios-gear-outline" ></i>Settings</ion-item>
                 <ion-item data-componentid="list-item6" style="" menu-close="" ui-sref="support" id="menu-list-item6" class="item-icon-left  ">
                     <i class="icon ion-ios-help-outline"></i>Support</ion-item>
                 <ion-item  ng-click="logout()" data-componentid="list-item7" style="" id="menu-list-item7" class="item-icon-left  ">
