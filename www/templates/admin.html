@@ -6,10 +6,10 @@
       <ion-header-bar class="bar bar-header bar-assertive">
         <h1 class="title">Add Product Specification</h1>
         <i class="icon ion-close-circled seticon" ng-click="modal.hide()"></i>
-        <!-- <button class="button button-clear button-primary" ng-click="modal.hide()">X</button> -->
       </ion-header-bar>
       <ion-content class="padding">
         <input type="text">
+        
         <form name="signupForm1" class="list " id="signup-form3">
             <ion-list class=" " id="{{$index+1}}" ng-repeat="item in inputs" >
               <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm1.title.$invalid && !signupForm1.title.$pristine }">

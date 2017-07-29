@@ -10,6 +10,7 @@ angular.module('app')
     refProduct = firebase.database().ref('product');
 		refBrand = firebase.database().ref('brand');
 		refShipping = firebase.database().ref('shipping rate');
+		refSize = firebase.database().ref('size');
 
   return {
     ref: function() {
@@ -40,6 +41,9 @@ angular.module('app')
     },
 		refShipping: function() {
       return refShipping;
+    },
+		refSize: function() {
+      return refSize;
     }
 
   }
