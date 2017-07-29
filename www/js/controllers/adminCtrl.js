@@ -6,7 +6,6 @@ angular.module('app')
                                                $ionicHistory.clearHistory();
                                                $ionicHistory.clearCache();
                                              }
-
                                            });
 
                 $ionicModal.fromTemplateUrl('templates/admin.html', {

@@ -9,7 +9,7 @@
       </ion-header-bar>
       <ion-content class="padding">
         <input type="text">
-        
+
         <form name="signupForm1" class="list " id="signup-form3">
             <ion-list class=" " id="{{$index+1}}" ng-repeat="item in inputs" >
               <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm1.title.$invalid && !signupForm1.title.$pristine }">
@@ -28,7 +28,9 @@
               </div>
               <hr />
             </ion-list>
+
             <div class="spacer space"></div>
+            
             <button  ng-click="addspcification(item)" class=" button button-assertive  button-block btnradius"  id="signup-button3">Save</button>
             <button ng-click="addfield(item)" class=" button button-assertive  button-block btnradius"  id="signup-button3">Add More Product Details</button>
         </form>

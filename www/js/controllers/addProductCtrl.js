@@ -186,7 +186,7 @@ console.log('final size : ' +  $scope.finalSize);
     $scope.getSize = function (sizeid) {
       $scope.finalSize = [];
       $scope.sizeid = sizeid;
-      console.log("this function is calling.... : " + sizeid );
+      console.log("this function is calling.... : " +sizeid );
       for (var i = 0; i < $scope.size.length; i++) {
         if ($scope.size[i].sizeid === $scope.sizeid) {
           $scope.finalSize.push($scope.size[i]);
