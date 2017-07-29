@@ -1,6 +1,6 @@
 angular.module('app')
 .controller('addBrandCtrl', function($scope,$rootScope,sharedUtils,$ionicSideMenuDelegate,$interval,
-                                     $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService) {
+                                     $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService,$window) {
 
     $rootScope.extras=true;
     $scope.backaddminaddpg = function(){
@@ -27,7 +27,10 @@ angular.module('app')
         var imgObj = {
           image : $scope.downloadURL
         };
-       firebase.database().ref().child('brand/' + $scope.globalproductID + '/images' ).set($scope.imgset3);
+       firebase.database().ref().child('brand/' + $scope.globalproductID + '/images' ).set($scope.imgset3).then(function (data) {
+              IonicPopupService.alert("Your Product Add successfully..")
+              $window.location.reload(true)
+       });
       }
     };
     $scope.productId = $stateParams.product_id;

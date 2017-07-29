@@ -1,6 +1,6 @@
 angular.module('app')
 .controller('addProductCtrl', function($scope,$rootScope,sharedUtils,$ionicSideMenuDelegate,$interval,
-                                     $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService) {
+                                     $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService, $window) {
                                        $scope.backaddminaddpg = function(){
                                          $state.go('adminadd');
                                        };
@@ -159,6 +159,8 @@ console.log('final size : ' +  $scope.finalSize);
             return false;
           } else if (CommonService.validateEmpty(item.stock, 'Oops!', 'Please enter product stocks') === false) {
             return false;
+          }else if (CommonService.successFully(item, 'Good', 'Data successfully saved') === true) {
+            return true;
           }
         };
 
@@ -278,6 +280,7 @@ console.log("item : " + angular.toJson(item , ' '));
         return;
       }
     console.log("item : " + angular.toJson(item,' '));
+
     $scope.globalcategory = item.categoryId;
 
 
@@ -307,8 +310,14 @@ console.log("item : " + angular.toJson(item , ' '));
         img : $scope.downloadURL,
         size : $scope.finalSize
       };
-     firebase.database().ref().child('product/' + $scope.globalproductID + '/images' ).set($scope.imgset);
-     firebase.database().ref().child('product/' + $scope.globalproductID + '/size' ).set($scope.finalSize);
+     firebase.database().ref().child('product/' + $scope.globalproductID + '/images' ).set($scope.imgset).then(function (data) {
+        firebase.database().ref().child('product/' + $scope.globalproductID + '/size' ).set($scope.finalSize).then(function (sizedata) {
+            IonicPopupService.alert("Your Product Add successfully..")
+            $window.location.reload(true)
+        });
+     });
+
+
     }
   };
 

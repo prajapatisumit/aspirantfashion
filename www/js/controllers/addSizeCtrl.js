@@ -1,6 +1,6 @@
 angular.module('app')
 .controller('addSizeCtrl', function($scope,$rootScope,sharedUtils,$ionicSideMenuDelegate,$interval,
-                                     $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService) {
+                                     $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService,$window) {
 
                                        $scope.$on('$ionicView.enter', function(ev) {
                                          if(ev.targetScope !== $scope){
@@ -17,7 +17,10 @@ angular.module('app')
                                                size : size
                                            }
 
-                                         var SizeRef = firebase.database().ref().child('size').push(sizeObj).key;
+                                         var SizeRef = firebase.database().ref().child('size').push(sizeObj).key.then(function (data) {
+                                                IonicPopupService.alert("Your Product Add successfully..")
+                                                $window.location.reload(true)
+                                         });
                                          console.log("sizeObj : " + angular.toJson(sizeObj , ' '));
 
                                        };

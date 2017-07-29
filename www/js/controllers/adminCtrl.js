@@ -246,7 +246,7 @@ $scope.validate = function(item,downloadURL) {
                 brand : updateproductdetails.brand,
                 available : updateproductdetails.available,
                 category : updateproductdetails.category,
-                subcategory : updateproductdetails.subcategory,
+                subcategory : updateproductdetails.selectedSubCategory,
                 size  : updateproductdetails.finalSize,
                 weight : updateproductdetails.weight,
                 barcode:updateproductdetails.barcode,

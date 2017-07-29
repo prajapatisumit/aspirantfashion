@@ -1,12 +1,12 @@
 angular.module('app')
 .controller('addCategoryCtrl', function($scope,$rootScope,sharedUtils,$ionicSideMenuDelegate,$interval,
-                                     $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService) {
+                                     $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService,$window) {
 
     $rootScope.extras=true;
     $scope.backaddminaddpg = function(){
       $state.go('adminadd');
     };
-    
+
     $scope.$on('$ionicView.enter', function(ev) {
       if(ev.targetScope !== $scope){
         $ionicHistory.clearHistory();
@@ -30,7 +30,10 @@ angular.module('app')
       var imgObj = {
         image : $scope.downloadURL
       };
-     firebase.database().ref().child('category/' + $scope.globalproductID + '/images' ).set($scope.imgset1);
+     firebase.database().ref().child('category/' + $scope.globalproductID + '/images' ).set($scope.imgset1).then(function (data) {
+            IonicPopupService.alert("Your Product Add successfully..")
+            $window.location.reload(true)
+     });
     }
   };
 

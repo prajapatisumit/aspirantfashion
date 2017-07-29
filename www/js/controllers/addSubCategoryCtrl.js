@@ -1,6 +1,6 @@
 angular.module('app')
 .controller('addSubCategoryCtrl', function($scope,$rootScope,sharedUtils,$ionicSideMenuDelegate,$interval,
-                                     $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService) {
+                                     $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService,$window) {
                                        $scope.$on('$ionicView.enter', function(ev) {
                                          if(ev.targetScope !== $scope){
                                            $ionicHistory.clearHistory();
@@ -28,7 +28,10 @@ angular.module('app')
         var imgObj = {
           image : $scope.downloadURL
         };
-       firebase.database().ref().child('subcategory/' + $scope.globalproductID + '/images' ).set($scope.imgset2);
+       firebase.database().ref().child('subcategory/' + $scope.globalproductID + '/images' ).set($scope.imgset2).then(function (data) {
+              IonicPopupService.alert("Your Product Add successfully..")
+              $window.location.reload(true)
+       });
       }
     };
 
