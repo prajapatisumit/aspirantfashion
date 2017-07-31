@@ -11,7 +11,7 @@
 
         <div class="col col-25" ng-repeat="image in imgset2">
             <img ng-src="{{ image }}" class="imgStyle">
-            <label ng-click="deleteupdateImage(data.$id)">
+            <label ng-click="deleteImage(images.$id)">
               <a class="button button-icon icon ion-android-cancel" style="margin: -50px 0px 0px 3px;color: #48b3e2;"></a>
             </label>
         </div>
@@ -36,15 +36,15 @@
         <span class="input-label">
         Category{{category}}
         </span>
-        <select ng-model="object.$id" ng-options="obj.$id as obj.name for obj in category"></select>
+        <select ng-model="subcatObj.$id" ng-options="obj.$id as obj.name for obj in category"></select>
       </label>
       <label class="item item-input item-floating-label">
         <span class="input-label lblname">sub-Category Name</span>
-        <input  ng-model="subcategoryName" type="text" placeholder="SubCategory Name">
+        <input  ng-model="subcatObj.subcategoryName" type="text" placeholder="SubCategory Name">
       </label>
     </ion-list>
     <div class="spacer space"></div>
-    <button ng-click="addSubCategory(object.$id,subcategoryName);backaddminaddpg()" class=" button button-assertive  button-block btnradius"  id="signup-button4">Add SubCategory</button>
+    <button ng-click="addSubCategory(subcatObj)" class=" button button-assertive  button-block btnradius"  id="signup-button4">Add SubCategory</button>
 </form>
 </div>
 </ion-content>

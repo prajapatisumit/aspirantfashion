@@ -1,27 +1,27 @@
 angular.module('app')
 .controller('addSubCategoryCtrl', function($scope,$rootScope,sharedUtils,$ionicSideMenuDelegate,$interval,
                                      $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService,$window) {
-                                       $scope.$on('$ionicView.enter', function(ev) {
-                                         if(ev.targetScope !== $scope){
-                                           $ionicHistory.clearHistory();
-                                           $ionicHistory.clearCache();
-                                         }
 
-                                       });
     $rootScope.extras=true;
-    $scope.backaddminaddpg = function(){
-      $state.go('adminadd');
-    };
-    $scope.addSubCategory = function (categoryid,subcategoryName) {
-      console.log("categoryid : " + categoryid);
-        var subcatObj = {
-            name : subcategoryName,
-            image : $scope.downloadURL,
-            categoryid : categoryid
-        }
 
-      var SubcategoryRef = firebase.database().ref().child('subcategory').push(subcatObj).key;
-      console.log("subcatObj : " + angular.toJson(subcatObj , ' '));
+    $scope.$on('$ionicView.enter', function(ev) {
+      if(ev.targetScope !== $scope){
+      return;
+      }
+      $scope.subcatObj = {};
+    });
+
+    $scope.addSubCategory = function (subcatObj) {
+      console.log('calling object' + angular.toJson(subcatObj, ''));
+      // console.log("categoryid : " + categoryid);
+        // var subcatObj = {
+        //     name : subcategoryName,
+        //     image : $scope.downloadURL,
+        //     categoryid : categoryid
+        // }
+          $scope.subcatObj.image = $scope.downloadURL;
+      var SubcategoryRef = firebase.database().ref().child('subcategory').push($scope.subcatObj).key;
+      console.log("subcatObj : " + angular.toJson($scope.subcatObj , ' '));
       $scope.globalproductID = SubcategoryRef;
       console.log("$scope.globalcategory "+ $scope.globalproductID);
       if (!!$scope.globalproductID) {
@@ -29,12 +29,19 @@ angular.module('app')
           image : $scope.downloadURL
         };
        firebase.database().ref().child('subcategory/' + $scope.globalproductID + '/images' ).set($scope.imgset2).then(function (data) {
-              IonicPopupService.alert("Your Product Add successfully..")
-              $window.location.reload(true)
+              IonicPopupService.alert("Your Product Add successfully..");
+              $scope.subcatObj = {};
+              $scope.imgset2 = [];
+       }).catch(function (error) {
+        //  debugger
+         console.log('Error : ' + error);
        });
       }
     };
-
+    $scope.loadCategory = function() {
+      $scope.category = $firebaseArray(fireBaseData.refCategory());
+      console.log("$scope.category : " + angular.toJson($scope.category , ' '));
+    };
     $scope.imgset2 = [];
 
     $scope.uploadFile = function(event) {

@@ -4,13 +4,7 @@ angular.module('app')
                                        $scope.backaddminaddpg = function(){
                                          $state.go('adminadd');
                                        };
-                                       $scope.$on('$ionicView.enter', function(ev) {
-                                         if(ev.targetScope !== $scope){
-                                           $ionicHistory.clearHistory();
-                                           $ionicHistory.clearCache();
-                                         }
 
-                                       });
 
               $ionicModal.fromTemplateUrl('templates/addproduct.html', {
                       scope: $scope
@@ -159,8 +153,6 @@ console.log('final size : ' +  $scope.finalSize);
             return false;
           } else if (CommonService.validateEmpty(item.stock, 'Oops!', 'Please enter product stocks') === false) {
             return false;
-          }else if (CommonService.successFully(item, 'Good', 'Data successfully saved') === true) {
-            return true;
           }
         };
 
@@ -274,35 +266,42 @@ console.log('final size : ' +  $scope.finalSize);
   }, 100);
   };
 
-  $scope.addItem = function (item) {
-console.log("item : " + angular.toJson(item , ' '));
-  if ($scope.validate(item) === false) {
+  $scope.$on('$ionicView.enter', function(ev) {
+    if(ev.targetScope !== $scope){
+      return;
+    }
+    $scope.menuObj = {};
+  });
+  $scope.addItem = function (menuObj) {
+    console.log("object menu calling: " + angular.toJson(menuObj,''));
+console.log("$scope.menuObj : " + angular.toJson($scope.menuObj , ' '));
+  if ($scope.validate($scope.menuObj) === false) {
         return;
       }
-    console.log("item : " + angular.toJson(item,' '));
+    console.log("$scope.menuObj : " + angular.toJson($scope.menuObj,' '));
 
-    $scope.globalcategory = item.categoryId;
+    $scope.globalcategory = $scope.menuObj.categoryId;
 
 
     // console.log("$scope.globalcategory "+ $scope.globalcategory);
-      var menuObj = {
-          name : item.name,
-          brand : item.brandName,
-          available : item.available,
-          category : item.categoryId,
-          subcategory : item.subCatID,
-          size  : $scope.finalSize,
-          weight : item.Weight,
-          barcode:item.barCode,
-          manufacturer:item.manufacturer,
-          actualprice:item.actualPrice,
-          description : item.description,
-          image : $scope.downloadURL,
-          price : item.price,
-          stock : item.stock
-      }
-    console.log("menuObj : " + angular.toJson(menuObj , ' '));
-    var menuRef = firebase.database().ref().child('product').push(menuObj).key;
+      // var menuObj = {
+      //     name : item.name,
+      //     brand : item.brandName,
+      //     available : item.available,
+      //     category : item.categoryId,
+      //     subcategory : item.subCatID,
+      //     size  : $scope.finalSize,
+      //     weight : item.Weight,
+      //     barcode:item.barCode,
+      //     manufacturer:item.manufacturer,
+      //     actualprice:item.actualPrice,
+      //     description : item.description,
+      //     image : $scope.downloadURL,
+      //     price : item.price,
+      //     stock : item.stock
+      // }
+    console.log("menuObj : " + angular.toJson($scope.menuObj , ' '));
+    var menuRef = firebase.database().ref().child('product').push($scope.menuObj).key;
     $scope.globalproductID = menuRef;
     console.log("$scope.globalcategory "+ $scope.globalproductID);
     if (!!$scope.globalproductID) {
@@ -313,7 +312,11 @@ console.log("item : " + angular.toJson(item , ' '));
      firebase.database().ref().child('product/' + $scope.globalproductID + '/images' ).set($scope.imgset).then(function (data) {
         firebase.database().ref().child('product/' + $scope.globalproductID + '/size' ).set($scope.finalSize).then(function (sizedata) {
             IonicPopupService.alert("Your Product Add successfully..")
-            $window.location.reload(true)
+            $scope.menuObj = {};
+            $scope.imgset = [];
+        }).catch(function (error) {
+         //  debugger
+          console.log('Error : ' + error);
         });
      });
 

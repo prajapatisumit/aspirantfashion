@@ -96,7 +96,7 @@
           <ion-list class=" " id="signup-list3">
             <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.name.$invalid && !signupForm.name.$pristine }">
               <span class="input-label lblname">Name</span>
-              <input  ng-model="object.name" type="text" placeholder="Name" name="name" required>
+              <input  ng-model="menuObj.name" type="text" placeholder="Name" name="name" required>
             </label>
               <div ng-show="signupForm.name.$invalid && !signupForm.name.$pristine">
                 <p ng-message="required" class="help-block errorcolor">Please enter product Name.</p>
@@ -106,21 +106,21 @@
               <span class="input-label">
               Select category{{category}}
               </span>
-              <select ng-model="object.categoryId" ng-options="obj.$id as obj.name for obj in category" ng-change="getSubCategory(object.categoryId)"></select>
+              <select ng-model="menuObj.categoryId" ng-options="obj.$id as obj.name for obj in category" ng-change="getSubCategory(object.categoryId)"></select>
             </label>
 
             <label class="item item-input item-floating-label">
               <span class="input-label">
               subCategory{{selectedSubCategory}}
               </span>
-              <select ng-model="object.subCatID" ng-options="obj.$id as obj.name for obj in selectedSubCategory"></select>
+              <select ng-model="menuObj.subCatID" ng-options="obj.$id as obj.name for obj in selectedSubCategory"></select>
             </label>
 
             <label class="item item-input item-floating-label">
               <span class="input-label">
               Select Brand{{brand}}
               </span>
-              <select ng-model="object.brandName" ng-options="obj.name as obj.name for obj in brand "></select>
+              <select ng-model="menuObj.brandName" ng-options="obj.name as obj.name for obj in brand "></select>
             </label>
 
             <label  class="item  item-floating-label"  name="size"  ng-click="openModal(1)" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
@@ -132,27 +132,27 @@
 
             <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
               <span   class="input-label lblname">Weight(gms)</span>
-              <input  ng-model="object.Weight" type="number" placeholder="Weight" name="weight" required>
+              <input  ng-model="menuObj.Weight" type="number" placeholder="Weight" name="weight" required>
             </label>
 
             <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
               <span   class="input-label lblname">Barcode</span>
-              <input  ng-model="object.barCode" type="text" placeholder="Enter Barcode" name="barcode1" required>
+              <input  ng-model="menuObj.barCode" type="text" placeholder="Enter Barcode" name="barcode1" required>
             </label>
 
             <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
               <span   class="input-label lblname">Manufacturer</span>
-              <input  ng-model="object.manufacturer" type="text" placeholder="Enter Manufacturer" name="manufacturer" required>
+              <input  ng-model="menuObj.manufacturer" type="text" placeholder="Enter Manufacturer" name="manufacturer" required>
             </label>
 
             <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
               <span   class="input-label lblname">Actual Price</span>
-              <input  ng-model="object.actualPrice" type="number" placeholder="Actual Price" name="actualprice" required>
+              <input  ng-model="menuObj.actualPrice" type="number" placeholder="Actual Price" name="actualprice" required>
             </label>
 
             <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
               <span   class="input-label lblname">Available</span>
-              <input  ng-model="object.available" type="text" placeholder="Available" name="available" required>
+              <input  ng-model="menuObj.available" type="text" placeholder="Available" name="available" required>
             </label>
             <div ng-show="signupForm.available.$invalid && !signupForm.available.$pristine">
               <p ng-message="required" class="help-block errorcolor">Please enter available product is available?</p>
@@ -160,7 +160,7 @@
 
             <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.description.$invalid && !signupForm.description.$pristine }">
               <span   class="input-label lblname">Description</span>
-              <input  ng-model="object.description" type="text" placeholder="Description" name="description" required>
+              <input  ng-model="menuObj.description" type="text" placeholder="Description" name="description" required>
             </label>
             <div ng-show="signupForm.description.$invalid && !signupForm.description.$pristine" ng-messages="signupForm.description.$error">
               <p ng-message="required" class="help-block errorcolor">Please enter product description.</p>
@@ -168,7 +168,7 @@
 
             <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.price.$invalid && !signupForm.price.$pristine }">
               <span  class="input-label lblname">Selling Price</span>
-              <input ng-model="object.price" type="number" placeholder="Selling Price" name="price" required>
+              <input ng-model="menuObj.price" type="number" placeholder="Selling Price" name="price" required>
             </label>
             <div ng-show="signupForm.price.$invalid && !signupForm.price.$pristine" ng-messages="signupForm.price.$error">
               <p ng-message="required" class="help-block errorcolor">Please enter product price.</p>
@@ -176,7 +176,7 @@
 
             <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.stock.$invalid && !signupForm.stock.$pristine }">
                 <span class="input-label lblname">Stock</span>
-                <input  ng-model="object.stock" type="number" placeholder="Stock" name="stock" required>
+                <input  ng-model="menuObj.stock" type="number" placeholder="Stock" name="stock" required>
             </label>
             <div ng-show="signupForm.stock.$invalid && !signupForm.stock.$pristine" ng-messages="signupForm.stock.$error">
               <p ng-message="required" class="help-block errorcolor">Please enter product Stocks.</p>
@@ -185,7 +185,7 @@
 
           <div  class="spacer space"></div>
           <button ng-click="openModal(2)" class=" button button-assertive  button-block btnradius" >Add Product Specification</button>
-          <button ng-click="addItem(object)"  type="submit" class=" button button-assertive  button-block btnradius"  id="signup-button3" >Add Menu Item</button>
+          <button ng-click="addItem(menuObj)"  type="submit" class=" button button-assertive  button-block btnradius"  id="signup-button3" >Add Menu Item</button>
       </form>
       </div>
 
