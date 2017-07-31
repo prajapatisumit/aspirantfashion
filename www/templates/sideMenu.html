@@ -30,15 +30,14 @@
     <ion-side-menu side="left" id="side-menu21">
 
         <ion-header-bar class="expanded">
-          <img ng-src="{{user_info.photoURL}}" ng-hide="user.isGuest === true || userLog.isGuest === true" class="avatar motion spin fade">
+          <img ng-src="{{user.photoURL}}" ng-hide="user.isGuest === true || userLog.isGuest === true" class="avatar motion spin fade">
           <div class="menu-bottom" ng-hide="user.isGuest === true || userLog.isGuest === true">
-            {{user_info.displayName}}
-            <!-- {{userData.displayName}} {{userData.uid}} -->
+            {{user.displayName}}
           </div>
         </ion-header-bar>
 
         <ion-content class="stable-bg has-expanded-header">
-            <ion-list data-componentid="list1" class=" " id="menu-list1">
+            <ion-list data-componentid="list1" class="side_menu" id="menu-list1">
 
                 <ion-item data-componentid="list-item1" style="" menu-close="" ui-sref="home" id="menu-list-item1" class="item-icon-left">
                     <i class="icon ion-ios-home-outline"></i>Home</ion-item>

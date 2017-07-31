@@ -66,7 +66,7 @@ p {
 }
 
 .menu.menu-left * {
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .item-radio input:checked ~ .item-content {
@@ -637,4 +637,13 @@ z-index: -999999;
   background-color: #ef473a;
   background-image: linear-gradient(0deg, #e42112, #e42112 50%, transparent 50%);
   color: #fff;
+}
+.stable-bg {
+  background-color: #fff;
+}
+#menu-list1 .item {
+  font-size: 12px;
+  width: 100%;
+  color: #ef473a !important;
+  border-bottom: 1px solid #ef473a;  
 }
