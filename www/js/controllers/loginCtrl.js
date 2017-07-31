@@ -22,10 +22,10 @@ angular.module('app')
 
         // console.log("result of login : " + result);
         firebase.auth().onAuthStateChanged(function(authData) {
-          debugger
+          // debugger
             // console.log("user check login or not : " + angular.toJson(user , ' '));
             if (authData) {
-              debugger
+              // debugger
               var userData = $firebaseObject(firebase.database().ref('users/' + authData.uid));
               userData.$loaded().then(function(response) {
                 var user = response;
@@ -123,13 +123,13 @@ angular.module('app')
 
                     },
                     function(error) {
-                      debugger
+                      // debugger
                         sharedUtils.hideLoading();
                         sharedUtils.showAlert("Please note", "Authentication Error");
                     });
 
             } else {
-              debugger
+              // debugger
                 sharedUtils.hideLoading();
                 sharedUtils.showAlert("Please note", "Entered data is not valid");
 
@@ -261,7 +261,7 @@ angular.module('app')
         ///for custom user :
         $scope.guestUser = function() {
             ///for check condition :
-            debugger
+            // debugger
             $scope.deviceId = '5afaa714fd8d2997';
             sharedUtils.showLoading();
             var ref = firebase.database().ref('users/' + $scope.deviceId);

@@ -3,27 +3,26 @@ angular.module('app')
                                      $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService,$window) {
 
     $rootScope.extras=true;
-    $scope.backaddminaddpg = function(){
-      $state.go('adminadd');
-    };
 
     $scope.$on('$ionicView.enter', function(ev) {
       if(ev.targetScope !== $scope){
-        $ionicHistory.clearHistory();
-        $ionicHistory.clearCache();
+        return;
       }
-
+      $scope.catObj = {};
     });
 
-  // $scope.userData = SessionService.getUser();
-  $scope.addCategory = function (categoryName) {
-      var catObj = {
-          name : categoryName,
-          image : $scope.downloadURL
 
-      }
-    var categoryRef = firebase.database().ref().child('category').push(catObj).key;
-    console.log("catObj : " + angular.toJson(catObj , ' '));
+  $scope.addCategory = function () {
+    // debugger
+    // $scope.image =
+      // var catObj = {
+      //     name : $scope.categoryName,
+      //     image : $scope.downloadURL
+      // }
+    $scope.catObj.image = $scope.downloadURL;
+      // $scope.image = $scope.downloadURL;
+    var categoryRef = firebase.database().ref().child('category').push($scope.catObj).key;
+    console.log("catObj : " + angular.toJson($scope.catObj , ' '));
     $scope.globalproductID = categoryRef;
     console.log("$scope.globalcategory "+ $scope.globalproductID);
     if (!!$scope.globalproductID) {
@@ -31,8 +30,14 @@ angular.module('app')
         image : $scope.downloadURL
       };
      firebase.database().ref().child('category/' + $scope.globalproductID + '/images' ).set($scope.imgset1).then(function (data) {
-            IonicPopupService.alert("Your Product Add successfully..")
-            $window.location.reload(true)
+      //  debugger
+      IonicPopupService.alert("Your category added successfully..");
+      $scope.catObj = {};
+      $scope.imgset1 = [];
+
+     }).catch(function (error) {
+      //  debugger
+       console.log('Error : ' + error);
      });
     }
   };
@@ -88,6 +93,12 @@ angular.module('app')
               $scope.imgset1.push($scope.downloadUrlOne);
           $scope.determinateValue = 0;
         });
+    };
+    $scope.deleteImage = function(id) {
+        console.log("id : " + id);
+      // $scope.imgset.remove(downloadURL);
+       $scope.imgset1 = firebase.database().ref().child('product/' + $scope.globalproductID + '/images'  ).remove(id);
+       console.log("yes delete image.");
     };
     $scope.progressval = 0;
     $scope.stopinterval = null;

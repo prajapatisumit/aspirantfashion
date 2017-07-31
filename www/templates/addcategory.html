@@ -10,8 +10,8 @@
             <div class="row" style="flex-wrap: wrap;">
               <div class="col col-25" ng-repeat="image in imgset1">
                   <img ng-src="{{ image }}" class="imgStyle">
-                  <label ng-click="deleteupdateImage(data.$id)">
-                    <a class="button button-icon icon ion-android-cancel" style="margin: -50px 0px 0px 3px;color: #48b3e2;"></a>
+                  <label ng-click="deleteImage(images.$id)">
+                    <a class="button button-icon icon ion-android-cancel"  style="margin: -50px 0px 0px 3px;color: #48b3e2;"></a>
                   </label>
               </div>
               <div class="buttons col col-25" ng-show="image.length < 0">
@@ -33,11 +33,11 @@
             </div>
             <label class="item item-input item-floating-label">
               <span class="input-label lblname">Category Name</span>
-              <input  ng-model="categoryName" type="text" placeholder="Category Name">
+              <input ng-model="catObj.categoryName" type="text" placeholder="Category Name"/>
             </label>
           </ion-list>
           <div class="spacer space"></div>
-          <button ng-click="addCategory(categoryName);getselectval()" class=" button button-assertive  button-block btnradius"  id="signup-button3">Add Category</button>
+          <button ng-click="addCategory()" class=" button button-assertive  button-block btnradius"  id="signup-button3">Add Category</button>
       </form>
       </div>
     </ion-content>

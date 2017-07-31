@@ -1,7 +1,7 @@
 angular.module('app')
 .controller('homeCtrl', function($scope,$rootScope,$ionicSideMenuDelegate,fireBaseData,$state,$cordovaDevice,$firebaseObject,
                                   $ionicHistory,$firebaseArray,sharedCartService,sharedUtils,SessionService,$stateParams,$window,$ionicHistory) {
-                                    debugger
+                                    // debugger
     if (!!$rootScope.userLog) {
 
       $scope.user = $rootScope.userLog;
@@ -83,14 +83,14 @@ angular.module('app')
 
   };
   $scope.loadMenu = function() {
-    debugger
+    // debugger
     sharedUtils.showLoading();
     $scope.menu=$firebaseArray(fireBaseData.refCategory());
     sharedUtils.hideLoading();
   };
 
   $scope.loadCategory = function() {
-    debugger
+    // debugger
     // sharedUtils.showLoading();
     $scope.category=$firebaseArray(fireBaseData.refCategory());
     // sharedUtils.hideLoading();

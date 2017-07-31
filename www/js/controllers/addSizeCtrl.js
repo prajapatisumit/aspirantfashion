@@ -2,29 +2,31 @@ angular.module('app')
 .controller('addSizeCtrl', function($scope,$rootScope,sharedUtils,$ionicSideMenuDelegate,$interval,
                                      $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService,$window) {
 
-                                       $scope.$on('$ionicView.enter', function(ev) {
-                                         if(ev.targetScope !== $scope){
-                                           $ionicHistory.clearHistory();
-                                           $ionicHistory.clearCache();
-                                         }
 
-                                       });
                                        $rootScope.extras=true;
 
-                                       $scope.addsize = function (type,size) {
-                                           var sizeObj = {
-                                               type : type,
-                                               size : size
-                                           }
+                                       $scope.$on('$ionicView.enter', function(ev) {
+                                         if(ev.targetScope !== $scope){
+                                          return;
+                                         }
+                                          $scope.sizeObj = {};
+                                       });
 
-                                         var SizeRef = firebase.database().ref().child('size').push(sizeObj).key.then(function (data) {
+                                       $scope.addsize = function () {
+                                          //  var sizeObj = {
+                                          //      type : type,
+                                          //      size : size
+                                          //  }
+
+                                         var SizeRef = firebase.database().ref().child('size').push($scope.sizeObj).then(function (data) {
+                                           console.log("sizeObj : " + angular.toJson($scope.sizeObj , ' '));
                                                 IonicPopupService.alert("Your Product Add successfully..")
-                                                $window.location.reload(true)
+                                                  $scope.sizeObj = {};
+                                         }).catch(function (error) {
+                                          //  debugger
+                                           console.log('Error : ' + error);
                                          });
-                                         console.log("sizeObj : " + angular.toJson(sizeObj , ' '));
 
                                        };
-                                       $scope.backaddminaddpg = function(){
-                                         $state.go('adminadd');
-                                       };
+
 });

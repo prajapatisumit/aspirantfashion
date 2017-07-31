@@ -8,19 +8,19 @@ angular.module('app')
     };
     $scope.$on('$ionicView.enter', function(ev) {
       if(ev.targetScope !== $scope){
-        $ionicHistory.clearHistory();
-        $ionicHistory.clearCache();
+        return;
       }
-
+      $scope.brandObj = {};
     });
-    $scope.addBrand = function (brandName) {
-        var brandObj = {
-            name : brandName,
-            image : $scope.downloadURL
-        }
 
-      var BrandRef = firebase.database().ref().child('brand').push(brandObj).key;
-      console.log("brandObj : " + angular.toJson(brandObj , ' '));
+    $scope.addBrand = function () {
+        // var brandObj = {
+        //     name : brandName,
+        //     image : $scope.downloadURL
+        // }
+        $scope.brandObj.image = $scope.downloadURL;
+      var BrandRef = firebase.database().ref().child('brand').push($scope.brandObj).key;
+      console.log("brandObj : " + angular.toJson($scope.brandObj, ' '));
       $scope.globalproductID = BrandRef;
       console.log("$scope.globalcategory "+ $scope.globalproductID);
       if (!!$scope.globalproductID) {
@@ -28,8 +28,13 @@ angular.module('app')
           image : $scope.downloadURL
         };
        firebase.database().ref().child('brand/' + $scope.globalproductID + '/images' ).set($scope.imgset3).then(function (data) {
-              IonicPopupService.alert("Your Product Add successfully..")
-              $window.location.reload(true)
+              IonicPopupService.alert("Your Product Add successfully..");
+              $scope.brandObj = {};
+              $scope.imgset3 = [];
+              // $window.location.reload(true)
+       }).catch(function (error) {
+        //  debugger
+         console.log('Error : ' + error);
        });
       }
     };
@@ -82,6 +87,14 @@ angular.module('app')
           $scope.determinateValue = 0;
         });
     };
+
+    $scope.deleteImage = function(id) {
+        console.log("id : " + id);
+      // $scope.imgset.remove(downloadURL);
+       $scope.imgset3 = firebase.database().ref().child('product/' + $scope.globalproductID + '/images'  ).remove(id);
+       console.log("yes delete image.");
+    };
+
     $scope.progressval = 0;
     $scope.stopinterval = null;
 

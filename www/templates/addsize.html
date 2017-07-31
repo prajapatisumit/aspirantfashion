@@ -8,17 +8,17 @@
 
       <label class="item item-input item-floating-label">
         <span class="input-label lblname">Type</span>
-        <input  ng-model="type" type="text" placeholder="Type">
+        <input  ng-model="sizeObj.type" type="text" placeholder="Type">
       </label>
 
       <label class="item item-input item-floating-label">
         <span class="input-label lblname">Size</span>
-        <input  ng-model="size" type="text" placeholder="Size">
+        <input  ng-model="sizeObj.size" type="text" placeholder="Size">
       </label>
 
     </ion-list>
     <div class="spacer space"></div>
-    <button ng-click="addsize(type,size)" class=" button button-assertive  button-block btnradius"  id="signup-button5">Submit Size</button>
+    <button ng-click="addsize()" class=" button button-assertive  button-block btnradius"  id="signup-button5">Submit Size</button>
 </form>
 </div>
 </ion-content>
