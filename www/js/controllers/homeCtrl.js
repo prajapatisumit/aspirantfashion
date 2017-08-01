@@ -1,7 +1,7 @@
 angular.module('app')
 .controller('homeCtrl', function($scope,$rootScope,$ionicSideMenuDelegate,fireBaseData,$state,$cordovaDevice,$firebaseObject,
                                   $ionicHistory,$firebaseArray,sharedCartService,sharedUtils,SessionService,$stateParams,$window,$ionicHistory) {
-                                    // debugger
+                                     debugger
     if (!!$rootScope.userLog) {
 
       $scope.user = $rootScope.userLog;

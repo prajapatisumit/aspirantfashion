@@ -28,7 +28,7 @@ angular.module('app')
           image : $scope.downloadURL
         };
        firebase.database().ref().child('brand/' + $scope.globalproductID + '/images' ).set($scope.imgset3).then(function (data) {
-              IonicPopupService.alert("Your Product Add successfully..");
+              IonicPopupService.alert("Brand added successfully..");
               $scope.brandObj = {};
               $scope.imgset3 = [];
               // $window.location.reload(true)

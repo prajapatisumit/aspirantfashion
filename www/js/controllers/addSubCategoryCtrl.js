@@ -29,7 +29,7 @@ angular.module('app')
           image : $scope.downloadURL
         };
        firebase.database().ref().child('subcategory/' + $scope.globalproductID + '/images' ).set($scope.imgset2).then(function (data) {
-              IonicPopupService.alert("Your Product Add successfully..");
+              IonicPopupService.alert("Subcategory added successfully..");
               $scope.subcatObj = {};
               $scope.imgset2 = [];
        }).catch(function (error) {

@@ -642,8 +642,29 @@ z-index: -999999;
   background-color: #fff;
 }
 #menu-list1 .item {
-  font-size: 12px;
+  font-size: 14px;
   width: 100%;
   color: #ef473a !important;
   border-bottom: 1px solid #ef473a;  
+}
+.item-inner {
+  background-image: url(data:image/svg+xml;charset=utf-8,<svg%20xmlns='http://www.w3.org/2000/svg'%…><path%20d='M2,20l-2-2l8-8L0,2l2-2l10,10L2,20z'%20fill='%23c8c7cc'/></svg>);
+  padding-right: 32px;
+  background-position: right 14px center;
+  background-repeat: no-repeat;
+  background-size: 14px 14px;
+}
+.menu-right-arrow {
+  left: 225px !important;
+  font-size: 22px !important;
+}
+.menu-first-item {
+  height: 150px;
+  text-align: center !important;
+  font-size: 20px !important;
+}
+.profile-avatar {
+  left: 0 !important;
+  right: 0;
+  position: relative;
 }

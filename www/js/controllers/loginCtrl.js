@@ -25,7 +25,7 @@ angular.module('app')
           // debugger
             // console.log("user check login or not : " + angular.toJson(user , ' '));
             if (authData) {
-              // debugger
+              debugger
               var userData = $firebaseObject(firebase.database().ref('users/' + authData.uid));
               userData.$loaded().then(function(response) {
                 var user = response;
@@ -38,6 +38,7 @@ angular.module('app')
                     providerData: user.providerData,
                     isAdmin: user.isAdmin
                 };
+                debugger
                 SessionService.setUser(userObj);
                 $scope.sessionUser = SessionService.getUser();
                 $ionicHistory.nextViewOptions({

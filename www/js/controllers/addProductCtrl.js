@@ -145,8 +145,6 @@ console.log('final size : ' +  $scope.finalSize);
             return false;
           }else if (CommonService.validateEmpty(item.subCatID, 'Oops!', 'Please enter product subcategory') === false) {
             return false;
-          } else if (CommonService.validateEmpty(item.available, 'Oops!', 'Please describe your product is available?(yes or no)') === false) {
-            return false;
           } else if (CommonService.validateEmpty(item.description, 'Oops!', 'Please enter product description') === false) {
             return false;
           } else if (CommonService.validateEmpty(item.price, 'Oops!', 'Please enter product price') === false) {

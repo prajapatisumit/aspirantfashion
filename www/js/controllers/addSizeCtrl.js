@@ -20,7 +20,7 @@ angular.module('app')
 
                                          var SizeRef = firebase.database().ref().child('size').push($scope.sizeObj).then(function (data) {
                                            console.log("sizeObj : " + angular.toJson($scope.sizeObj , ' '));
-                                                IonicPopupService.alert("Your Product Add successfully..")
+                                                IonicPopupService.alert("size added successfully..")
                                                   $scope.sizeObj = {};
                                          }).catch(function (error) {
                                           //  debugger
