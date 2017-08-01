@@ -33,11 +33,11 @@
             </div>
             <label class="item item-input item-floating-label">
               <span class="input-label lblname">Category Name</span>
-              <input ng-model="catObj.categoryName" type="text" placeholder="Category Name"/>
+              <input ng-model="catObj.name" type="text" placeholder="Category Name"/>
             </label>
           </ion-list>
           <div class="spacer space"></div>
-          <button ng-click="addCategory()" class=" button button-assertive  button-block btnradius"  id="signup-button3">Add Category</button>
+          <button ng-click="addCategory(catObj.categoryName)" class=" button button-assertive  button-block btnradius"  id="signup-button3">Add Category</button>
       </form>
       </div>
     </ion-content>

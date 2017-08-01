@@ -11,7 +11,6 @@ angular.module('app')
       $scope.catObj = {};
     });
 
-
   $scope.addCategory = function () {
     // debugger
     // $scope.image =

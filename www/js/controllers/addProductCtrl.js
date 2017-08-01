@@ -272,6 +272,7 @@ console.log('final size : ' +  $scope.finalSize);
     }
     $scope.menuObj = {};
   });
+
   $scope.addItem = function (menuObj) {
     console.log("object menu calling: " + angular.toJson(menuObj,''));
 console.log("$scope.menuObj : " + angular.toJson($scope.menuObj , ' '));

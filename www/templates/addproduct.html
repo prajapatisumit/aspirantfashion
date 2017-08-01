@@ -106,7 +106,7 @@
               <span class="input-label">
               Select category{{category}}
               </span>
-              <select ng-model="menuObj.categoryId" ng-options="obj.$id as obj.name for obj in category" ng-change="getSubCategory(object.categoryId)"></select>
+              <select ng-model="menuObj.categoryId" ng-options="obj.$id as obj.name for obj in category" ng-change="getSubCategory(menuObj.categoryId)"></select>
             </label>
 
             <label class="item item-input item-floating-label">
@@ -150,13 +150,13 @@
               <input  ng-model="menuObj.actualPrice" type="number" placeholder="Actual Price" name="actualprice" required>
             </label>
 
-            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
+            <!-- <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
               <span   class="input-label lblname">Available</span>
               <input  ng-model="menuObj.available" type="text" placeholder="Available" name="available" required>
             </label>
             <div ng-show="signupForm.available.$invalid && !signupForm.available.$pristine">
               <p ng-message="required" class="help-block errorcolor">Please enter available product is available?</p>
-            </div>
+            </div> -->
 
             <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.description.$invalid && !signupForm.description.$pristine }">
               <span   class="input-label lblname">Description</span>

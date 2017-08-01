@@ -14,13 +14,13 @@ angular.module('app')
     $scope.addSubCategory = function (subcatObj) {
       console.log('calling object' + angular.toJson(subcatObj, ''));
       // console.log("categoryid : " + categoryid);
-        // var subcatObj = {
-        //     name : subcategoryName,
-        //     image : $scope.downloadURL,
-        //     categoryid : categoryid
-        // }
+        var subcatAdd = {
+            name : subcatObj.subcategoryName,
+            image : $scope.downloadURL,
+            categoryid : subcatObj.$id
+        }
           $scope.subcatObj.image = $scope.downloadURL;
-      var SubcategoryRef = firebase.database().ref().child('subcategory').push($scope.subcatObj).key;
+      var SubcategoryRef = firebase.database().ref().child('subcategory').push(subcatAdd).key;
       console.log("subcatObj : " + angular.toJson($scope.subcatObj , ' '));
       $scope.globalproductID = SubcategoryRef;
       console.log("$scope.globalcategory "+ $scope.globalproductID);
