@@ -1,6 +1,6 @@
 angular.module('app')
     .controller('productCtrl', function($scope, $rootScope, $ionicSideMenuDelegate, fireBaseData, $state,
-        $ionicHistory, $firebaseArray, sharedCartService, sharedUtils, SessionService, $stateParams, $window, $ionicHistory) {
+        $ionicHistory, $firebaseArray, sharedCartService, sharedUtils, SessionService, $stateParams, $window, $ionicHistory,IonicPopupService) {
 
         $rootScope.extras = true;
         var allProducts = [];
@@ -17,8 +17,24 @@ angular.module('app')
             $scope.menu.$loaded().then(function (data) {
                 allProducts = data;
             });
-
         };
+
+        $scope.goAdminPage = function(id){
+          $state.go('admin' , {'product_id' : id});
+        };
+
+        $scope.deleteproduct = function(productId) {
+          console.log("productId : " + productId);
+          IonicPopupService.confirm('Delete Product', 'Are you sure you want to delete this Product?').then(function(res) {
+          if (res) {
+            console.log("$scope.productId : " + productId);
+            var deleteProductRef = firebase.database().ref('product/'  + productId );
+            deleteProductRef.remove().then(function (response) {
+              console.log('product removed successfully..');
+            });
+          }
+        });
+      };
 
         $scope.$on('$ionicView.enter', function(ev) {
             if (ev.targetScope !== $scope)

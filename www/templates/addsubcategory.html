@@ -32,11 +32,13 @@
         </div>
         <div class="col"></div>
       </div>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">
-        Category{{category}}
-        </span>
-        <select ng-model="subcatObj.$id" ng-options="obj.$id as obj.name for obj in category"></select>
+      <label class="item item-input item-select item-floating-label">
+        <div style="color: #9F9F9F; ">
+        Select Category
+      </div>
+        <select data-tap-disabled="true" ng-model="subcatObj.$id" ng-options="obj.$id as obj.name for obj in category" selected="true">
+          {{category}}
+        </select>
       </label>
       <label class="item item-input item-floating-label">
         <span class="input-label lblname">sub-Category Name</span>

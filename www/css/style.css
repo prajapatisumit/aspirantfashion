@@ -427,6 +427,30 @@ margin-top: -6px;
   margin-left: 297px;
     margin-top: 13px;
 }
+@media screen and (max-width: 667px) and (min-width: 375px) {
+    .seticon {
+      margin-left: 356px;
+        margin-top: 4px;
+    }
+}
+@media screen and (max-width: 736px) and (min-width: 414px) {
+    .seticon {
+      margin-left: 394px;
+        margin-top: 4px;
+    }
+}
+@media screen and (max-width: 794px) and (min-width: 1024px) {
+    .seticon {
+      margin-left: 394px;
+        margin-top: 4px;
+    }
+}
+@media screen and (max-width: 794px) and (min-width: 918px) {
+    .seticon {
+      margin-left: 394px;
+        margin-top: 4px;
+    }
+}
 .detailpageimg{
   box-shadow: none;
   width:100%;
@@ -579,6 +603,19 @@ margin-bottom: -11px;
     margin-left: 46px;
     font-size: 25px;
 }
+.editiocnset1{
+  position: absolute;
+    margin-top: -30px;
+    margin-left: 53px;
+    font-size: 25px;
+}
+
+.editiocnset2{
+  position: absolute;
+    margin-top: -30px;
+    margin-left: -76px;
+    font-size: 25px;
+}
 .card-title{
   position: absolute;
     top: 46%;
@@ -626,7 +663,7 @@ z-index: -999999;
 }
 .bar .buttons span {
     display: -webkit-box;
-    
+
 }
 .button .icon {
     vertical-align: middle;
@@ -645,7 +682,7 @@ z-index: -999999;
   font-size: 14px;
   width: 100%;
   color: #ef473a !important;
-  border-bottom: 1px solid #ef473a;  
+  border-bottom: 1px solid #ef473a;
 }
 .item-inner {
   background-image: url(data:image/svg+xml;charset=utf-8,<svg%20xmlns='http://www.w3.org/2000/svg'%…><path%20d='M2,20l-2-2l8-8L0,2l2-2l10,10L2,20z'%20fill='%23c8c7cc'/></svg>);
@@ -667,4 +704,11 @@ z-index: -999999;
   left: 0 !important;
   right: 0;
   position: relative;
+}
+.item-select select{
+  right: -4px;
+  top: 2px;
+}
+.lblprod{
+  color: #9F9F9F;
 }

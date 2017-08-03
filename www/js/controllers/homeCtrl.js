@@ -1,7 +1,7 @@
 angular.module('app')
 .controller('homeCtrl', function($scope,$rootScope,$ionicSideMenuDelegate,fireBaseData,$state,$cordovaDevice,$firebaseObject,
-                                  $ionicHistory,$firebaseArray,sharedCartService,sharedUtils,SessionService,$stateParams,$window,$ionicHistory) {
-                                     debugger
+                                  $ionicHistory,$firebaseArray,sharedCartService,sharedUtils,SessionService,$stateParams,$window,$ionicHistory,IonicPopupService) {
+                                    //  debugger
     if (!!$rootScope.userLog) {
 
       $scope.user = $rootScope.userLog;
@@ -108,6 +108,69 @@ angular.module('app')
   $scope.goAdminPage = function(id){
     $state.go('admin' , {'product_id' : id});
   };
+
+  $scope.loadSubCategory = function() {
+
+      var subCategory = $firebaseArray(firebase.database().ref('subcategory'));
+       subCategory.$loaded()
+         .then(function (response) {
+           $scope.sub_category = response;
+          // console.log("$scope.sub_category : " + angular.toJson($scope.sub_category , ' '));
+         })
+         .catch(function (error) {
+           console.log("Error at get subcategory data:", error);
+         });
+  };
+  $scope.loadProduct = function() {
+
+      var product = $firebaseArray(firebase.database().ref('product'));
+       product.$loaded()
+         .then(function (response) {
+           $scope.product = response;
+          // console.log("$scope.product : " + angular.toJson($scope.product , ' '));
+         })
+         .catch(function (error) {
+           console.log("Error at get product:", error);
+         });
+  };
+  $scope.loadSubCategory();
+  $scope.loadProduct();
+  $scope.deleteitems = function(categoryId) {
+    IonicPopupService.confirm('Delete Category', 'Are you sure you want to delete this Category?').then(function(res) {
+    if (res) {
+      console.log("categoryId : " + categoryId);
+
+        var deleteCatRef = firebase.database().ref('category/'  + categoryId );
+        deleteCatRef.remove().then(function (response) {
+          console.log("category removed successfully..");
+          for (var i = 0; i < $scope.sub_category.length; i++) {
+            if (!!$scope.sub_category[i].categoryid && $scope.sub_category[i].categoryid === categoryId) {
+                var deletesubCatRef = firebase.database().ref('subcategory/'  + $scope.sub_category[i].$id );
+                deletesubCatRef.remove().then(function (response) {
+                  console.log("subcat removed.");
+                  for (var j = 0; j < $scope.product.length; j++) {
+                    if (!!$scope.product[j].categoryId && $scope.product[j].categoryId === categoryId) {
+                        console.log("$scope.product[j].$id : " + $scope.product[j].$id);
+                        var deleteProductRef = firebase.database().ref('product/'  + $scope.product[j].$id );
+                        deleteProductRef.remove().then(function (response) {
+                          console.log('product removed successfully..');
+
+                        });
+                    }
+                  }
+
+
+              });
+
+            }
+          }
+      });
+    }
+  });
+
+
+  };
+
   $scope.goproductPage = function (categoryId) {
     console.log("categoryId : " + categoryId);
     $state.go('product', { 'category_id': categoryId });

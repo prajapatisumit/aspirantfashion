@@ -1,11 +1,11 @@
 <ion-view  class=" " id="favourite" title="Admin ">
-    <ion-content class="has-header" padding="true" ng-init="loadCategory();loadBrand()">
+    <ion-content class="has-header" padding="true" ng-init="loadCategory();loadBrand();loadSubCategory()">
 
     <script id="templates/admin.html" type="text/ng-template">
     <ion-modal-view>
       <ion-header-bar class="bar bar-header bar-assertive">
         <h1 class="title">Add Product Specification</h1>
-        <i class="icon ion-close-circled seticon" ng-click="modal.hide()"></i>
+        <i class="icon ion-close-circled seticon" ng-click="closeModal1(1)"></i>
       </ion-header-bar>
       <ion-content class="padding">
         <input type="text">
@@ -30,8 +30,8 @@
             </ion-list>
 
             <div class="spacer space"></div>
-            
-            <button  ng-click="addspcification(item)" class=" button button-assertive  button-block btnradius"  id="signup-button3">Save</button>
+
+            <button  ng-click="addspcification(item);closeModal1()" class=" button button-assertive  button-block btnradius"  id="signup-button3">Save</button>
             <button ng-click="addfield(item)" class=" button button-assertive  button-block btnradius"  id="signup-button3">Add More Product Details</button>
         </form>
       </ion-content>
@@ -82,14 +82,14 @@
         <span class="input-label">
         Select category{{category}}
         </span>
-        <select ng-model="updateproductdetails.category" ng-options="obj.$id as obj.name for obj in category"></select>
+        <select ng-model="updateproductdetails.category" ng-options="obj.$id as obj.name for obj in category" ng-change="getSubCategory(updateproductdetails.categoryId)"></select>
       </label>
 
       <label class="item item-input item-floating-label">
         <span class="input-label">
-        subCategory{{subcategory}}
+        subCategory{{ selectedSubCategory }}
         </span>
-        <select ng-model="updateproductdetails.subcategory" ng-options="obj.$id as obj.name for obj in subcategory"></select>
+        <select ng-model="updateproductdetails.selectedSubCategory" ng-options="obj.subcategory as obj.name for obj in subCategory"></select>
       </label>
 
       <label class="item item-input item-floating-label">
@@ -126,14 +126,6 @@
         <span   class="input-label lblname">Actual Price</span>
         <input  ng-model="updateproductdetails.actualprice" type="number" placeholder="Actual Price" name="actualprice" required>
       </label>
-
-      <label class="item item-input item-floating-label" ng-class="{ 'has_error' : Updateproduct.available.$invalid && !Updateproduct.available.$pristine }">
-        <span   class="input-label lblname">Available</span>
-        <input  ng-model="updateproductdetails.available" type="text" placeholder="Available" name="available" required>
-      </label>
-      <div ng-show="Updateproduct.available.$invalid && !Updateproduct.available.$pristine">
-        <p ng-message="required" class="help-block errorcolor">Please describe product is available?</p>
-      </div>
 
       <label class="item item-input item-floating-label" ng-class="{ 'has_error' : Updateproduct.description.$invalid && !Updateproduct.description.$pristine }">
         <span class="input-label lblname">Description</span>
@@ -175,7 +167,7 @@
   <ion-modal-view>
     <ion-header-bar class="bar bar-header bar-assertive">
       <h1 class="title">Add Product Size</h1>
-      <i class="icon ion-close-circled seticon" ng-click="sizemodal.show()"></i>
+      <i class="icon ion-close-circled seticon" ng-click="closeModal(1)"></i>
     </ion-header-bar>
     <ion-content class="padding">
          <ion-checkbox ng-repeat="item in size"

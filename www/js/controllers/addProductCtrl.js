@@ -130,9 +130,6 @@ $scope.save = function() {
 console.log('final size : ' +  $scope.finalSize);
 };
 
-
-
-
     $scope.validate = function(item,downloadURL) {
             console.log("item : " + angular.toJson(item , ' '));
           if (CommonService.validateEmpty(item, 'Oops!', 'Please enter value') === false) {
@@ -272,9 +269,9 @@ console.log('final size : ' +  $scope.finalSize);
   });
 
   $scope.addItem = function (menuObj) {
-    console.log("object menu calling: " + angular.toJson(menuObj,''));
+    console.log("object menu calling: " + angular.toJson($scope.menuObj,''));
 console.log("$scope.menuObj : " + angular.toJson($scope.menuObj , ' '));
-  if ($scope.validate($scope.menuObj) === false) {
+  if ($scope.validate(menuObj) === false) {
         return;
       }
     console.log("$scope.menuObj : " + angular.toJson($scope.menuObj,' '));
@@ -282,25 +279,24 @@ console.log("$scope.menuObj : " + angular.toJson($scope.menuObj , ' '));
     $scope.globalcategory = $scope.menuObj.categoryId;
 
 
-    // console.log("$scope.globalcategory "+ $scope.globalcategory);
-      // var menuObj = {
-      //     name : item.name,
-      //     brand : item.brandName,
-      //     available : item.available,
-      //     category : item.categoryId,
-      //     subcategory : item.subCatID,
-      //     size  : $scope.finalSize,
-      //     weight : item.Weight,
-      //     barcode:item.barCode,
-      //     manufacturer:item.manufacturer,
-      //     actualprice:item.actualPrice,
-      //     description : item.description,
-      //     image : $scope.downloadURL,
-      //     price : item.price,
-      //     stock : item.stock
-      // }
-    console.log("menuObj : " + angular.toJson($scope.menuObj , ' '));
-    var menuRef = firebase.database().ref().child('product').push($scope.menuObj).key;
+    console.log("$scope.globalcategory "+ $scope.globalcategory);
+      var menuObj = {
+          name : menuObj.name,
+          brand : menuObj.brandName,
+          category : menuObj.categoryId,
+          subcategory : menuObj.subCatID,
+          size  : $scope.finalSize,
+          weight : menuObj.Weight,
+          barcode:menuObj.barCode,
+          manufacturer:menuObj.manufacturer,
+          actualprice:menuObj.actualPrice,
+          description : menuObj.description,
+          image : $scope.downloadURL,
+          price : menuObj.price,
+          stock : menuObj.stock
+      }
+    console.log("menuObj final : " + angular.toJson($scope.menuObj , ' '));
+    var menuRef = firebase.database().ref().child('product').push(menuObj).key;
     $scope.globalproductID = menuRef;
     console.log("$scope.globalcategory "+ $scope.globalproductID);
     if (!!$scope.globalproductID) {
@@ -311,7 +307,16 @@ console.log("$scope.menuObj : " + angular.toJson($scope.menuObj , ' '));
      firebase.database().ref().child('product/' + $scope.globalproductID + '/images' ).set($scope.imgset).then(function (data) {
         firebase.database().ref().child('product/' + $scope.globalproductID + '/size' ).set($scope.finalSize).then(function (sizedata) {
             IonicPopupService.alert("Your Product Add successfully..")
-            $scope.menuObj = {};
+            // $scope.menuObj = {};
+            $scope.menuObj.name = '';
+            $scope.menuObj.Weight = '';
+            $scope.menuObj.barCode = '';
+            $scope.menuObj.manufacturer = '';
+            $scope.menuObj.actualPrice = '';
+            $scope.menuObj.description = '';
+            $scope.menuObj.image = '';
+            $scope.menuObj.price = '';
+            $scope.menuObj.stock = ''
             $scope.imgset = [];
         }).catch(function (error) {
          //  debugger

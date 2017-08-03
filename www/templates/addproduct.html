@@ -83,8 +83,8 @@
                 <hr />
               </ion-list>
               <div class="spacer space"></div>
-              <button  ng-click="addspcification(item)" class=" button button-assertive  button-block btnradius"  id="signup-button3">Save</button>
-              <button ng-click="addfield(item)" class=" button button-assertive  button-block btnradius"  id="signup-button3">Add More Product Details</button>
+              <button  ng-click="addspcification(item);" class=" button button-assertive  button-block btnradius"  id="signup-button3">Save</button>
+              <button ng-click="addfield(item);" class=" button button-assertive  button-block btnradius"  id="signup-button3">Add More Product Details</button>
           </form>
         </ion-content>
       </ion-modal-view>
@@ -102,25 +102,31 @@
                 <p ng-message="required" class="help-block errorcolor">Please enter product Name.</p>
               </div>
 
-            <label class="item item-input  item-floating-label">
-              <span class="input-label">
-              Select category{{category}}
-              </span>
-              <select ng-model="menuObj.categoryId" ng-options="obj.$id as obj.name for obj in category" ng-change="getSubCategory(menuObj.categoryId)"></select>
+            <label class="item item-input item-select item-floating-label">
+              <span class="lblprod">
+              Select Category
+            </span>
+              <select class="item-select" data-tap-disabled="true" ng-model="menuObj.categoryId" ng-options="obj.$id as obj.name for obj in category" ng-change="getSubCategory(menuObj.categoryId)">
+                  {{category}}
+              </select>
             </label>
 
-            <label class="item item-input item-floating-label">
-              <span class="input-label">
-              subCategory{{selectedSubCategory}}
+            <label class="item item-input item-select item-floating-label">
+              <span class="lblprod">
+              Select subCategory
               </span>
-              <select ng-model="menuObj.subCatID" ng-options="obj.$id as obj.name for obj in selectedSubCategory"></select>
+              <select class="item-select" data-tap-disabled="true" ng-model="menuObj.subCatID" ng-options="obj.$id as obj.name for obj in selectedSubCategory">
+                  {{selectedSubCategory}}
+              </select>
             </label>
 
-            <label class="item item-input item-floating-label">
-              <span class="input-label">
-              Select Brand{{brand}}
+            <label class="item item-input item-select item-floating-label">
+              <span class="lblprod">
+              Select Brand
               </span>
-              <select ng-model="menuObj.brandName" ng-options="obj.name as obj.name for obj in brand "></select>
+              <select class="item-select" data-tap-disabled="true" ng-model="menuObj.brandName" ng-options="obj.name as obj.name for obj in brand ">
+                {{brand}}
+              </select>
             </label>
 
             <label  class="item  item-floating-label"  name="size"  ng-click="openModal(1)" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">

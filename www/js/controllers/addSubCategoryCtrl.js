@@ -30,7 +30,8 @@ angular.module('app')
         };
        firebase.database().ref().child('subcategory/' + $scope.globalproductID + '/images' ).set($scope.imgset2).then(function (data) {
               IonicPopupService.alert("Subcategory added successfully..");
-              $scope.subcatObj = {};
+              $scope.subcatObj.image = '';
+              $scope.subcatObj.subcategoryName = '';
               $scope.imgset2 = [];
        }).catch(function (error) {
         //  debugger

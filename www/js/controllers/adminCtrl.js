@@ -43,12 +43,14 @@ angular.module('app')
 					$scope.modal1 = modal;
 				  });
 
-				  $scope.openModal1 = function() {
-					$scope.modal1.show();
+				  $scope.openModal1 = function(index) {
+              if (index == 1) $scope.modal1.hide();
+					    else $scope.modal1.show();
 				  };
 
-				  $scope.closeModal1 = function() {
-					$scope.modal1.hide();
+				  $scope.closeModal1 = function(index) {
+              if (index == 1) $scope.modal1.hide();
+					    else $scope.modal1.hide();
 				  };
           $scope.openModal = function(index) {
             $scope.loadSize();
@@ -107,6 +109,25 @@ angular.module('app')
         console.log("$scope.category : " + angular.toJson($scope.category , ' '));
       };
 
+      $scope.loadSubCategory = function () {
+        $scope.subCategory = $firebaseArray(fireBaseData.refSubCategory());
+        console.log("$scope.subCategory : " + angular.toJson($scope.subCategory , ' '));
+      };
+
+      $scope.getSubCategory = function (categoryid) {
+        $scope.selectedSubCategory = [];
+        $scope.categoryid = categoryid;
+        console.log("this function is calling.... : " +categoryid );
+        // $scope.subCategory = $firebaseArray(fireBaseData.refSubCategory());
+        // console.log("$scope.subCategory : " + angular.toJson($scope.subCategory , ' '));
+        for (var i = 0; i < $scope.subCategory.length; i++) {
+          if ($scope.subCategory[i].categoryid === $scope.categoryid) {
+            $scope.selectedSubCategory.push($scope.subCategory[i]);
+          }
+        }
+        console.log("$scope.selectedSubCategory : " + angular.toJson($scope.selectedSubCategory , ' '));
+      };
+      // $scope.loadSubCategory();
       $scope.loadBrand = function() {
         $scope.brand = $firebaseArray(fireBaseData.refBrand());
         console.log("$scope.brand : " + angular.toJson($scope.brand , ' '));
@@ -265,12 +286,12 @@ $scope.validate = function(item,downloadURL) {
 			console.log("response test: " + angular.toJson(menuRef , ' '));
 
 		}
-    // $scope.deleteupdateImage = function(id) {
-    //     console.log("id : " + id);
-    //   // $scope.imgset.remove(downloadURL);
-    //    $scope.imgset = firebase.database().ref().child('product/' + $scope.globalproductID + '/images'  ).remove(id);
-    //    console.log("yes delete image.");
-    // };
+    $scope.deleteupdateImage = function(id) {
+        console.log("id : " + id);
+      // $scope.imgset.remove(downloadURL);
+       $scope.imgset = firebase.database().ref().child('product/' + $scope.globalproductID + '/images'  ).remove(id);
+       console.log("yes delete image.");
+    };
 
 		// Update Product Specification on model
 
@@ -295,7 +316,7 @@ $scope.validate = function(item,downloadURL) {
               var obj = {
                 name : $scope.name,
                 value: $scope.atribute,
-				id: $scope.id
+				        id: $scope.id
               };
 			  var refProduct = firebase.database().ref().child('product/' + $stateParams.product_id + '/product_specification/' + $scope.id ).update(obj);
 			  };
@@ -304,6 +325,5 @@ $scope.validate = function(item,downloadURL) {
 		 //var refProduct = firebase.database().ref().child('product/' + $scope.globalproductID + '/product_specification/' + $scope.id ).update(obj);
 
    };
-
-        })
+})
   //////complete admin controller
