@@ -19,22 +19,18 @@
           </div>
     </ion-content>
 </ion-view> -->
-<ion-view style="" class=" "  title="Details">
+<ion-view title="Product Details">
 
     <ion-content class="has-header" padding="true">
 
-      <div style="min-height: 30px;" class="item item-divider">{{showproductdetails.name}} </div>
-      <div class="item item-body" >
+      <div class="item item-divider product-detail-title">{{showproductdetails.name | uppercase }} </div>
+      <div class="item item-body product-detail-item">
         <ion-slide-box n-slide-changed="slideHasChanged($index)" auto-play="false"  does-continue="true" >
-                    <!-- <ion-slide ng-repeat="image in imgset">
-                        <img  class="detailpageimg" ng-src="{{ image }}">
-                    </ion-slide> -->
-                    <ion-slide ng-repeat="image in productimages">
-                        <img  class="detailpageimg" ng-src="{{ image.$value }}">
-                    </ion-slide>
-
+              <ion-slide ng-repeat="image in productimages">
+                  <img  class="detailpageimg" ng-src="{{ image.$value }}">
+              </ion-slide>
           </ion-slide-box>
-        <!-- <img  class="detailpageimg" ng-src="{{ showproductdetails.image }}"> -->
+
         <form class="list"></form>
         <div>
           {{ showproductdetails.description }}
@@ -51,7 +47,7 @@
         <div>
           <ul>
             <li ng-repeat="data in productSpdetails" style="font-size:15px;">
-				{{ data.name }} : {{ data.value}}
+				            <span class="product-specification-span">{{ data.name }}</span> : <span>{{ data.value}}</span>
             </li>
 
           </ul>

@@ -712,3 +712,20 @@ z-index: -999999;
 .lblprod{
   color: #9F9F9F;
 }
+.product-detail-item {
+    padding: 0 !important;
+    border-width: 0px !important;
+}
+.product-specification-span {
+  width: 50%;
+  float: left;
+}
+.product-detail-title {
+  padding-top: 0px;
+  margin-left: -15px;
+  font-size: 16px !important;
+  margin-top: -8px;
+  white-space: normal;
+  line-height: normal !important;
+  height: auto !important;
+}
