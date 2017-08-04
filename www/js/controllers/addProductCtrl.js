@@ -66,6 +66,7 @@ angular.module('app')
               $scope.addfield = function(){
                 $scope.inputs.push({})
               };
+                $scope.productSpecification = [];
               $scope.addspcification = function(){
         			console.log("$stateParams.product_id ----" + $stateParams.product_id);
         			console.log(" $scope.globalproductID   ----" +  $scope.globalproductID );
@@ -77,6 +78,7 @@ angular.module('app')
                       name : $scope.name,
                       value: $scope.atribute
                     };
+                      $scope.productSpecification.push(obj);
                 console.log(" $obj.obj "+ angular.toJson(obj,' '));
 
       		  if(!!$stateParams.product_id){
@@ -92,6 +94,7 @@ angular.module('app')
                   //$scope.datas = $scope.inputs[i];
                   // var Obj = $scope.data.push($scope.inputs[i])
                 }
+                  console.log("$scope.productSpecification : " + angular.toJson($scope.productSpecification , ' '));
                 console.log(" $scope.datas "+ angular.toJson($scope.data,' '));
                 //console.log(" $scope.datas "+ angular.toJson($scope.lol,' '));
                 // var refProduct = firebase.database().ref().child('product/ID/Product Specification').push(Obj).key;
@@ -150,6 +153,15 @@ console.log('final size : ' +  $scope.finalSize);
             return false;
           }
         };
+
+        var userdata = [];
+    		var refProduct = firebase.database().ref('product/' + $scope.selectedId +'/product_specification');
+            // new Firebase("https://shopping-42daf.firebaseio.com/product/" + $scope.selectedId +"/product_specification");
+            var userData = $firebaseArray(refProduct);
+            userData.$loaded().then(function(response) {
+              $scope.productSpdetails = response;
+              console.log("Response data for fetch data from response........... ",angular.toJson($scope.productSpdetails,' '));
+            });
 
     $scope.loadSubCategory = function () {
       $scope.subCategory = $firebaseArray(fireBaseData.refSubCategory());

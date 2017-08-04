@@ -83,8 +83,8 @@
                 <hr />
               </ion-list>
               <div class="spacer space"></div>
-              <button  ng-click="addspcification(item);" class=" button button-assertive  button-block btnradius"  id="signup-button3">Save</button>
-              <button ng-click="addfield(item);" class=" button button-assertive  button-block btnradius"  id="signup-button3">Add More Product Details</button>
+              <button  ng-click="addspcification(item)" class=" button button-assertive  button-block btnradius"  id="signup-button3">Save</button>
+              <button ng-click="addfield(item)" class=" button button-assertive  button-block btnradius"  id="signup-button3">Add More Product Details</button>
           </form>
         </ion-content>
       </ion-modal-view>
@@ -187,13 +187,26 @@
             <div ng-show="signupForm.stock.$invalid && !signupForm.stock.$pristine" ng-messages="signupForm.stock.$error">
               <p ng-message="required" class="help-block errorcolor">Please enter product Stocks.</p>
             </div>
+            <div>
+              <ul>
+                <li ng-repeat="data in productSpecification" style="font-size:15px;">
+    				            <span class="product-specification-span">{{ data.name }}</span> : <span>{{ data.value}}</span>
+                </li>
+
+              </ul>
+            </div>
+            <!-- <div ng-repeat="data in productSpecification">
+                <span>{{data.name}}</span>
+                <span>{{data.value}}</span>
+            </div> -->
           </ion-list>
+
+
 
           <div  class="spacer space"></div>
           <button ng-click="openModal(2)" class=" button button-assertive  button-block btnradius" >Add Product Specification</button>
-          <button ng-click="addItem(menuObj)"  type="submit" class=" button button-assertive  button-block btnradius"  id="signup-button3" >Add Menu Item</button>
+          <button ng-click="addItem(menuObj);addspcification(item)"  type="submit" class=" button button-assertive  button-block btnradius"  id="signup-button3" >Add Menu Item</button>
       </form>
       </div>
-
     </ion-content>
     </ion-view>

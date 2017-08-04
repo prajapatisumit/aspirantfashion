@@ -45,7 +45,7 @@ angular.module('app')
           $scope.productSpdetails = response;
           console.log("Response data for fetch data from response........... ",angular.toJson($scope.productSpdetails,' '));
         });
-
+        
         var refProduct = firebase.database().ref('product/' + $scope.selectedId +'/images');
             // new Firebase("https://shopping-42daf.firebaseio.com/product/" + $scope.selectedId +"/product_specification");
             var userData = $firebaseArray(refProduct);
