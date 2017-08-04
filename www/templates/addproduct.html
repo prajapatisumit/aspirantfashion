@@ -68,7 +68,7 @@
               <ion-list class=" " id="{{$index+1}}" ng-repeat="item in inputs" >
                 <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm1.title.$invalid && !signupForm1.title.$pristine }">
                   <span  class="input-label lblname"></span>
-                  <input  ng-model="item.attribute" type="text" placeholder="Title" name="title" required>
+                  <input  ng-model="item.attribute" type="text" placeholder="Title" name="title">
                 </label>
                 <div ng-show="signupForm1.title.$invalid && !signupForm1.title.$pristine" ng-messages="signupForm1.title.$error">
                   <p ng-message="required" class="help-block errorcolor">Please enter product Specification Title.</p>
@@ -83,7 +83,7 @@
                 <hr />
               </ion-list>
               <div class="spacer space"></div>
-              <button  ng-click="addspcification(item)" class=" button button-assertive  button-block btnradius"  id="signup-button3">Save</button>
+              <button  ng-click="addspcification(item);closeModal(2)" class="button button-assertive  button-block btnradius"  id="signup-button3">Save</button>
               <button ng-click="addfield(item)" class=" button button-assertive  button-block btnradius"  id="signup-button3">Add More Product Details</button>
           </form>
         </ion-content>

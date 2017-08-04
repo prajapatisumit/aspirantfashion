@@ -424,19 +424,30 @@ width: 279px; height: 35px;
 margin-top: -6px;
 }
 .seticon{
-  margin-left: 297px;
-    margin-top: 13px;
+  margin-left: 289px;
+    margin-top: 6px;
+    font-size: 33px;
+}
+@media screen and (max-width: 640px) and (min-width: 360px) {
+    .seticon {
+      margin-left: 328px;
+        margin-top: 6px;
+        font-size: 33px;
+    }
 }
 @media screen and (max-width: 667px) and (min-width: 375px) {
     .seticon {
-      margin-left: 356px;
+      margin-left: 344px;
         margin-top: 4px;
+        font-size: 33px;
     }
 }
-@media screen and (max-width: 736px) and (min-width: 414px) {
+
+@media screen and (max-width: 732px) and (min-width: 412px) {
     .seticon {
-      margin-left: 394px;
-        margin-top: 4px;
+      margin-left: 378px;
+    margin-top: 4px;
+    font-size: 33px;
     }
 }
 @media screen and (max-width: 794px) and (min-width: 1024px) {

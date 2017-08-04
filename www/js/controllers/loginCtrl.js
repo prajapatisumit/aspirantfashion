@@ -287,7 +287,7 @@ angular.module('app')
                     });
                     console.log("user saved already...");
                     sharedUtils.hideLoading();
-                    IonicPopupService.alert("guest user signup successfully")
+                    // IonicPopupService.alert("guest user signup successfully")
                     $state.go('home', {}, {
                         location: "replace"
                     });
