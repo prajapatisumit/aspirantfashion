@@ -77,27 +77,48 @@
       <div ng-show="Updateproduct.name.$invalid && !Updateproduct.name.$pristine">
         <p ng-message="required" class="help-block errorcolor">Please enter product Name.</p>
       </div>
-
-      <label class="item item-input item-floating-label">
+    <label class="item item-input item-select item-floating-label">
+      <span class="lblprod">
+      Select Category
+    </span>
+      <select class="item-select" data-tap-disabled="true" ng-model="updateproductdetails.category" ng-options="obj.$id as obj.name for obj in category" ng-change="getSubCategory(updateproductdetails.categoryId)">
+          {{category}}
+      </select>
+    </label>
+      <!-- <label class="item item-input item-floating-label">
         <span class="input-label">
         Select category{{category}}
         </span>
         <select ng-model="updateproductdetails.category" ng-options="obj.$id as obj.name for obj in category" ng-change="getSubCategory(updateproductdetails.categoryId)"></select>
-      </label>
-
-      <label class="item item-input item-floating-label">
+      </label> -->
+    <label class="item item-input item-select item-floating-label">
+      <span class="lblprod">
+      Select subCategory
+      </span>
+      <select class="item-select" data-tap-disabled="true" ng-model="updateproductdetails.selectedSubCategory" ng-options="obj.subcategory as obj.name for obj in subCategory">
+          {{selectedSubCategory}}
+      </select>
+    </label>
+      <!-- <label class="item item-input item-floating-label">
         <span class="input-label">
         subCategory{{ selectedSubCategory }}
         </span>
         <select ng-model="updateproductdetails.selectedSubCategory" ng-options="obj.subcategory as obj.name for obj in subCategory"></select>
+      </label> -->
+      <label class="item item-input item-select item-floating-label">
+        <span class="lblprod">
+        Select Brand
+        </span>
+        <select class="item-select" data-tap-disabled="true" ng-model="updateproductdetails.brand" ng-options="obj.name as obj.name for obj in brand ">
+          {{brand}}
+        </select>
       </label>
-
-      <label class="item item-input item-floating-label">
+      <!-- <label class="item item-input item-floating-label">
         <span class="input-label">
         Select Brand{{brand}}
         </span>
         <select ng-model="updateproductdetails.brand" ng-options="obj.name as obj.name for obj in brand "></select>
-      </label>
+      </label> -->
 
       <label  class="item  item-floating-label"  name="size"  ng-click="openModal(1)"  ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
         <span class="lblname" >size </span>
