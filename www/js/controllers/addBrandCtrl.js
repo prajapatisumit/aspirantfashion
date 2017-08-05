@@ -2,7 +2,28 @@ angular.module('app')
 .controller('addBrandCtrl', function($scope,$rootScope,sharedUtils,$ionicSideMenuDelegate,$interval,
                                      $state,fireBaseData,$ionicHistory,SessionService,$ionicModal,$firebaseArray,$firebaseObject,$stateParams,CommonService,IonicPopupService,$window) {
 
+
+                                       $ionicModal.fromTemplateUrl('templates/addbrand.html', {
+                                               scope: $scope
+                                         }).then(function(modal) {
+                                              $scope.modal = modal;
+                                       });
+     $ionicModal.fromTemplateUrl('templates/addbrand.html', function($ionicModal) {
+        $scope.modal = $ionicModal;
+    }, {
+        // Use our scope for the scope of the modal to keep it simple
+        scope: $scope,
+        // The animation we want to use for the modal entrance
+        animation: 'slide-in-up'
+    });
+
     $rootScope.extras=true;
+
+    $scope.loadBrand = function() {
+      // debugger
+      $scope.brandload=$firebaseArray(fireBaseData.refBrand());
+    };
+
     $scope.backaddminaddpg = function(){
       $state.go('adminadd');
     };
@@ -12,15 +33,19 @@ angular.module('app')
       }
       $scope.brandObj = {};
     });
-
+    $scope.branData = [];
     $scope.addBrand = function () {
         // var brandObj = {
         //     name : brandName,
         //     image : $scope.downloadURL
         // }
+
         $scope.brandObj.image = $scope.downloadURL;
+        // $scope.branddata.push(brandObj);
       var BrandRef = firebase.database().ref().child('brand').push($scope.brandObj).key;
       console.log("brandObj : " + angular.toJson($scope.brandObj, ' '));
+      $scope.branData.push($scope.brandObj);
+      console.log('$scope.branData' + angular.toJson($scope.branData,' '));
       $scope.globalproductID = BrandRef;
       console.log("$scope.globalcategory "+ $scope.globalproductID);
       if (!!$scope.globalproductID) {
@@ -112,5 +137,39 @@ angular.module('app')
         }
       }, 100);
     };
+    // $scope.productId = $stateParams.brandId;
+    console.log("$scope.productId for admin  : " + $scope.globalproductID );
+    // Update brand name on model
+
+		var userdata = [];
+		var refBrand = firebase.database().ref('brand/' + $scope.globalproductID);
+        //  new Firebase("https://shopping-42daf.firebaseio.com/product/" + $scope.productId +"/product_specification");
+        var userData = $firebaseArray(refBrand);
+        userData.$loaded().then(function(response) {
+          $scope.brandname = response;
+          console.log("admin pro se d ",angular.toJson($scope.brandname,' '));
+        });
+
+        $scope.updatebrand = function(brandname){
+          console.log("update fun ",angular.toJson($scope.brandname,' '));
+         $scope.data = [];
+                  var brandUpdateObj = {
+                    name : data.name
+                  };
+            var refBrand = firebase.database().ref().child('brand/' + $scope.globalproductID ).update(brandUpdateObj);
+              console.log("update Angular "+ angular.toJson(brandUpdateObj,' '));
+        };
+
+        $scope.deletebrand = function(globalproductID,data) {
+          IonicPopupService.confirm('Delete Brand', 'Are you sure you want to delete this Brand?').then(function(res) {
+          if (res) {
+            console.log("globalproductID : " + globalproductID);
+              var deleteBrandRef = firebase.database().ref('brand/'  + globalproductID );
+              deleteBrandRef.remove().then(function (response) {
+                console.log("Brand removed successfully..");
+            });
+          }
+        });
+      };
 
 })

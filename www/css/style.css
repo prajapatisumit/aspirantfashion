@@ -611,7 +611,7 @@ margin-bottom: -11px;
 .editiocnset{
   position: absolute;
     margin-top: -30px;
-    margin-left: 46px;
+    margin-left: 29px;
     font-size: 25px;
 }
 .editiocnset1{
@@ -739,4 +739,16 @@ z-index: -999999;
   white-space: normal;
   line-height: normal !important;
   height: auto !important;
+}
+.editiocnbrand{
+  position: absolute;
+    margin-top: -28px;
+    margin-left: 213px;
+    font-size: 25px;
+}
+.deleteiocnbrand{
+  position: absolute;
+    margin-top: -30px;
+    margin-left: 249px;
+    font-size: 25px;
 }

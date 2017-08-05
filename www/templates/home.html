@@ -45,7 +45,7 @@
 				  <div class="item item-image homepageimg">
 					<img class="imageset homepageimgsize" ng-src="{{ menu[$index].image }}" ng-click="goproductPage(item.$id)"/>
           <p class="textoverimg" style="color:white; font-size: large;">{{menu[$index].name}}</p>
-          <!-- <i class="icon icon ion-edit item-icon-right assertive editiocnset" ng-click="goAdminPage(menu[$index].$id)" ng-if="user.isAdmin === true"></i> -->
+          <i class="icon icon ion-edit item-icon-right assertive editiocnset" ng-click="gotoEditcategory(menu[$index].$id)" ng-if="user.isAdmin === true"></i>
           <i class="icon ion-trash-b item-icon-right assertive editiocnset1" ng-click="deleteitems(menu[$index].$id)" ng-if="user.isAdmin === true"></i>
 				  </div>
 
@@ -66,8 +66,8 @@
 				  <div class="item item-image homepageimg" >
 					<img class="imageset homepageimgsize"  ng-src="{{ menu[$index+1].image }}" ng-click="goproductPage(item.$id)"/>
             <p class="textoverimg" style="color:white; font-size: large;">{{menu[$index+1].name}}</p>
-            <!-- <i style="font-size: 25px;" class="icon icon ion-edit item-icon-right assertive editiocnset" ng-click="goAdminPage(menu[$index+1].$id)" ng-if="user.isAdmin === true"></i> -->
-              <i class="icon ion-trash-b item-icon-right assertive editiocnset1" ng-click="deleteitems(menu[$index+1].$id)" ng-if="user.isAdmin === true"></i>
+            <i style="font-size: 25px;" class="icon icon ion-edit item-icon-right assertive editiocnset" ng-click="gotoEditcategory(menu[$index+1].$id)" ng-if="user.isAdmin === true"></i>
+            <i class="icon ion-trash-b item-icon-right assertive editiocnset1" ng-click="deleteitems(menu[$index+1].$id)" ng-if="user.isAdmin === true"></i>
 				  </div>
 
 				  <!-- <a class="item item-icon-right assertive homepageitem" href="javascript:void(0)">

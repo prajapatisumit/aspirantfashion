@@ -42,7 +42,35 @@
     </ion-list>
     <div class="spacer space"></div>
     <button ng-click="addBrand()" class=" button button-assertive  button-block btnradius"  id="signup-button5">Add Brand</button>
+    <div></div>
+    <div>
+      <ion-list class="list">
+        <ion-item ng-repeat="data in brandload" item="data" ng-if="$index < brandload.length">
+          <!-- brandload -->
+          <h2>Brand Name:&nbsp;&nbsp;{{ data.name }}</h2>
+          <i class="icon icon ion-edit item-icon-right assertive editiocnbrand" ng-click="modal.show()" ng-if="user.isAdmin === true"></i>
+          <i class="icon ion-trash-b item-icon-right assertive deleteiocnbrand" ng-click="deletebrand(brandload[$index].$id)" ng-if="user.isAdmin === true"></i>
+        </ion-item>
+      </ion-list>
+    </div>
 </form>
 </div>
+
+<script id="templates/addbrand.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-assertive">
+      <h1 class="title">Update Brand</h1>
+      <i class="icon ion-close-circled seticon" ng-click="modal.hide()"></i>
+    </ion-header-bar>
+    <ion-content class="padding">
+      <label class="item item-input item-floating-label">
+        <span class="input-label lblname">Brand Name</span>
+        <input  ng-model="data.name" type="text" placeholder="Breand Name">
+      </label>
+          <div class="spacer space"></div>
+          <button  ng-click="updatebrand(brandname);modal.hide()" class=" button button-assertive  button-block btnradius"  id="signup-button3">Update Brand</button>
+    </ion-content>
+  </ion-modal-view>
+</script>
 </ion-content>
 </ion-view>

@@ -13,7 +13,11 @@ angular.module('app')
 
   $scope.goBack = function () {
     $ionicHistory.goBack();
-  }
+  };
+
+  $scope.gotoEditcategory = function(id){
+    $state.go('editcategory',{'category_id' : id});
+  };
 
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {

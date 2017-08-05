@@ -1,0 +1,44 @@
+<ion-view  class=" " id="favourite" title="Edit Category">
+    <ion-content class="has-header" padding="true" ng-init="loadCategory()">
+      <div>
+      <form name="signupForm" class="list " id="signup-form2">
+          <ion-list class=" " id="signup-list3">
+            <div ng-if="progress>0" ng-hide="progress>=100">
+              <progress class="positive" max="100" value="{{ progress }}"> </progress>
+              <div id="progressbarlabel">{{ progress }} %</div>
+            </div>
+            <div class="row" style="flex-wrap: wrap;">
+              <div class="col col-25" ng-repeat="data in updatecategorydetails.images">
+                  <img ng-src="{{ data }}" class="imgStyle">
+                  <label ng-click="deleteupdateImage(data.$id)">
+                    <a class="button button-icon icon ion-android-cancel"  style="margin: -50px 0px 0px 3px;color: #48b3e2;"></a>
+                  </label>
+              </div>
+              <div class="buttons col col-25" ng-show="image.length < 0">
+                <button class="fileUpload button-positive activated btnRadious roundBtn">
+                  Click here to add images
+                    <input type="file" file-model="uploadFile" class="upload">
+                </button>
+              </div>
+            </div>
+            <div class="row" ng-show="!image || image.length === 0">
+              <div class="col"></div>
+              <div class="buttons">
+                <button class="fileUpload button-positive activated btnRadious roundBtn">
+                  Click here to add images
+                    <input type="file" file-model="uploadFile" class="upload">
+                </button>
+              </div>
+              <div class="col"></div>
+            </div>
+            <label class="item item-input item-floating-label">
+              <span class="input-label lblname">Category Name</span>
+              <input ng-model="updatecategorydetails.name" type="text" placeholder="Category Name"/>
+            </label>
+          </ion-list>
+          <div class="spacer space"></div>
+          <button ng-click="updateCategory(updatecategorydetails)" class=" button button-assertive  button-block btnradius"  id="signup-button3">Update Category</button>
+      </form>
+      </div>
+    </ion-content>
+  </ion-view>

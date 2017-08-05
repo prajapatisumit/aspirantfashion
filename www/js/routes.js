@@ -60,6 +60,12 @@ angular.module('app.routes', [])
     controller: 'productCtrl'
   })
 
+  .state('editcategory', {
+    url: '/editcategory?:category_id:categoryId',
+    templateUrl: 'templates/editcategory.html',
+    controller: 'editCategoryCtrl'
+  })
+
   .state('offers', {
     url: '/offers',
     templateUrl: 'templates/offers.html',
