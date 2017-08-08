@@ -1,36 +1,14 @@
-<!-- <ion-view style="" class=" " id="myCart" title="Details">
-    <ion-content class="has-header" padding="true">
-          <div style="min-height: 30px;" class="item item-divider">{{details.name}} </div>
-          <div class="item item-body" >
-            <img ng-src="{{ details.image }}" width="100%" height="auto" style="box-shadow: none;">
-            <form class="list"></form>
-            <div>
-              {{ details.description }}
-            </div>
-            <div>
-              <p>
-                <strong class="detailsprice"> &#8377; {{ details.price }}</strong>
-              </p>
-            </div>
-          </div>
-          <div class="row detailscart">
-            <div class="col col-55"><button ng-click="checkout()" class="button button-assertive button-block">Add to Cart</button></div>
-            <div class="col col-45"><button ng-click="checkout()" class="button button-assertive button-block ">Buy Now</button></div>
-          </div>
-    </ion-content>
-</ion-view> -->
-<ion-view title="Product Details">
+
+<ion-view style="" class=" "  title="Details">
 
     <ion-content class="has-header" padding="true">
-
-      <div class="item item-divider product-detail-title">{{showproductdetails.name | uppercase }} </div>
-      <div class="item item-body product-detail-item">
+      <div style="min-height: 30px;" class="item item-divider">{{showproductdetails.name}} </div>
+      <div class="item item-body" >
         <ion-slide-box n-slide-changed="slideHasChanged($index)" auto-play="false"  does-continue="true" >
-              <ion-slide ng-repeat="image in productimages">
-                  <img  class="detailpageimg" ng-src="{{ image.$value }}">
-              </ion-slide>
+                    <ion-slide ng-repeat="image in productimages">
+                        <img  class="detailpageimg" ng-src="{{ image.$value }}">
+                    </ion-slide>
           </ion-slide-box>
-
         <form class="list"></form>
         <div>
           {{ showproductdetails.description }}
@@ -40,6 +18,15 @@
             <strong class="detailsprice"> &#8377; {{ showproductdetails.price }}</strong>
           </p>
         </div>
+
+          <!-- <ion-item data-componentid="list-item1"  style="" menu-close=""  class="item-icon-left">
+              <i class="ion-ios-location"></i>Your Delivery Address</ion-item> -->
+        <div ng-click="openAddressModal()">
+          <i class="ion-ios-location" style="font-size: 20px;"></i>
+          <span style="padding-left: 2%;" ng-hide="!!userAddress || !!userAddressByZip">Add Your Delivery Address</span>
+          <span style="padding-left: 2%;" ng-if="!!userAddress">Your Delivery Address : {{userAddress.city}}  {{userAddress.state}}  {{userAddress.county}}  {{userAddress.postalCode}}</span>
+          <span style="padding-left: 2%;" ng-if="!!userAddressByZip">Your Delivery Address : {{userAddressByZip.city}}  {{userAddressByZip.state}}  {{userAddressByZip.county}}  {{userAddressByZip.postalCode}}</span>
+        </div>
         <div>
           <h2 style="color:red"><b>Product Specification</b></h2>
         </div>
@@ -47,20 +34,11 @@
         <div>
           <ul>
             <li ng-repeat="data in productSpdetails" style="font-size:15px;">
-				            <span class="product-specification-span">{{ data.name }}</span> : <span>{{ data.value}}</span>
+				{{ data.name }} : {{ data.value}}
             </li>
-
           </ul>
         </div>
-
-
       </div>
-
-
-        <!-- <div class="row detailscart">
-          <div class="col col-55"><button ng-click="addToCart(menu[$index])" class="button button-assertive button-block">Add to Cart</button></div>
-          <div class="col col-45"><button ng-click="buyNow()" class="button button-assertive button-block ">Buy Now</button></div>
-        </div> -->
 
     </ion-content>
     <ion-footer-bar class="bar button-bar-footer" style="height: auto;">
@@ -71,3 +49,44 @@
      </ion-footer-bar>
 
 </ion-view>
+
+
+<!--  -->
+<script id="templates/addAddress.html" type="text/ng-template">
+<ion-modal-view>
+  <ion-header-bar class="bar bar-header bar-assertive">
+    <h1 class="title">Add Address</h1>
+    <i class="icon ion-close-circled seticon" style="font-size: 25px;margin-left: 90%;" ng-click="closeAddressModal()"></i>
+
+  </ion-header-bar>
+  <ion-content class="padding">
+      <h4>Choose your delivery location</h4>
+      <span>Select delivery location to see product availability and delivery option</span>
+      <div class="row textCenter">
+        <span class="col col-50 bordercateadmin1" style="padding: 15px 10px 14px 10px;" ng-class="{subcatSelected : isEnterPin === true }" ng-click="addressByPin()">Enter pincode</span>&nbsp;
+        <span class="col col-50 bordercateadmin1" style="padding: 15px 10px 14px 10px;" ng-class="{subcatSelected : isSelectLocation === true }" ng-click="addressByLocation()">Use current location</span>&nbsp;
+      </div>
+
+      <div ng-if="isEnterPin === true">
+
+          <form name="signupForm" class="list " id="signup-form5">
+              <ion-list class=" " id="signup-list3">
+                <label class="item item-input item-floating-label">
+                  <span class="input-label lblname">Enter Pincode</span>
+                  <input  type="number" maxlength=6 ng-model="pincode" placeholder="Enter Pincode" required>
+                </label>
+              </ion-list>
+              <div class="spacer space"></div>
+              <button ng-click="addPinCode(pincode)" class=" button button-assertive  button-block btnradius"  id="signup-button5">Apply</button>
+          </form>
+        <!-- <div>{{userAddressByZip.city}}  {{userAddressByZip.state}}  {{userAddressByZip.county}}  {{userAddressByZip.city}}  {{userAddressByZip.postalCode}}</div> -->
+        <div>{{userCity}}  {{uaerState}}  {{uaerCountry}}  {{userPostalCode}}</div>
+      </div>
+      <div ng-if="isSelectLocation">
+          <!-- <div>{{userAddress}}</div> -->
+          <div style="text-align: center;padding-top: 9%;font-size: 18px;">{{userAddress.city}}  {{userAddress.state}}  {{userAddress.county}}  {{userAddress.postalCode}}</div>
+      </div>
+
+  </ion-content>
+</ion-modal-view>
+</script>
