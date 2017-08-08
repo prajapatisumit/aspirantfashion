@@ -1,5 +1,5 @@
 <ion-view  class=" " id="favourite" title="Add Size">
-    <ion-content class="has-header" padding="true" ng-init="loadCategory();loadBrand()">
+    <ion-content class="has-header" padding="true" ng-init="loadSize()">
 <div>
 <form name="signupForm" class="list " id="signup-form5">
     <ion-list class=" " id="signup-list13">
@@ -21,5 +21,53 @@
     <button ng-click="addsize()" class=" button button-assertive  button-block btnradius"  id="signup-button5">Submit Size</button>
 </form>
 </div>
+<div class="sizeloadsetting">
+<div class="row">
+  <div class="col">Type</div>
+  <div class="col">Size</div>
+  <div class="col">Edit</div>
+  <div class="col">Delete</div>
+</div>
+<div class="row" ng-repeat="data in sizeload" ng-if="$index < sizeload.length">
+  <div class="col">{{ data.type }}</div>
+  <div class="col">{{ data.size }}</div>
+  <div class="col">
+    <i class="icon icon ion-edit item-icon-right assertive editsizeicon" ng-click="modal.show()" ng-if="user.isAdmin === true"></i>
+  </div>
+  <div class="col">
+    <i class="icon ion-trash-b item-icon-right assertive deletesizeicon" ng-click="deletesize(sizeload[$index].$id)" ng-if="user.isAdmin === true"></i>
+  </div>
+</div>
+  </div>
+</div>
+<script id="templates/addsize.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-assertive">
+      <h1 class="title">Update Size</h1>
+      <i class="icon ion-close-circled seticon" ng-click="modal.hide()"></i>
+    </ion-header-bar>
+    <ion-content class="padding">
+      <form name="signupForm" class="list " id="signup-form5">
+          <ion-list class=" " id="signup-list13">
+
+            <div class="row" style="flex-wrap: wrap;">
+
+            <label class="item item-input item-floating-label">
+              <span class="input-label lblname">Type</span>
+              <input  ng-model="data.type" type="text" placeholder="Type">
+            </label>
+
+            <label class="item item-input item-floating-label">
+              <span class="input-label lblname">Size</span>
+              <input  ng-model="data.size" type="text" placeholder="Size">
+            </label>
+        
+          </ion-list>
+          <div class="spacer space"></div>
+          <button ng-click="addsize()" class=" button button-assertive  button-block btnradius"  id="signup-button5">Update Size</button>
+      </form>
+    </ion-content>
+  </ion-modal-view>
+</script>
 </ion-content>
 </ion-view>

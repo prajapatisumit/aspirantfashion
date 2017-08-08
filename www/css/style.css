@@ -752,3 +752,12 @@ z-index: -999999;
     margin-left: 249px;
     font-size: 25px;
 }
+.editsizeicon{
+  font-size: 20px;
+}
+.deletesizeicon{
+  font-size: 20px;
+}
+.sizeloadsetting{
+  text-align: center;
+}

@@ -5,21 +5,22 @@ angular.module('app')
 
 
     $rootScope.extras=true;
-
     $scope.$on('$ionicView.enter', function(ev) {
       if(ev.targetScope !== $scope){
       return;
       }
         $scope.shippingObj = {};
     });
+
     $scope.addshippingrate = function () {
         // var shippingObj = {
         //     guajrat : shippingInguj,
         //     outofguajrat : shippingOutguj
         // }
-
+        // $scope.globalproductID = ShippingRef;
+        // console.log("$scope.globalproductID : " + $scope.globalproductID);
       var ShippingRef = firebase.database().ref().child('shipping rate').push($scope.shippingObj).then(function (data) {
-             IonicPopupService.alert("Your Product Add successfully..");
+        $scope.globalproductshippingID = ShippingRef;
              $scope.shippingObj = {};
 
              // $window.location.reload(true)
