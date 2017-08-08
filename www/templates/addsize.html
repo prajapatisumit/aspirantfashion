@@ -48,7 +48,7 @@
     </ion-header-bar>
     <ion-content class="padding">
       <form name="signupForm" class="list " id="signup-form5">
-          <ion-list class=" " id="signup-list13">
+          <ion-list class=" " id="signup-list13" ng-repeat="data in sizeload">
 
             <div class="row" style="flex-wrap: wrap;">
 
@@ -61,7 +61,7 @@
               <span class="input-label lblname">Size</span>
               <input  ng-model="data.size" type="text" placeholder="Size">
             </label>
-        
+
           </ion-list>
           <div class="spacer space"></div>
           <button ng-click="addsize()" class=" button button-assertive  button-block btnradius"  id="signup-button5">Update Size</button>

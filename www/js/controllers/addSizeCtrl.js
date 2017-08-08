@@ -52,10 +52,10 @@ angular.module('app')
 
    };
    var userdata = [];
-   var refSize = firebase.database().ref('size/' + $scope.globalproductID + '/size');
-   var refType = firebase.database().ref('size/' + $scope.globalproductID + '/type');
+   var refSize = firebase.database().ref('size/' + $scope.globalproductID );
+
        //  new Firebase("https://shopping-42daf.firebaseio.com/product/" + $scope.productId +"/product_specification");
-       var userData = $firebaseArray(refSize,refType);
+       var userData = $firebaseArray(refSize);
        userData.$loaded().then(function(response) {
          $scope.updatesize = response;
 
@@ -76,8 +76,8 @@ angular.module('app')
                    type : $scope.type,
                    id : $scope.id
                  };
-           var sizerefup = firebase.database().ref().child('size/' + $stateParams.product_id + '/size' ).update(sizeUpdateObj);
-           var sizerefup1 = firebase.database().ref().child('size/' + $stateParams.product_id + '/type' ).update(sizeUpdateObj);
+           var sizerefup = firebase.database().ref().child('size/' + $stateParams.globalproductID ).update(sizeUpdateObj);
+          //  var sizerefup1 = firebase.database().ref().child('size/' + $stateParams.product_id + '/type' ).update(sizeUpdateObj);
              console.log("update Angular "+ angular.toJson(sizeUpdateObj,' '));
        };
    $scope.deletesize = function(globalproductID,data) {
