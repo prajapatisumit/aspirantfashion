@@ -7,14 +7,19 @@ angular.module('app')
       }).then(function(modal) {
         $scope.modal = modal;
     });
-    $ionicModal.fromTemplateUrl('templates/addbrand.html', function($ionicModal) {
-    $scope.modal = $ionicModal;
-    }, {
-    // Use our scope for the scope of the modal to keep it simple
-    scope: $scope,
-    // The animation we want to use for the modal entrance
-    animation: 'slide-in-up'
-  });
+    $scope.openModal = function(id) {
+      $scope.selectedId = id;
+        for (var i = 0; i < $scope.updatesize.length; i++) {
+          if ($scope.updatesize[i].$id === $scope.selectedId) {
+              $scope.size = $scope.updatesize[i].size;
+              $scope.type = $scope.updatesize[i].type;
+              console.log("$scope.size : " + $scope.size);
+              console.log("$scope.type : " + $scope.type);
+          }
+        }
+      console.log('$scope.selectedId : ' + $scope.selectedId);
+      $scope.modal.show();
+  }
         $rootScope.extras=true;
 
         $scope.loadSize = function() {
@@ -51,9 +56,9 @@ angular.module('app')
     //   });
 
    };
-   var userdata = [];
-   var refSize = firebase.database().ref('size/' + $scope.globalproductID );
 
+   var userdata = [];
+   var refSize = firebase.database().ref('size/');
        //  new Firebase("https://shopping-42daf.firebaseio.com/product/" + $scope.productId +"/product_specification");
        var userData = $firebaseArray(refSize);
        userData.$loaded().then(function(response) {
@@ -62,23 +67,15 @@ angular.module('app')
          console.log("admin pro se d ",angular.toJson($scope.updatesize,' '));
        });
 
-       $scope.sizeupdate = function(updatesize){
+       $scope.sizeupdate = function(type,size){
          console.log("update fun ",angular.toJson($scope.updatesize,' '));
-        $scope.data = [];
-
-          $scope.size = $scope.updatesize.size;
-          $scope.type = $scope.updatesize.type;
-          $scope.id = $scope.updatesize.$id;
-
                  var sizeUpdateObj = {
-
-                   size : $scope.size,
-                   type : $scope.type,
-                   id : $scope.id
+                   size : size,
+                   type : type
                  };
-           var sizerefup = firebase.database().ref().child('size/' + $stateParams.globalproductID ).update(sizeUpdateObj);
-          //  var sizerefup1 = firebase.database().ref().child('size/' + $stateParams.product_id + '/type' ).update(sizeUpdateObj);
-             console.log("update Angular "+ angular.toJson(sizeUpdateObj,' '));
+           var sizerefup = firebase.database().ref().child('size/' + $scope.selectedId).update(sizeUpdateObj);
+
+                        console.log("update Angular "+ angular.toJson(sizeUpdateObj,' '));
        };
    $scope.deletesize = function(globalproductID,data) {
      IonicPopupService.confirm('Delete Size', 'Are you sure you want to delete this Size?').then(function(res) {

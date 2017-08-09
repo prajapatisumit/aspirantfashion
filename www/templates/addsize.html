@@ -32,7 +32,7 @@
   <div class="col">{{ data.type }}</div>
   <div class="col">{{ data.size }}</div>
   <div class="col">
-    <i class="icon icon ion-edit item-icon-right assertive editsizeicon" ng-click="modal.show()" ng-if="user.isAdmin === true"></i>
+    <i class="icon icon ion-edit item-icon-right assertive editsizeicon" ng-click="openModal(data.$id)" ng-if="user.isAdmin === true"></i>
   </div>
   <div class="col">
     <i class="icon ion-trash-b item-icon-right assertive deletesizeicon" ng-click="deletesize(sizeload[$index].$id)" ng-if="user.isAdmin === true"></i>
@@ -47,27 +47,28 @@
       <i class="icon ion-close-circled seticon" ng-click="modal.hide()"></i>
     </ion-header-bar>
     <ion-content class="padding">
-      <form name="signupForm" class="list " id="signup-form5">
-          <ion-list class=" " id="signup-list13" ng-repeat="data in sizeload">
+
+          <ion-list class=" " id="signup-list13">
 
             <div class="row" style="flex-wrap: wrap;">
 
             <label class="item item-input item-floating-label">
               <span class="input-label lblname">Type</span>
-              <input  ng-model="data.type" type="text" placeholder="Type">
+              <input  ng-model="type" type="text" placeholder="Type">
             </label>
-
             <label class="item item-input item-floating-label">
               <span class="input-label lblname">Size</span>
-              <input  ng-model="data.size" type="text" placeholder="Size">
+              <input  ng-model="size" type="text" placeholder="Size">
             </label>
 
           </ion-list>
           <div class="spacer space"></div>
-          <button ng-click="addsize()" class=" button button-assertive  button-block btnradius"  id="signup-button5">Update Size</button>
-      </form>
+          <button ng-click="sizeupdate(type,size)" class=" button button-assertive  button-block btnradius"  id="signup-button5">Update Size</button>
+
+
     </ion-content>
   </ion-modal-view>
 </script>
+
 </ion-content>
 </ion-view>
