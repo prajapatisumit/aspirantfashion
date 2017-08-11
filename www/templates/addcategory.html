@@ -35,6 +35,12 @@
               <span class="input-label lblname">Category Name</span>
               <input ng-model="catObj.name" type="text" placeholder="Category Name"/>
             </label>
+
+            <label class="item item-input item-floating-label">
+              <span class="input-label lblname">Category Description</span>
+              <input ng-model="catObj.description" type="text" placeholder="Category Description"/>
+            </label>
+
           </ion-list>
           <div class="spacer space"></div>
           <button ng-click="addCategory(catObj.categoryName)" class=" button button-assertive  button-block btnradius"  id="signup-button3">Add Category</button>

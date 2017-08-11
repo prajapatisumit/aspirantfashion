@@ -16,6 +16,7 @@ angular.module('app')
       // console.log("categoryid : " + categoryid);
         var subcatAdd = {
             name : subcatObj.subcategoryName,
+            type : subcatObj.subcategoryType,
             image : $scope.downloadURL,
             categoryid : subcatObj.$id
         }
@@ -32,6 +33,7 @@ angular.module('app')
               IonicPopupService.alert("Subcategory added successfully..");
               $scope.subcatObj.image = '';
               $scope.subcatObj.subcategoryName = '';
+              $scope.subcatObj.subcategoryType = '';
               $scope.imgset2 = [];
        }).catch(function (error) {
         //  debugger
