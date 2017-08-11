@@ -775,7 +775,8 @@ font-size: 22px;
 .deletfevorit{
   font-size: 20px;
     margin-right: -14px;
-    left: 258px;
+    left: 49px;
+    float: right;
     top: -21px;
     position: relative;
 }
