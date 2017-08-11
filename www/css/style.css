@@ -780,3 +780,12 @@ font-size: 22px;
     top: -21px;
     position: relative;
 }
+.favIconStyle{
+  font-size: 25px;
+  position: absolute;
+  padding-left: 90%;
+  padding-top: 2%;
+}
+.favIconClr{
+  color: orangered;
+}

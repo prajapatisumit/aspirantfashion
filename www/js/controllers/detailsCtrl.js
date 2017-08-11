@@ -7,13 +7,41 @@ angular.module('app')
         $ionicHistory.clearHistory();
         $ionicHistory.clearCache();
       }
+      $scope.user = SessionService.getUser();
+      $scope.selectedId = $stateParams.category_id;
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           $scope.user=user; //Saves data to user_info
-          // console.log("scope.user_info at home controller : " + angular.toJson($scope.user_info , ' '));
-        // console.log("$scope.user : " + angular.toJson($scope.user , ' '));
+          $scope.loadFavourite();
       }
       });
+      $scope.loadFavourite = function () {
+        var refFavoriteData = firebase.database().ref('favourits/' + $scope.user.uid + '/' +  $scope.selectedId);
+            var favouriteData = $firebaseObject(refFavoriteData);
+            favouriteData.$loaded().then(function(resp) {
+              $scope.favouritProduct = resp;
+              // console.log("$scope.favouritProduct : " + angular.toJson($scope.favouritProduct , ''));
+              if (!!$scope.favouritProduct.productId) {
+                  $scope.isFavourite = true;
+                  // console.log("$scope.isFavourite true callinf.. : " + $scope.isFavourite);
+              } else {
+                  $scope.isFavourite = false;
+                  // console.log("$scope.isFavourite false calling ... : " + $scope.isFavourite);
+              }
+
+            });
+      };
+
+      ////for remove favourite :
+          $scope.deletefevorite = function(productId) {
+              var deleteFevoriteRef = firebase.database().ref('favourits/' + $scope.user.uid + '/' + $scope.selectedId);
+              var deleteFevoriteProductRef = firebase.database().ref('product/' + $scope.selectedId + '/favouriteBy/' + $scope.user.uid);
+              deleteFevoriteRef.remove().then(function (response) {
+                deleteFevoriteProductRef.remove().then(function (response) {
+                  $scope.loadFavourite();
+                });
+              });
+        };
       ////////
         // Create the login modal that we will use later
       $ionicModal.fromTemplateUrl('templates/addAddress.html', {
@@ -32,14 +60,13 @@ angular.module('app')
         $scope.modal.show();
       };
 
-      $scope.user = SessionService.getUser();
-      $scope.selectedId = $stateParams.category_id;
+
         if (!!$scope.selectedId) {
             var refProduct = firebase.database().ref('product/' + $scope.selectedId);
                 var userData = $firebaseObject(refProduct);
                 userData.$loaded().then(function(response) {
                   $scope.showproductdetails = response;
-                  console.log("$scope.showproductdetails : " + angular.toJson($scope.showproductdetails , ' '));
+                  // console.log("$scope.showproductdetails : " + angular.toJson($scope.showproductdetails , ' '));
                   if (!!response.product_specification) {
                       $scope.productSpdetails = response.product_specification;
                       // console.log("$scope.productSpdetails : " + angular.toJson($scope.productSpdetails , ' '));
@@ -49,14 +76,14 @@ angular.module('app')
                       var imageData = $firebaseArray(refProductImage);
                       imageData.$loaded().then(function(resp) {
                         $scope.productimages = resp;
-                        console.log("$scope.productimages : " + angular.toJson($scope.productimages , ' '));
+                        // console.log("$scope.productimages : " + angular.toJson($scope.productimages , ' '));
                       });
                   }
                 });
         }
           $scope.setFavourite = function (productDetail) {
               $scope.productDetail = productDetail;
-                console.log("productDetail : " + angular.toJson(productDetail , ' '));
+                // console.log("productDetail : " + angular.toJson(productDetail , ' '));
                 var productObj = {
                   productName: $scope.productDetail.name,
                   productId: $scope.productDetail.$id,
@@ -75,9 +102,10 @@ angular.module('app')
                 };
 
               firebase.database().ref().child('product/' + $scope.productDetail.$id + '/favouriteBy/' + $scope.user.uid).set(productObj).then(function (response) {
-                     console.log("favourite added successfully at product...");
+                    //  console.log("favourite added successfully at product...");
                      firebase.database().ref().child('favourits/' + $scope.user.uid + '/' + $scope.productDetail.$id).set(productObj).then(function (response) {
-                            console.log("favourite added successfully at favourites...");
+                      console.log("favourite added successfully at favourites...");
+                      $scope.loadFavourite();
                      }).catch(function (error) {
                        console.log('Error at set favourite : ' + error);
                      });
@@ -208,6 +236,9 @@ angular.module('app')
                           country : $scope.county.long_name,
                           postalCode : $scope.postalCode.long_name
                   }
+                  SessionService.setUserLocation($scope.userAddressByZip);
+                  $scope.getuserLocation = SessionService.getUserLocation();
+                  console.log('$scope.getuserLocation' + angular.toJson($scope.getuserLocation, ' '));
                   $scope.modal.hide();
 
                 // console.log("userAddressByZip : " + angular.toJson($scope.userAddressByZip , ' '));
@@ -229,7 +260,7 @@ angular.module('app')
             $scope.isSelectLocation = true;
         var geocoder;
         var geocoder = new google.maps.Geocoder();
-        console.log("this is calling...");
+        // console.log("this is calling...");
     //      if (navigator.geolocation) {
     //     navigator.geolocation.getCurrentPosition(function (position) {
     //           console.log("position : " + angular.toJson(position , ' '));
@@ -258,7 +289,7 @@ angular.module('app')
           }
 
                   function codeLatLng(lat, lng) {
-                  console.log("yes comes here at last fun....");
+                  // console.log("yes comes here at last fun....");
                   var latlng = new google.maps.LatLng(lat, lng);
                   geocoder.geocode({'latLng': latlng}, function(results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
@@ -303,7 +334,9 @@ angular.module('app')
                                   country : $scope.county.long_name,
                                   postalCode : $scope.postalCode.long_name
                           }
-
+                            SessionService.setUserLocation($scope.userAddress);
+                            $scope.getuserLocation = SessionService.getUserLocation();
+                            console.log('$scope.getuserLocation' + angular.toJson($scope.getuserLocation, ' '));
                         // $scope.userAddressArray.push($scope.userAddress);
                         $scope.modal.hide();
                         // console.log("$scope.userAddressArray : " +angular.toJson( $scope.userAddressArray , ' '));
