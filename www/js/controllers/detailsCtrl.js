@@ -7,6 +7,13 @@ angular.module('app')
         $ionicHistory.clearHistory();
         $ionicHistory.clearCache();
       }
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          $scope.user=user; //Saves data to user_info
+          // console.log("scope.user_info at home controller : " + angular.toJson($scope.user_info , ' '));
+        // console.log("$scope.user : " + angular.toJson($scope.user , ' '));
+      }
+      });
       ////////
         // Create the login modal that we will use later
       $ionicModal.fromTemplateUrl('templates/addAddress.html', {
@@ -32,7 +39,7 @@ angular.module('app')
                 var userData = $firebaseObject(refProduct);
                 userData.$loaded().then(function(response) {
                   $scope.showproductdetails = response;
-                  // console.log("$scope.showproductdetails : " + angular.toJson($scope.showproductdetails , ' '));
+                  console.log("$scope.showproductdetails : " + angular.toJson($scope.showproductdetails , ' '));
                   if (!!response.product_specification) {
                       $scope.productSpdetails = response.product_specification;
                       // console.log("$scope.productSpdetails : " + angular.toJson($scope.productSpdetails , ' '));
@@ -42,11 +49,41 @@ angular.module('app')
                       var imageData = $firebaseArray(refProductImage);
                       imageData.$loaded().then(function(resp) {
                         $scope.productimages = resp;
-                        // console.log("$scope.productimages : " + angular.toJson($scope.productimages , ' '));
+                        console.log("$scope.productimages : " + angular.toJson($scope.productimages , ' '));
                       });
                   }
                 });
         }
+          $scope.setFavourite = function (productDetail) {
+              $scope.productDetail = productDetail;
+                console.log("productDetail : " + angular.toJson(productDetail , ' '));
+                var productObj = {
+                  productName: $scope.productDetail.name,
+                  productId: $scope.productDetail.$id,
+                  image : $scope.productDetail.image,
+                  categoryId: $scope.productDetail.category,
+                  subcategoryId : $scope.productDetail.subcategory,
+                  brand: $scope.productDetail.brand,
+                };
+                var userObj = {
+                  name: $scope.user.displayName,
+                  email: $scope.user.email,
+                  userId : $scope.user.uid,
+                  image: $scope.user.photoURL
+                };
+
+              firebase.database().ref().child('product/' + $scope.productDetail.$id + '/favouriteBy/' + $scope.user.uid).set(productObj).then(function (response) {
+                     console.log("favourite added successfully at product...");
+                     firebase.database().ref().child('favourits/' + $scope.productDetail.$id).set(productObj).then(function (response) {
+                            console.log("favourite added successfully at favourites...");
+                     }).catch(function (error) {
+                       console.log('Error at set favourite : ' + error);
+                     });
+              }).catch(function (error) {
+                console.log('Error at set favourite : ' + error);
+              });
+
+          };
 
           $scope.addToCart=function(item){
               // console.log("item : " + angular.toJson(item , ' '));

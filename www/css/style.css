@@ -761,3 +761,9 @@ z-index: -999999;
 .sizeloadsetting{
   text-align: center;
 }
+.fevorit{
+  position: relative;
+margin-top: -30px;
+margin-left: 289px;
+font-size: 22px;
+}

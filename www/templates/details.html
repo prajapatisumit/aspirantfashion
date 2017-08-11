@@ -2,11 +2,13 @@
 <ion-view style="" class=" "  title="Details">
 
     <ion-content class="has-header" padding="true">
-      <div style="min-height: 30px;" class="item item-divider">{{showproductdetails.name}} </div>
+      <div class="item item-divider">{{showproductdetails.name}} </div>
       <div class="item item-body" >
         <ion-slide-box n-slide-changed="slideHasChanged($index)" auto-play="false"  does-continue="true" >
+          <i class="icon  ion-heart fevorit" ng-click="setFavourite(showproductdetails)"></i>
                     <ion-slide ng-repeat="image in productimages">
-                        <img  class="detailpageimg" ng-src="{{ image.$value }}">
+                        <img  class="detailpageimg" ng-src="{{ image.$value }}"/>
+
                     </ion-slide>
           </ion-slide-box>
         <form class="list"></form>
