@@ -1,13 +1,11 @@
 <ion-view style="" class=" " id="favourite" title="Favourite ">
     <ion-content class="has-header" padding="true">
-      <div class="list">
-
-    <a class="item item-thumbnail-left">
-      <img src="cover.jpg">
-      <h2>Pretty Hate Machine</h2>
-      <p>Nine Inch Nails</p>
-    </a>
-
-</div>
+  <div class="list card" ng-repeat="data in favouritsData">
+        <div class="item item-avatar" ng-click="goproductPage(item.$id)">
+          <img src="{{data.image}}" class="fevImgStyle">
+          <h2 class="headerStyle">{{data.productName}}</h2>
+          <i  class="icon ion-trash-b item-icon-right assertive deletfevorit" ng-click="deletefevorite(data.productId)"></i>
+        </div>
+  </div>
     </ion-content>
 </ion-view>

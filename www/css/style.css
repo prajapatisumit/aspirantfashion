@@ -646,7 +646,12 @@ z-index: -999999;
   min-height: 74px;
   border-radius: 0px !important;
 }
-
+.fevImgStyle{
+  min-width: 74px;
+  min-height: 74px;
+  margin-top: -9px;
+  border-radius: 0px !important;
+}
 .paraStyle{
   padding-left: 10px;
   white-space:normal !important;
@@ -766,4 +771,11 @@ z-index: -999999;
 margin-top: -30px;
 margin-left: 289px;
 font-size: 22px;
+}
+.deletfevorit{
+  font-size: 20px;
+    margin-right: -14px;
+    left: 258px;
+    top: -21px;
+    position: relative;
 }

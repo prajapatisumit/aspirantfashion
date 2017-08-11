@@ -64,6 +64,8 @@ angular.module('app')
                   categoryId: $scope.productDetail.category,
                   subcategoryId : $scope.productDetail.subcategory,
                   brand: $scope.productDetail.brand,
+                  price : $scope.productDetail.price,
+                  userId : $scope.user.uid
                 };
                 var userObj = {
                   name: $scope.user.displayName,
@@ -74,7 +76,7 @@ angular.module('app')
 
               firebase.database().ref().child('product/' + $scope.productDetail.$id + '/favouriteBy/' + $scope.user.uid).set(productObj).then(function (response) {
                      console.log("favourite added successfully at product...");
-                     firebase.database().ref().child('favourits/' + $scope.productDetail.$id).set(productObj).then(function (response) {
+                     firebase.database().ref().child('favourits/' + $scope.user.uid + '/' + $scope.productDetail.$id).set(productObj).then(function (response) {
                             console.log("favourite added successfully at favourites...");
                      }).catch(function (error) {
                        console.log('Error at set favourite : ' + error);
