@@ -7,18 +7,18 @@
       <div class="row" style="flex-wrap: wrap;">
 
       <label class="item item-input item-floating-label">
-        <span class="input-label lblname">Shipping Rate(In Guajarat)</span>
-        <input  ng-model="shippingObj.shippingInguj" type="number" placeholder="Shipping Rate(In Guajarat)">
+        <span class="input-label lblname">City Name</span>
+        <input  ng-model="shippingObj.city" type="text" placeholder="City Name">
       </label>
 
       <label class="item item-input item-floating-label">
-        <span class="input-label lblname">Shipping Rate(Out of Guajarat)</span>
-        <input  ng-model="shippingObj.shippingOutguj" type="number" placeholder="Shipping Rate(Out of Guajarat)">
+        <span class="input-label lblname">Shipping Rate</span>
+        <input  ng-model="shippingObj.rate" type="number" placeholder="Shipping Rate">
       </label>
 
     </ion-list>
     <div class="spacer space"></div>
-    <button ng-click="addshippingrate()" class=" button button-assertive  button-block btnradius"  id="signup-button5">Submit Shipping Rate</button>
+    <button ng-click="addshippingrate(shippingObj)" class=" button button-assertive  button-block btnradius"  id="signup-button5">Submit Shipping Rate</button>
 
 </form>
 </div>

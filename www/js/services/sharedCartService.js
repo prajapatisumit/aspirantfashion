@@ -23,6 +23,7 @@ angular.module('app')
 
   //Add to Cart
   cart.add = function(item) {
+      // console.log("item : " + angular.toJson(item , ' '));
     //check if item is already added or not
     var guestUser = SessionService.getUser();
       // console.log("guestUser at service : " + angular.toJson(guestUser , ' '));
@@ -44,13 +45,14 @@ angular.module('app')
         });
 
       }else{
-
+        // console.log("item : " + angular.toJson(item , ' '));
         //if item is new in the cart
         fireBaseData.refCart().child(uid).child(item.$id).set({    // set
           item_name: item.name,
           item_image: item.image,
           item_price: item.price,
-          item_qty: 1
+          item_qty: 1,
+          item_weight: item.weight
         });
       }
     });

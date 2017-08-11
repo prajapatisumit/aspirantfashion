@@ -9,26 +9,29 @@ angular.module('app')
       if(ev.targetScope !== $scope){
       return;
       }
-        $scope.shippingObj = {};
+        // $scope.shippingObj = {};
+      $scope.addshippingrate = function (shippingObj) {
+          $scope.shippingObj = shippingObj;
+          var shippingObj = {
+              city : shippingObj.city,
+              rate : shippingObj.rate
+          }
+        if (!!shippingObj.city) {
+          var ShippingRef = firebase.database().ref().child('shippingRate/' + shippingObj.city).set(shippingObj).then(function (data) {
+            $scope.globalproductshippingID = ShippingRef;
+                console.log("yes comes here...");
+                 $scope.shippingObj.city = '';
+                 $scope.shippingObj.rate = '' ;
+
+
+          }).catch(function (error) {
+            console.log('Error : ' + error);
+          });
+        }
+
+
+      };
     });
 
-    $scope.addshippingrate = function () {
-        // var shippingObj = {
-        //     guajrat : shippingInguj,
-        //     outofguajrat : shippingOutguj
-        // }
-        // $scope.globalproductID = ShippingRef;
-        // console.log("$scope.globalproductID : " + $scope.globalproductID);
-      var ShippingRef = firebase.database().ref().child('shipping rate').push($scope.shippingObj).then(function (data) {
-        $scope.globalproductshippingID = ShippingRef;
-             $scope.shippingObj = {};
-
-             // $window.location.reload(true)
-      }).catch(function (error) {
-       //  debugger
-        console.log('Error : ' + error);
-      });
-      console.log("shippingObj : " + angular.toJson($scope.shippingObj , ' '));
-    };
 
 })
