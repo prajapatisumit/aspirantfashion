@@ -12,7 +12,7 @@ angular.module('app')
         $scope.cart=sharedCartService.cart_items;  // Loads users cart
         $scope.loadCart();
         $scope.loadShippingRate();
-        console.log("$scope.cart : " + angular.toJson($scope.cart , ' '));
+        // console.log("$scope.cart : " + angular.toJson($scope.cart , ' '));
         $scope.get_qty = function() {
           $scope.total_qty=0;
           $scope.total_amount=0;
@@ -75,7 +75,7 @@ angular.module('app')
             var shippingData = $firebaseObject(shippingRef);
             shippingData.$loaded().then(function(response) {
               $scope.shippingData = response;
-              console.log("$scope.shippingData : " + angular.toJson($scope.shippingData , ' '));
+              // console.log("$scope.shippingData : " + angular.toJson($scope.shippingData , ' '));
               if ($scope.shippingData.state === $scope.userLocation.state) {
                   $scope.shippingRate = $scope.shippingData.rate;
               }else {
@@ -84,6 +84,8 @@ angular.module('app')
 
             });
     };
+
+    $scope.loadShippingRate();
     $scope.removeFromCart=function(c_id){
       sharedCartService.drop(c_id);
       $scope.loadCart();
