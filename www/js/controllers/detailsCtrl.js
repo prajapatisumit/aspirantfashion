@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('detailsCtrl', function($scope,$state,$rootScope,$stateParams, $firebaseObject, $firebaseArray,SessionService,sharedCartService,$ionicModal,$http) {
+.controller('detailsCtrl', function($scope,$state,$rootScope,$stateParams, $firebaseObject, $firebaseArray,SessionService,sharedCartService,$ionicModal,$http,IonicPopupService) {
 
     // $rootScope.extras=true;
     $scope.$on('$ionicView.enter', function(ev) {
@@ -7,6 +7,7 @@ angular.module('app')
         $ionicHistory.clearHistory();
         $ionicHistory.clearCache();
       }
+    });
       $scope.user = SessionService.getUser();
       $scope.selectedId = $stateParams.category_id;
       firebase.auth().onAuthStateChanged(function(user) {
@@ -116,6 +117,7 @@ angular.module('app')
           };
 
           $scope.addToCart=function(item){
+            IonicPopupService.alert("Item added to cart");
               // console.log("item : " + angular.toJson(item , ' '));
             sharedCartService.add(item);
           };
@@ -363,7 +365,7 @@ angular.module('app')
       //       console.log("Response data for fetch data from response........... ",angular.toJson($scope.productSpdetails,' '));
       //     });
 
-    });
+
 
 
 

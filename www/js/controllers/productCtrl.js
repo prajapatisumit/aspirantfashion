@@ -5,7 +5,7 @@ $scope.userData = SessionService.getUser();
         $rootScope.extras = true;
 
         $scope.addToCart=function(item){
-
+  IonicPopupService.alert("Item added to cart");
           sharedCartService.add(item);
         };
 

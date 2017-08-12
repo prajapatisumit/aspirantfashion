@@ -94,6 +94,14 @@ angular.module('app')
           $scope.determinateValue = 0;
         });
     };
+
+    $scope.deleteImage = function(id) {
+        console.log("id : " + id);
+      // $scope.imgset.remove(downloadURL);
+       $scope.imgset3 = firebase.database().ref().child('subcategory/' + $scope.globalproductID + '/images'  ).remove(id);
+       console.log("yes delete image.");
+    };
+
     $scope.progressval = 0;
     $scope.stopinterval = null;
 

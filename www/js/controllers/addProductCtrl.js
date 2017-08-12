@@ -254,7 +254,12 @@ console.log('final size : ' +  $scope.finalSize);
       $scope.determinateValue = 0;
     });
   };
-
+  $scope.deleteImage = function(id) {
+      console.log("id : " + id);
+    // $scope.imgset.remove(downloadURL);
+     $scope.imgset = firebase.database().ref().child('product/' + $scope.globalproductID + '/images'  ).remove(id);
+     console.log("yes delete image.");
+  };
   $scope.progressval = 0;
   $scope.stopinterval = null;
 

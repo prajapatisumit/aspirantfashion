@@ -10,10 +10,11 @@
         <div class="row" style="flex-wrap: wrap;">
           <div class="col col-25" ng-repeat="image in imgset">
               <img ng-src="{{ image }}" class="imgStyle">
+              <a class="button button-icon icon ion-android-cancel" ng-click="deleteImage(images.$id)" style="margin: -50px 0px 0px -24px;color: #48b3e2;"></a>
 
-              <label ng-click="deleteImage(image.$id)">
+              <!-- <label ng-click="deleteImage(image.$id)">
                 <a class="button button-icon icon ion-android-cancel" style="margin: -50px 0px 0px 3px;color: #48b3e2;"></a>
-              </label>
+              </label> -->
           </div>
 
           <div class="buttons col col-25" ng-show="image.length < 0">
