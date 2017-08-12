@@ -1,5 +1,5 @@
 angular.module('app')
-.factory('sharedCartService', ['$ionicPopup','fireBaseData','$firebaseArray','SessionService',function($ionicPopup, fireBaseData, $firebaseArray,SessionService){
+.factory('sharedCartService', ['$ionicPopup','fireBaseData','$firebaseArray','SessionService','IonicPopupService',function($ionicPopup, fireBaseData, $firebaseArray,SessionService,IonicPopupService){
 
   var uid ;// uid is temporary user_id
 
@@ -18,12 +18,12 @@ angular.module('app')
     }
   });
 
-
+  
 
 
   //Add to Cart
   cart.add = function(item) {
-      // console.log("item : " + angular.toJson(item , ' '));
+      console.log("item : " + angular.toJson(item , ' '));
     //check if item is already added or not
     var guestUser = SessionService.getUser();
       // console.log("guestUser at service : " + angular.toJson(guestUser , ' '));
@@ -52,7 +52,8 @@ angular.module('app')
           item_image: item.image,
           item_price: item.price,
           item_qty: 1,
-          item_weight: item.weight
+          item_weight: item.weight,
+          item_stock: item.stock
         });
       }
     });
@@ -66,15 +67,24 @@ angular.module('app')
 
     //check if item is exist in the cart or not
     fireBaseData.refCart().child(uid).once("value", function(snapshot) {
+
       if( snapshot.hasChild(item_id) == true ){
 
         var currentQty = snapshot.child(item_id).val().item_qty;
-        //check if currentQty+1 is less than available stock
-        fireBaseData.refCart().child(uid).child(item_id).update({
-          item_qty : currentQty+1
-        });
+        var availableQty = snapshot.child(item_id).val().item_stock;
+
+        if (availableQty > currentQty) {
+            //check if currentQty+1 is less than available stock
+            fireBaseData.refCart().child(uid).child(item_id).update({
+              item_qty : currentQty+1
+            });
+        }else {
+            IonicPopupService.alert("Oops", "Sorry more stock is not available.");
+        }
+
 
       }else{
+          console.log("Item id is not available");
         //pop error
       }
     });

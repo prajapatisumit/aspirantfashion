@@ -13,14 +13,14 @@ angular.module('app')
       $scope.addshippingrate = function (shippingObj) {
           $scope.shippingObj = shippingObj;
           var shippingObj = {
-              city : shippingObj.city,
+              state : shippingObj.state,
               rate : shippingObj.rate
           }
-        if (!!shippingObj.city) {
-          var ShippingRef = firebase.database().ref().child('shippingRate/' + shippingObj.city).set(shippingObj).then(function (data) {
+        if (!!shippingObj.state) {
+          var ShippingRef = firebase.database().ref().child('shippingRate/' + shippingObj.state).set(shippingObj).then(function (data) {
             $scope.globalproductshippingID = ShippingRef;
                 console.log("yes comes here...");
-                 $scope.shippingObj.city = '';
+                 $scope.shippingObj.state = '';
                  $scope.shippingObj.rate = '' ;
 
 
