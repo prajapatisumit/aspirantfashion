@@ -1,6 +1,6 @@
 angular.module('app')
 .controller('checkoutCtrl', function($scope,$rootScope,sharedUtils,$state,$firebaseArray,
-                                     $ionicHistory,fireBaseData, $ionicPopup,sharedCartService,SessionService) {
+                                     $ionicHistory,fireBaseData, $ionicPopup,sharedCartService,SessionService,$stateParams,$firebaseObject) {
                                        $scope.$on('$ionicView.enter', function(ev) {
                                          if(ev.targetScope !== $scope){
                                            $ionicHistory.clearHistory();
@@ -9,12 +9,27 @@ angular.module('app')
 
                                        });
     $rootScope.extras=true;
+    ///For get address from selected address id :
+    $scope.addressId = $stateParams.addressId;
+    console.log("$scope.addressId : " + angular.toJson($scope.addressId , ' '));
+    if (!!$scope.addressId) {
+          var addressRef = firebase.database().ref('users/' + $scope.user_info.uid + '/address/' + $scope.addressId);
+              var addressData = $firebaseObject(addressRef);
+              addressData.$loaded().then(function(response) {
+                $scope.address = response;
+                console.log("$scope.address : " + angular.toJson($scope.address , ' '));
+
+    });
+  }
+    $scope.userAddress = SessionService.getUserLocation();
+    // console.log("$scope.userAddress : " + angular.toJson($scope.userAddress , ' '));
     var sessionUser = SessionService.getUser();
     //Check if user already logged in
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         $scope.addresses= $firebaseArray( fireBaseData.refUser().child(user.uid).child("address") );
         $scope.user_info=user;
+        // console.log("$scope.user_info : " + angular.toJson($scope.user_info , ' '));
       }else if (!!sessionUser.uid) {
         $scope.addresses= $firebaseArray( fireBaseData.refUser().child(sessionUser.uid).child("address") );
         $scope.user_info=sessionUser;
@@ -121,13 +136,6 @@ angular.module('app')
             pin: res.pin,
             phone: res.phone
           });
-        }else if (!!sessionUser.uid) {
-          fireBaseData.refUser().child(sessionUser.uid).child("address").push({    // set
-            nickname: res.nickname,
-            address: res.address,
-            pin: res.pin,
-            phone: res.phone
-          });
         }else{
           //Add new address
           fireBaseData.refUser().child($scope.user_info.uid).child("address").push({    // set
@@ -139,6 +147,13 @@ angular.module('app')
         }
 
       });
+
+    };
+
+    ///for go address page :
+    $scope.goAddressPage = function () {
+        console.log("this is calling...");
+        $state.go('addAddress');
 
     };
 

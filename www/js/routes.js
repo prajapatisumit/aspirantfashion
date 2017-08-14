@@ -103,7 +103,7 @@ angular.module('app.routes', [])
   })
 
   .state('checkout', {
-    url: '/checkout',
+    url: '/checkout?:addressId',     
     templateUrl: 'templates/checkout.html',
     controller: 'checkoutCtrl'
   })
@@ -135,41 +135,47 @@ angular.module('app.routes', [])
       controller: 'addCategoryCtrl'
       })
 
-      .state('addsubcategory', {
-        url: '/addsubcategory?:product_id',
-        templateUrl: 'templates/addsubcategory.html',
-        controller: 'addSubCategoryCtrl'
-        })
+    .state('addsubcategory', {
+      url: '/addsubcategory?:product_id',
+      templateUrl: 'templates/addsubcategory.html',
+      controller: 'addSubCategoryCtrl'
+      })
 
-        .state('addbrand', {
-          url: '/addbrand?:product_id',
-          templateUrl: 'templates/addbrand.html',
-          controller: 'addBrandCtrl'
+    .state('addbrand', {
+      url: '/addbrand?:product_id',
+      templateUrl: 'templates/addbrand.html',
+      controller: 'addBrandCtrl'
+      })
+
+    .state('addproduct', {
+      url: '/addproduct?:product_id',
+      templateUrl: 'templates/addproduct.html',
+      controller: 'addProductCtrl'
+      })
+
+    .state('shippingrate', {
+      url: '/shippingrate',
+      templateUrl: 'templates/shippingrate.html',
+      controller: 'shippingRateCtrl'
+      })
+
+    .state('addsize', {
+      url: '/addsize',
+      templateUrl: 'templates/addsize.html',
+      controller: 'addSizeCtrl'
+      })
+
+    .state('details', {
+            url: '/details?:category_id',
+            templateUrl: 'templates/details.html',
+            controller: 'detailsCtrl'
           })
 
-          .state('addproduct', {
-            url: '/addproduct?:product_id',
-            templateUrl: 'templates/addproduct.html',
-            controller: 'addProductCtrl'
-            })
-
-            .state('shippingrate', {
-              url: '/shippingrate',
-              templateUrl: 'templates/shippingrate.html',
-              controller: 'shippingRateCtrl'
-              })
-
-              .state('addsize', {
-                url: '/addsize',
-                templateUrl: 'templates/addsize.html',
-                controller: 'addSizeCtrl'
-                })
-
-  .state('details', {
-          url: '/details?:category_id',
-          templateUrl: 'templates/details.html',
-          controller: 'detailsCtrl'
-        })
+    .state('addAddress', {
+            url: '/addAddress',
+            templateUrl: 'templates/addAddress.html',
+            controller: 'addAdressCtrl'
+          })
 
 $urlRouterProvider.otherwise('/tabsController/login')
 
