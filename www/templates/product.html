@@ -33,7 +33,8 @@
             {{menu[$index].name}} <br/>
 						<span class="homepageprice">&#8377; {{menu[$index].price}}</span>
 					</p>
-					<i style="font-size: 25px; margin-right:0px;right:0px;"  ng-click="addToCart(menu[$index])" class="icon ion-ios-cart" ng-hide="user.isAdmin === true"></i>
+          <span class="homepageprice" ng-if="menu[$index].stock === 0" ng-hide="user.isAdmin === true">Not Available</span>
+					<i style="font-size: 25px; margin-right:0px;right:0px;"   ng-click="addToCart(menu[$index])" class="icon ion-ios-cart" ng-hide="user.isAdmin === true || menu[$index].stock === 0"></i>
           <i style="font-size: 25px;right:23px;" class="icon icon ion-edit" ng-click="goAdminPage(menu[$index].$id)" ng-if="user.isAdmin === true"></i>
           <i style="font-size: 25px;right:-60px;" class="icon ion-trash-b item-icon-right assertive" ng-click="deleteproduct(menu[$index].$id)" ng-if="user.isAdmin === true"></i>
 				  </a>
@@ -52,7 +53,8 @@
             {{menu[$index+1].name}} <br/>
 						<span class="homepageprice">&#8377; {{menu[$index+1].price}}</span>
 					</p>
-					<i style="font-size: 25px;right:0px;"  ng-click="addToCart(menu[$index+1])" class="icon ion-ios-cart" ng-hide="user.isAdmin === true"></i>
+          <span class="homepageprice" ng-if="menu[$index+1].stock === 0" ng-hide="user.isAdmin === true">Not Available</span>
+					<i style="font-size: 25px;right:0px;"  ng-click="addToCart(menu[$index+1])" class="icon ion-ios-cart" ng-hide="user.isAdmin === true || menu[$index+1].stock === 0"></i>
           <i style="font-size: 25px;right:23px;" class="icon icon ion-edit" ng-click="goAdminPage(menu[$index+1].$id)" ng-if="user.isAdmin === true"></i>
           <i style="font-size: 25px;right:-60px;" class="icon ion-trash-b item-icon-right assertive" ng-click="deleteproduct(menu[$index+1].$id)" ng-if="user.isAdmin === true"></i>
 				  </a>

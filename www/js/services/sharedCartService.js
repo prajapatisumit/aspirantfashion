@@ -18,12 +18,12 @@ angular.module('app')
     }
   });
 
-  
+
 
 
   //Add to Cart
   cart.add = function(item) {
-      console.log("item : " + angular.toJson(item , ' '));
+      // console.log("item : " + angular.toJson(item , ' '));
     //check if item is already added or not
     var guestUser = SessionService.getUser();
       // console.log("guestUser at service : " + angular.toJson(guestUser , ' '));

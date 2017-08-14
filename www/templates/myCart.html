@@ -26,7 +26,7 @@
               </p>
             </div>
             <div>
-              <p>Shipping Rate : {{shippingRate}}</p>
+              <p ng-if="!!shippingRate">Shipping Rate : {{shippingRate}}</p>
             </div>
             <div class="button-bar" style="box-shadow: none;">
               <button ng-click="removeFromCart(item.$id)" class="button button-assertive button-block button-small icon ion-android-delete" ></button>
