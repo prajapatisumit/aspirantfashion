@@ -791,3 +791,39 @@ font-size: 22px;
 .favIconClr{
   color: orangered;
 }
+.editBtnStyle{
+  padding-left: 25%;
+  width: 100%;
+  background-color: silver;
+  border-radius: 20%;
+}
+.newAddressBtnStyle{
+  color:#387ef5 !important;
+  border: 1px solid;
+}
+.addressTypeDivStyle{
+  padding-left: 4%;
+  font-weight: 900;
+}
+.checkoutAddressDiv{
+  padding-left: 5%;
+  padding-top: 3%;
+}
+.changeAddressBtnStyle{
+  border-radius: 30px;
+}
+.checkoutModepayDiv{
+  margin-right: 10px;
+}
+.myCartNameHeight{
+  min-height: 30px;
+}
+.myCartBoxShadowNone{
+  box-shadow: none;
+}
+.addressTagStyle{
+  font-size: 16px;
+}
+.addressRadioStyle{
+  margin-top: -12px;
+}

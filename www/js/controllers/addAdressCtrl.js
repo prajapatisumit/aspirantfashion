@@ -30,6 +30,10 @@ angular.module('app')
 
     };
     $scope.saveAddress = function (addressObj) {
+
+        if ($scope.validate(addressObj) === false) {
+              return;
+            }
         var obj = {
               name : addressObj.name,
               city : addressObj.city,
@@ -44,5 +48,31 @@ angular.module('app')
         fireBaseData.refUser().child($scope.user_info.uid).child("address").push(obj);
         $scope.isDivShow = false;
     };
+    ////for validate form :
+    $scope.validate = function(addressObj) {
+            // console.log("addressObj : " + angular.toJson(addressObj , ' '));
+          if (!addressObj) {
+            IonicPopupService.alert("Oops!" , "Please enter data.");
+          }else if (CommonService.validateEmpty(addressObj.city, 'Oops!', 'Please enter city') === false) {
+            return false;
+          }else if (CommonService.validateEmpty(addressObj.area, 'Oops!', 'Please enter area') === false) {
+            return false;
+          } else if (CommonService.validateEmpty(addressObj.building, 'Oops!', 'Please enter building or society name') === false) {
+            return false;
+          }else if (CommonService.validateEmpty(addressObj.pincode, 'Oops!', 'Please enter pincode') === false) {
+            return false;
+          } else if (CommonService.validateEmpty(addressObj.state, 'Oops!', 'Please enter state') === false) {
+            return false;
+          }else if (CommonService.validateEmpty(addressObj.name, 'Oops!', 'Please enter name') === false) {
+            return false;
+          } else if (CommonService.validateEmpty(addressObj.number, 'Oops!', 'Please enter phone number') === false) {
+            return false;
+          } else if (CommonService.validateEmpty(addressObj.deliveryPlace, 'Oops!', 'Please enter deliveryPlace') === false) {
+            return false;
+          }
+        };
 
+    $scope.goEditAddress = function (selectedAddress) {
+        $state.go('editAddress' , {'addressId' : selectedAddress})
+    };
 });

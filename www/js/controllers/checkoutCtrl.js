@@ -11,13 +11,13 @@ angular.module('app')
     $rootScope.extras=true;
     ///For get address from selected address id :
     $scope.addressId = $stateParams.addressId;
-    console.log("$scope.addressId : " + angular.toJson($scope.addressId , ' '));
+    // console.log("$scope.addressId : " + angular.toJson($scope.addressId , ' '));
     if (!!$scope.addressId) {
           var addressRef = firebase.database().ref('users/' + $scope.user_info.uid + '/address/' + $scope.addressId);
               var addressData = $firebaseObject(addressRef);
               addressData.$loaded().then(function(response) {
                 $scope.address = response;
-                console.log("$scope.address : " + angular.toJson($scope.address , ' '));
+                // console.log("$scope.address : " + angular.toJson($scope.address , ' '));
 
     });
   }
@@ -152,7 +152,7 @@ angular.module('app')
 
     ///for go address page :
     $scope.goAddressPage = function () {
-        console.log("this is calling...");
+        // console.log("this is calling...");
         $state.go('addAddress');
 
     };

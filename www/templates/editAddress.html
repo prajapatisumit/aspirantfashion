@@ -1,0 +1,72 @@
+<ion-view  class=" " id="favourite" title="Edit Address">
+    <ion-content class="has-header" padding="true">
+<div>
+
+      <!-- Add new Product Start-->
+      <form name="signupForm" class="list " id="signup-form2">
+        <!-- Sign up -->
+          <ion-list class=" " id="signup-list3">
+            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.name.$invalid && !signupForm.name.$pristine }">
+              <span class="input-label lblname">City*</span>
+              <input  ng-model="addressObj.city" type="text" placeholder="City*" name="city" required>
+            </label>
+              <div ng-show="signupForm.name.$invalid && !signupForm.name.$pristine">
+                <p ng-message="required" class="help-block errorcolor">Please enter city name.</p>
+              </div>
+
+
+            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
+              <span   class="input-label lblname">Locality,area or street*</span>
+              <input  ng-model="addressObj.area" type="text" placeholder="Locality,area or street*" name="Locality" required>
+            </label>
+
+            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
+              <span   class="input-label lblname">Flate no.,Building name*</span>
+              <input  ng-model="addressObj.building" type="text" placeholder="Flate no.,Building name*" name="building" required>
+            </label>
+
+            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
+              <span   class="input-label lblname">Pincode*</span>
+              <input  ng-model="addressObj.postalCode" type="number" placeholder="Pincode*" name="pincode" required>
+            </label>
+
+            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.available.$invalid && !signupForm.available.$pristine }">
+              <span   class="input-label lblname">State*</span>
+              <input  ng-model="addressObj.state" type="text" placeholder="State*" name="state" required>
+            </label>
+
+            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.description.$invalid && !signupForm.description.$pristine }">
+              <span   class="input-label lblname">Name*</span>
+              <input  ng-model="addressObj.name" type="text" placeholder="Name*" name="name" required>
+            </label>
+            <div ng-show="signupForm.description.$invalid && !signupForm.description.$pristine" ng-messages="signupForm.description.$error">
+              <p ng-message="required" class="help-block errorcolor">Please enter Name.</p>
+            </div>
+
+            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.price.$invalid && !signupForm.price.$pristine }">
+              <span  class="input-label lblname">Phone Number*</span>
+              <input ng-model="addressObj.phoneNumber" type="number" placeholder="Phone Number*" name="number" required>
+            </label>
+            <div ng-show="signupForm.price.$invalid && !signupForm.price.$pristine" ng-messages="signupForm.price.$error">
+              <p ng-message="required" class="help-block errorcolor">Please enter Phone Number.</p>
+            </div>
+
+            <label class="item item-input item-floating-label" ng-class="{ 'has_error' : signupForm.price.$invalid && !signupForm.price.$pristine }">
+              <span  class="input-label lblname">Altername Phone Number</span>
+              <input ng-model="addressObj.alternateNumber" type="number" placeholder="Altername Phone Number*" name="number" required>
+            </label><br/>
+
+              <div class="addressTypeDivStyle">Address Type</div>
+
+            <ion-list>
+              <ion-radio ng-model="addressObj.deliveryPlace" ng-value="'home'">Home(All day delivery)</ion-radio>
+              <ion-radio ng-model="addressObj.deliveryPlace" ng-value="'work'">Work(Delivery between 10 am - 5 pm)</ion-radio>
+
+          </ion-list>
+
+          <div  class="spacer space"></div>
+          <button ng-click="editAddress(addressObj)" class=" button button-assertive  button-block btnradius" >Edit Address</button>
+      </form>
+      </div>
+    </ion-content>
+    </ion-view>

@@ -13,7 +13,7 @@
 
       <!-- Address -->
       <ion-list ng-hide="!!addressId">
-          <div style="padding-left: 5%;padding-top: 3%;">
+          <div class="checkoutAddressDiv">
             <a class="icon icon-right ion-ios-location"></a>
             <!-- <strong>{{item.nickname}}</strong> <br/> -->
             {{userAddress.city}}, {{userAddress.state}} <br/>
@@ -26,13 +26,13 @@
             <a class="icon icon-right ion-ios-location"></a>
             <strong>Address : <br/></strong>
             {{address.name}} <br/>
-            <span ng-if="item.building || item.area">{{address.building}}, {{address.area}}<br/></span>
+            <span ng-if="address.building || address.area">{{address.building}}, {{address.area}}<br/></span>
             {{address.city}} {{address.state}}
             Pin : {{address.postalCode}}<br/>
             <span ng-if="address.phoneNumber">Phone : {{address.phoneNumber}}</span>
           </ion-radio>
       </ion-list>
-      <button  class="button button-positive  button-block btnradius" style="border-radius: 30px;" ng-click="goAddressPage()">Change or Add Address</button>
+      <button  class="button button-positive  button-block btnradius changeAddressBtnStyle" ng-click="goAddressPage()">Change or Add Address</button>
       <!-- <ion-list ng-repeat="item in addresses" >
           <ion-radio name="addr_group" ng-value="item.$id" ng-model="$parent.address_choice">
             <a class="icon icon-right ion-ios-location"></a>
@@ -43,12 +43,9 @@
           </ion-radio>
       </ion-list> -->
 
-
-
-
       <!--Payment Header-->
       <label ng-click="addManipulation()" class="item item-input  item ic-selected" >
-        <a class="icon icon-right ion-cash" style="margin-right: 10px;" ></a>
+        <a class="icon icon-right ion-cash checkoutModepayDiv"></a>
         Mode of Pay
       </label>
 

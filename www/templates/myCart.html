@@ -15,7 +15,7 @@
 
       <div ng-repeat="item in cart">
         <div class="list card" >
-          <div style="min-height: 30px;" class="item item-divider">{{item.item_name}} </div>
+          <div class="myCartNameHeight" class="item item-divider">{{item.item_name}} </div>
           <div class="item item-body" >
 
             <img ng-src="{{ item.item_image }}" class="cartimg">
@@ -28,7 +28,7 @@
             <div>
               <p ng-if="!!shippingRate">Shipping Rate : {{shippingRate}}</p>
             </div>
-            <div class="button-bar" style="box-shadow: none;">
+            <div class="button-bar myCartBoxShadowNone">
               <button ng-click="removeFromCart(item.$id)" class="button button-assertive button-block button-small icon ion-android-delete" ></button>
               <button class="button button-stable button-clear button-block button-small icon ion-plus" ng-click="inc(item.$id)"></button>
               <button class="button button-stable button-clear button-block button-small">{{item.item_qty}}</button>

@@ -103,7 +103,7 @@ angular.module('app.routes', [])
   })
 
   .state('checkout', {
-    url: '/checkout?:addressId',     
+    url: '/checkout?:addressId',
     templateUrl: 'templates/checkout.html',
     controller: 'checkoutCtrl'
   })
@@ -177,6 +177,11 @@ angular.module('app.routes', [])
             controller: 'addAdressCtrl'
           })
 
+    .state('editAddress', {
+            url: '/editAddress?:addressId',
+            templateUrl: 'templates/editAddress.html',
+            controller: 'editAdressCtrl'
+          })
 $urlRouterProvider.otherwise('/tabsController/login')
 
 
