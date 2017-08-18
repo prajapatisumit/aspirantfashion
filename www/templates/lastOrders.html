@@ -5,14 +5,10 @@
       <ion-list ng-repeat="item in orders">
 
         <ion-item class="item-thumbnail-left" >
-
-          <img  ng-src="{{'img/fk/'+ item.product_image +'.jpg'}}" >
-
+          <img style="border-radius: 0%;" ng-src="{{item.product_image}}" >
           <a class="badge badge-balanced" style="position: absolute;right:0;" >{{item.status}}</a>
-
           <h4> {{item.product_name}} </h4>
-          <p>Qty: {{item.item_qty}}  Price: &#8377; {{item.product_price}}</p>
-
+          <p>Qty: {{item.item_qty}} , Price: &#8377; {{item.product_price}}</p>
 
         </ion-item>
 

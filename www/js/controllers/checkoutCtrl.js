@@ -43,6 +43,21 @@ angular.module('app')
     ];
 
     $scope.pay=function(address,payment){
+      console.log("address : " +angular.toJson(address , ' '));
+      console.log("payment : " + angular.toJson(payment , ' '));
+      if (!!address.$id) {
+        var abressObj = {
+            alternateNumber: address.alternateNumber,
+            area: address.area,
+            building: address.building,
+            city: address.city,
+            deliveryPlace: address.deliveryPlace,
+            name: address.name,
+            phoneNumber: address.phoneNumber,
+            postalCode: address.postalCode,
+            state: address.state
+        }
+      }
 
       if(address==null || payment==null){
         //Check if the checkboxes are selected ?
@@ -66,7 +81,7 @@ angular.module('app')
             //Order data
             user_id: $scope.user_info.uid,
             user_name:$scope.user_info.displayName,
-            address_id: address,
+            address_id: abressObj || address,
             payment_id: payment,
             status: "Queued"
           });

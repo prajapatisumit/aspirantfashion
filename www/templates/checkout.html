@@ -12,7 +12,7 @@
 
 
       <!-- Address -->
-      <ion-list ng-hide="!!addressId">
+      <ion-list ng-hide="!!addressId" ng-model="userAddress">
           <div class="checkoutAddressDiv">
             <a class="icon icon-right ion-ios-location"></a>
             <!-- <strong>{{item.nickname}}</strong> <br/> -->
@@ -21,8 +21,8 @@
             <!-- Phone : {{item.phone}} -->
           </div>
       </ion-list>
-      <ion-list ng-if="!!addressId">
-          <ion-radio name="addr_group">
+      <ion-list ng-if="!!addressId" ng-model="address" style="margin: 3%;">
+          <!-- <ion-radio name="addr_group"> -->
             <a class="icon icon-right ion-ios-location"></a>
             <strong>Address : <br/></strong>
             {{address.name}} <br/>
@@ -30,7 +30,7 @@
             {{address.city}} {{address.state}}
             Pin : {{address.postalCode}}<br/>
             <span ng-if="address.phoneNumber">Phone : {{address.phoneNumber}}</span>
-          </ion-radio>
+          <!-- </ion-radio> -->
       </ion-list>
       <button  class="button button-positive  button-block btnradius changeAddressBtnStyle" ng-click="goAddressPage()">Change or Add Address</button>
       <!-- <ion-list ng-repeat="item in addresses" >
@@ -56,8 +56,11 @@
       </ion-list>
 
 
-      <button ng-click="pay(address_choice,pay_choice)" class=" button button-calm  button-block icon-right ion-android-arrow-forward ">
+      <button ng-if="!!addressId" ng-click="pay(address,pay_choice)" class=" button button-calm  button-block icon-right ion-android-arrow-forward ">
         PAY
+      </button>
+      <button ng-hide="!!addressId" ng-click="pay(userAddress,pay_choice)" class=" button button-calm  button-block icon-right ion-android-arrow-forward ">
+        PAY.
       </button>
 
     </form>
