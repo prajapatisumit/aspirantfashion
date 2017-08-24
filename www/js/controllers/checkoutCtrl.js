@@ -12,7 +12,7 @@ angular.module('app')
     ///For get address from selected address id :
     $scope.addressId = $stateParams.addressId;
     // console.log("$scope.addressId : " + angular.toJson($scope.addressId , ' '));
-    if (!!$scope.addressId) {
+    if (!!$scope.addressId && !!$scope.user_info) {
           var addressRef = firebase.database().ref('users/' + $scope.user_info.uid + '/address/' + $scope.addressId);
               var addressData = $firebaseObject(addressRef);
               addressData.$loaded().then(function(response) {
@@ -35,13 +35,28 @@ angular.module('app')
         $scope.user_info=sessionUser;
       }
     });
+    ////for payment :
+    $scope.saveCardDetail = function (cardDetails) {
+      console.log("cardDetails : " + angular.toJson(cardDetails , ' '));
 
+    };
     $scope.payments = [
-      {id: 'CREDIT', name: 'Credit Card'},
+      {id: 'CREDIT', name: 'Credit / Debit / Atm Card'},
       {id: 'NETBANK', name: 'Net Banking'},
       {id: 'COD', name: 'COD'}
     ];
-
+  ///for show item and price detail :
+      $scope.price = SessionService.getTotalPrice();
+      $scope.item = SessionService.getTotalItem();
+      $scope.weight = SessionService.getTotalWeight();
+///for goes enter card detail page :
+  $scope.cardDetailPage = function (payChoice) {
+      console.log("payChoice : " + payChoice);
+      if (payChoice === 'CREDIT') {
+          $state.go('creditCardDetail');
+      }
+    
+  };
     $scope.pay=function(address,payment){
       console.log("address : " +angular.toJson(address , ' '));
       console.log("payment : " + angular.toJson(payment , ' '));
@@ -103,67 +118,67 @@ angular.module('app')
 
 
 
-    $scope.addManipulation = function(edit_val) {  // Takes care of address add and edit ie Address Manipulator
-
-
-      if(edit_val!=null) {
-        $scope.data = edit_val; // For editing address
-        var title="Edit Address";
-        var sub_title="Edit your address";
-      }
-      else {
-        $scope.data = {};    // For adding new address
-        var title="Add Address";
-        var sub_title="Add your new address";
-      }
-      // An elaborate, custom popup
-      var addressPopup = $ionicPopup.show({
-        template: '<input type="text"   placeholder="Nick Name"  ng-model="data.nickname"> <br/> ' +
-        '<input type="text"   placeholder="Address" ng-model="data.address"> <br/> ' +
-        '<input type="number" placeholder="Pincode" ng-model="data.pin"> <br/> ' +
-        '<input type="number" placeholder="Phone" ng-model="data.phone">',
-        title: title,
-        subTitle: sub_title,
-        scope: $scope,
-        buttons: [
-          { text: 'Close' },
-          {
-            text: '<b>Save</b>',
-            type: 'button-positive',
-            onTap: function(e) {
-              if (!$scope.data.nickname || !$scope.data.address || !$scope.data.pin || !$scope.data.phone ) {
-                e.preventDefault(); //don't allow the user to close unless he enters full details
-              } else {
-                return $scope.data;
-              }
-            }
-          }
-        ]
-      });
-
-      addressPopup.then(function(res) {
-
-        if(edit_val!=null) {
-          //Update  address
-          fireBaseData.refUser().child($scope.user_info.uid).child("address").child(edit_val.$id).update({    // set
-            nickname: res.nickname,
-            address: res.address,
-            pin: res.pin,
-            phone: res.phone
-          });
-        }else{
-          //Add new address
-          fireBaseData.refUser().child($scope.user_info.uid).child("address").push({    // set
-            nickname: res.nickname,
-            address: res.address,
-            pin: res.pin,
-            phone: res.phone
-          });
-        }
-
-      });
-
-    };
+    // $scope.addManipulation = function(edit_val) {  // Takes care of address add and edit ie Address Manipulator
+    //
+    //
+    //   if(edit_val!=null) {
+    //     $scope.data = edit_val; // For editing address
+    //     var title="Edit Address";
+    //     var sub_title="Edit your address";
+    //   }
+    //   else {
+    //     $scope.data = {};    // For adding new address
+    //     var title="Add Address";
+    //     var sub_title="Add your new address";
+    //   }
+    //   // An elaborate, custom popup
+    //   var addressPopup = $ionicPopup.show({
+    //     template: '<input type="text"   placeholder="Nick Name"  ng-model="data.nickname"> <br/> ' +
+    //     '<input type="text"   placeholder="Address" ng-model="data.address"> <br/> ' +
+    //     '<input type="number" placeholder="Pincode" ng-model="data.pin"> <br/> ' +
+    //     '<input type="number" placeholder="Phone" ng-model="data.phone">',
+    //     title: title,
+    //     subTitle: sub_title,
+    //     scope: $scope,
+    //     buttons: [
+    //       { text: 'Close' },
+    //       {
+    //         text: '<b>Save</b>',
+    //         type: 'button-positive',
+    //         onTap: function(e) {
+    //           if (!$scope.data.nickname || !$scope.data.address || !$scope.data.pin || !$scope.data.phone ) {
+    //             e.preventDefault(); //don't allow the user to close unless he enters full details
+    //           } else {
+    //             return $scope.data;
+    //           }
+    //         }
+    //       }
+    //     ]
+    //   });
+    //
+    //   addressPopup.then(function(res) {
+    //
+    //     if(edit_val!=null) {
+    //       //Update  address
+    //       fireBaseData.refUser().child($scope.user_info.uid).child("address").child(edit_val.$id).update({    // set
+    //         nickname: res.nickname,
+    //         address: res.address,
+    //         pin: res.pin,
+    //         phone: res.phone
+    //       });
+    //     }else{
+    //       //Add new address
+    //       fireBaseData.refUser().child($scope.user_info.uid).child("address").push({    // set
+    //         nickname: res.nickname,
+    //         address: res.address,
+    //         pin: res.pin,
+    //         phone: res.phone
+    //       });
+    //     }
+    //
+    //   });
+    //
+    // };
 
     ///for go address page :
     $scope.goAddressPage = function () {

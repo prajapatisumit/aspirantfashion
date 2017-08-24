@@ -816,7 +816,10 @@ font-size: 22px;
   margin-right: 10px;
 }
 .myCartNameHeight{
-  min-height: 30px;
+  /*min-height: 30px;*/
+  padding-left: 6%;
+  font-size: 15px;
+  font-weight: 800;
 }
 .myCartBoxShadowNone{
   box-shadow: none;

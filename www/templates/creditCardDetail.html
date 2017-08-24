@@ -1,0 +1,102 @@
+<ion-view  class=" " id="favourite" title="Enter Card Details">
+    <ion-content class="has-header" padding="true">
+<div>
+    <div style="font-size: 17px;border: 1px solid bisque;border-radius: 10px;">
+        <div class="row" style="padding-left: 14px;">
+            <label class="item item-input item-floating-label" style="border-bottom: solid 1px #ccc;border-top: none;border-left: none;border-right: none;">
+              <span class="input-label lblname">Name on card</span>
+              <input  ng-model="cardDetails.name" type="text" placeholder="Nmae on card" style="font-size: 17px;" required>
+            </label>
+        </div>
+        <div class="row">
+          <div class="col col-60">
+            <label class="item item-input item-floating-label" style="border-bottom: solid 1px #ccc;border-top: none;border-left: none;border-right: none;">
+              <span class="input-label lblname">Card number</span>
+              <input  ng-model="cardDetails.cardNumber" type="tel" maxlength="18" placeholder="Card Number" style="font-size: 17px;" required>
+            </label>
+          </div>
+          <div class="col">
+            <label class="item item-input item-floating-label" style="border-bottom: solid 1px #ccc;border-top: none;border-left: none;border-right: none;">
+              <span class="input-label lblname">CVV</span>
+              <input  ng-model="cardDetails.CVV" type="tel" maxlength="3" placeholder="CVV" style="font-size: 17px;" required>
+            </label>
+          </div>
+        </div>
+      <div class="row" style="padding-top: 5%;padding-left: 14px;"><span>Expiry</span></div>
+      <div class="row">
+        <div class="col col-50">
+            <label class="item item-input item-select item-floating-label">
+              <span class="lblprod">
+                Month
+            </span>
+              <select class="item-select" data-tap-disabled="true" ng-model="cardDetails.month">
+                  <option value="01">01</option>
+                  <option value="02">02</option>
+                  <option value="03">03</option>
+                  <option value="04">04</option>
+                  <option value="05">05</option>
+                  <option value="06">06</option>
+                  <option value="07">07</option>
+                  <option value="08">08</option>
+                  <option value="09">09</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+              </select>
+            </label>
+
+        </div>
+        <div class="col">
+          <label class="item item-input item-select item-floating-label">
+            <span class="lblprod">
+            Year
+          </span>
+            <select class="item-select" data-tap-disabled="true" ng-model="cardDetails.year" style="padding-left: 0%;">
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <button ng-if="weight > 1" ng-click="saveCardDetail(cardDetails)" class="button button-assertive button-block" style="width: 90%;margin-left: 5%;border-radius: 14px;margin-bottom: 8%;">Pay &#8377; {{price + (55 * weight)}}</button>
+      <button ng-if="weight <= 1" ng-click="saveCardDetail(cardDetails)" class="button button-assertive button-block" style="width: 90%;margin-left: 5%;border-radius: 14px;margin-bottom: 8%;">Pay &#8377; {{(price + 55)}}</button>
+    </div>
+
+    <div>
+      <ion-list class="card">
+        <div class="row" style="padding-left: 6%;font-weight: 600;color: darkgrey;">
+            PRICE DETAILS
+        </div>
+      </ion-list>
+      <ion-list class="card">
+        <ion-item class="item-input" type="item-text-wrap">
+          <div class="row">
+            <div class="col col-50"> Price ({{item}}items) :  </div>
+            <div class="col" style="text-align: right;" ng-model="total_amount"><strong> &#8377; {{price}}</strong></div>
+          </div>
+        </ion-item>
+        <ion-item class="item-input" type="item-text-wrap">
+          <div class="row">
+            <div class="col col-50"> Delivery : </div>
+            <div class="col" style="text-align: right;"  ng-if="weight > 1" ><strong> {{55 * weight}}</strong></div>
+            <div class="col" style="text-align: right;" ng-if="weight <= 1"><strong> 55</strong></div>
+            <!-- <div class="col" style="text-align: right;color: green;"><strong> Free</strong></div> -->
+          </div>
+        </ion-item>
+      </ion-list>
+      <ion-list class="card">
+      <div class="row">
+        <div class="col col-50" style="font-weight: 600;"> Amount Payable : </div>
+        <div class="col" style="text-align: right;" ng-if="weight <= 1"><strong> &#8377; {{(price + 55)}}</strong></div>
+        <div class="col" style="text-align: right;" ng-if="weight > 1"><strong> &#8377; {{price + (55 * weight)}}</strong></div>
+      </div>
+      </ion-list>
+    </div>
+  </div>
+    </ion-content>
+
+    </ion-view>

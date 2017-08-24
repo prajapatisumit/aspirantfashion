@@ -10,7 +10,7 @@ angular.module('app')
         // console.log("user : " + angular.toJson(user , ' '));
 
         $scope.cart=sharedCartService.cart_items;  // Loads users cart
-        $scope.loadCart();
+
         $scope.loadShippingRate();
         // console.log("$scope.cart : " + angular.toJson($scope.cart , ' '));
         $scope.get_qty = function() {
@@ -24,9 +24,15 @@ angular.module('app')
             $scope.total_weight += (sharedCartService.cart_items[i].item_qty * sharedCartService.cart_items[i].item_weight);
 
           }
+          SessionService.setTotalPrice($scope.total_amount);
+          SessionService.setTotalItem($scope.total_qty);
+          $scope.price = SessionService.getTotalPrice();
+          $scope.item = SessionService.getTotalItem();
+          // console.log("SessionService.getTotalPrice(); : " + $scope.price);
+          // console.log("SessionService.getTotalItem(); : " + $scope.item);
           return $scope.total_qty;
         };
-
+      $scope.loadCart();
       }else if (!!guestUser) {
           $scope.cart=sharedCartService.cart_items;  // Loads users cart
           $scope.loadCart();
@@ -64,6 +70,18 @@ angular.module('app')
 
             return $window.Math.round($scope.total_weight);
           };
+        $scope.weight = $scope.get_weight();
+        // console.log("$scope.weight : " + $scope.weight);
+
+            if ($scope.weight <= '1') {
+                $scope.shippingRate = '55';
+                // console.log("$scope.shippingRate : " + $scope.shippingRate);
+            }else {
+                $scope.shippingRate = 55 * $scope.weight;
+                SessionService.setTotalWeight($scope.weight);
+                $scope.sessionWeight = SessionService.getTotalWeight();
+            }
+
         // console.log("$scope.get_weight : " + $scope.get_weight());
       };
       $scope.loadCart();
@@ -76,11 +94,11 @@ angular.module('app')
             shippingData.$loaded().then(function(response) {
               $scope.shippingData = response;
               // console.log("$scope.shippingData : " + angular.toJson($scope.shippingData , ' '));
-              if ($scope.shippingData.state === $scope.userLocation.state) {
-                  $scope.shippingRate = $scope.shippingData.rate;
-              }else {
-                      $scope.shippingRate = '110';
-                  }
+              // if ($scope.shippingData.state === $scope.userLocation.state) {
+              //     $scope.shippingRate = $scope.shippingData.rate;
+              // }else {
+              //         $scope.shippingRate = '110';
+              //     }
 
             });
     };

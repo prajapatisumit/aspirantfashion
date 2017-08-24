@@ -182,6 +182,13 @@ angular.module('app.routes', [])
             templateUrl: 'templates/editAddress.html',
             controller: 'editAdressCtrl'
           })
+
+      .state('creditCardDetail', {
+              url: '/creditCardDetail',
+              templateUrl: 'templates/creditCardDetail.html',
+              controller: 'checkoutCtrl'
+            })
+
 $urlRouterProvider.otherwise('/tabsController/login')
 
 

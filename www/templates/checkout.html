@@ -21,8 +21,9 @@
             <!-- Phone : {{item.phone}} -->
           </div>
       </ion-list>
-      <ion-list ng-if="!!addressId" ng-model="address" style="margin: 3%;">
+      <ion-list ng-if="!!addressId" ng-model="address">
           <!-- <ion-radio name="addr_group"> -->
+            <div style="margin: 3%;">
             <a class="icon icon-right ion-ios-location"></a>
             <strong>Address : <br/></strong>
             {{address.name}} <br/>
@@ -31,6 +32,7 @@
             Pin : {{address.postalCode}}<br/>
             <span ng-if="address.phoneNumber">Phone : {{address.phoneNumber}}</span>
           <!-- </ion-radio> -->
+        </div>
       </ion-list>
       <button  class="button button-positive  button-block btnradius changeAddressBtnStyle" ng-click="goAddressPage()">Change or Add Address</button>
       <!-- <ion-list ng-repeat="item in addresses" >
@@ -44,7 +46,8 @@
       </ion-list> -->
 
       <!--Payment Header-->
-      <label ng-click="addManipulation()" class="item item-input  item ic-selected" >
+      <!-- ng-click="addManipulation()" -->
+      <label class="item item-input  item ic-selected" >
         <a class="icon icon-right ion-cash checkoutModepayDiv"></a>
         Mode of Pay
       </label>
@@ -56,14 +59,47 @@
       </ion-list>
 
 
-      <button ng-if="!!addressId" ng-click="pay(address,pay_choice)" class=" button button-calm  button-block icon-right ion-android-arrow-forward ">
+      <button ng-if="!!addressId" ng-click="cardDetailPage(pay_choice)" class=" button button-calm  button-block icon-right ion-android-arrow-forward ">
+        PAY
+      </button>
+      <button ng-hide="!!addressId" ng-click="cardDetailPage(pay_choice)" class=" button button-calm  button-block icon-right ion-android-arrow-forward ">
+        PAY.
+      </button>
+      <!-- <button ng-if="!!addressId" ng-click="pay(address,pay_choice)" class=" button button-calm  button-block icon-right ion-android-arrow-forward ">
         PAY
       </button>
       <button ng-hide="!!addressId" ng-click="pay(userAddress,pay_choice)" class=" button button-calm  button-block icon-right ion-android-arrow-forward ">
         PAY.
-      </button>
-
+      </button> -->
     </form>
+      <ion-list class="card">
+        <div class="row" style="padding-left: 6%;font-weight: 600;color: darkgrey;">
+            PRICE DETAILS
+        </div>
+      </ion-list>
+      <ion-list class="card">
+        <ion-item class="item-input" type="item-text-wrap">
+          <div class="row">
+            <div class="col col-50"> Price ({{item}}items) :  </div>
+            <div class="col" style="text-align: right;" ng-model="total_amount"><strong> &#8377; {{price}}</strong></div>
+          </div>
+        </ion-item>
+        <ion-item class="item-input" type="item-text-wrap">
+          <div class="row">
+            <div class="col col-50"> Delivery : </div>
+            <div class="col" style="text-align: right;"  ng-if="weight > 1" ><strong> {{55 * weight}}</strong></div>
+            <div class="col" style="text-align: right;" ng-if="weight <= 1"><strong> 55</strong></div>
+            <!-- <div class="col" style="text-align: right;color: green;"><strong> Free</strong></div> -->
+          </div>
+        </ion-item>
+      </ion-list>
+      <ion-list class="card">
+      <div class="row">
+        <div class="col col-50" style="font-weight: 600;"> Amount Payable : </div>
+        <div class="col" style="text-align: right;" ng-if="weight <= 1"><strong> {{(price + 55)}}</strong></div>
+        <div class="col" style="text-align: right;" ng-if="weight > 1"><strong> {{price + (55 * weight)}}</strong></div>
+      </div>
+      </ion-list>
 
   </ion-content>
 

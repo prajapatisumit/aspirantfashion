@@ -1,17 +1,19 @@
 <ion-view style="" class=" " id="myCart" title="My Cart">
     <ion-content class="has-header" padding="true">
       <div>
-        <p>Total ( {{get_qty()}} ) =
+        <!-- <p>Total ( {{get_qty()}} ) =
           <strong> &#8377; {{total_amount}}</strong>
         </p>
-        <p>Total Weight =
+          <p>Total Item :  <strong> {{get_qty()}}</strong> </p>
+          <p>Total Amount Payable :  <strong> &#8377; {{total_amount}}</strong> </p> -->
+        <!-- <p>Total Weight =
           <strong>{{get_weight()}} Kg</strong>
-        </p>
+        </p> -->
         <!-- <p>shipping Rate =
           <strong>{{shippingRate}}</strong>
         </p> -->
       </div>
-      <button ng-click="checkout()" class="button button-assertive button-block ">Check Out</button>
+      <!-- <button ng-click="checkout()" class="button button-assertive button-block ">Check Out</button> -->
 
       <div ng-repeat="item in cart">
         <div class="list card" >
@@ -26,7 +28,7 @@
               </p>
             </div>
             <div>
-              <p ng-if="!!shippingRate">Shipping Rate : {{shippingRate}}</p>
+              <!-- <p ng-if="!!shippingRate">Shipping Rate : {{shippingRate}}</p> -->
             </div>
             <div class="button-bar myCartBoxShadowNone">
               <button ng-click="removeFromCart(item.$id)" class="button button-assertive button-block button-small icon ion-android-delete" ></button>
@@ -38,5 +40,35 @@
         </div>
       </div>
 
+      <ion-list class="card">
+        <div class="row" style="padding-left: 6%;font-weight: 600;color: darkgrey;">
+            PRICE DETAILS
+        </div>
+      </ion-list>
+      <ion-list class="card">
+        <ion-item class="item-input" type="item-text-wrap">
+          <div class="row">
+            <div class="col col-50"> Price ({{get_qty()}}items) :  </div>
+            <div class="col" style="text-align: right;" ng-model="total_amount"><strong> &#8377; {{total_amount}}</strong></div>
+          </div>
+        </ion-item>
+        <ion-item class="item-input" type="item-text-wrap">
+          <div class="row">
+            <div class="col col-50"> Delivery : </div>
+            <div class="col" style="text-align: right;"  ng-if="get_weight() > 1" ><strong> {{(55 * get_weight())}}</strong></div>
+            <div class="col" style="text-align: right;" ng-if="get_weight() <= 1"><strong> 55</strong></div>
+            <!-- <div class="col" style="text-align: right;color: green;"><strong> Free</strong></div> -->
+          </div>
+        </ion-item>
+      </ion-list>
+      <ion-list class="card">
+      <div class="row">
+        <div class="col col-50" style="font-weight: 600;"> Amount Payable : </div>
+        <div class="col" style="text-align: right;" ng-if="get_weight() <= 1"><strong> {{(total_amount + 55)}}</strong></div>
+        <div class="col" style="text-align: right;" ng-if="get_weight() > 1"><strong> {{total_amount + (55 * get_weight())}}</strong></div>
+      </div>
+      </ion-list>
+
+    <button ng-click="checkout()" class="button button-assertive button-block ">Check Out</button>
     </ion-content>
 </ion-view>
